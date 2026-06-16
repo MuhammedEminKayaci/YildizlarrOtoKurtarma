@@ -1,0 +1,40 @@
+---
+import { media } from '@/data/media';
+import { site } from '@/data/site';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Props {
+  variant?: 'dark' | 'light';
+  tone?: 'dark' | 'light';
+  showTextFallback?: boolean;
+  class?: string;
+}
+
+const { variant, tone, showTextFallback = true, class: className = '' } = Astro.props;
+const resolvedVariant = variant ?? tone ?? 'dark';
+const logo = resolvedVariant === 'light' ? media.brandLogoWhite : media.brandLogoDark;
+const logoExists = existsSync(join(process.cwd(), 'public', logo.src.replace(/^\//, '')));
+---
+
+<span class:list={['inline-flex min-w-0 items-center gap-3', className]}>
+  {logoExists ? (
+    <img
+      class="h-9 w-auto max-w-[150px] object-contain sm:h-11 sm:max-w-[176px]"
+      src={logo.src}
+      alt={`${site.name} logosu`}
+      width={logo.width}
+      height={logo.height}
+      loading="eager"
+      decoding="async"
+    />
+  ) : showTextFallback ? (
+    <span class="min-w-0 leading-tight">
+      <span class:list={['block truncate text-sm font-semibold md:text-base', resolvedVariant === 'light' ? 'text-white' : 'text-ink-950']}>{site.name}</span>
+      <span class:list={['block truncate text-xs font-medium', resolvedVariant === 'light' ? 'text-white/65' : 'text-ink-500']}>{site.city} · {site.workingHours}</span>
+    </span>
+  ) : (
+    <span class:list={['grid size-9 shrink-0 place-items-center rounded-2xl shadow-soft sm:size-10', resolvedVariant === 'light' ? 'bg-white text-ink-950' : 'bg-ink-950 text-brand-300']} aria-hidden="true">Y</span>
+  )}
+  <span class="sr-only">{site.name}</span>
+</span>

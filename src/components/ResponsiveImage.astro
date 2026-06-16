@@ -1,0 +1,119 @@
+---
+import type { SiteImage } from '@/data/media';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Props {
+  image?: SiteImage;
+  class?: string;
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
+  rounded?: boolean;
+}
+
+const {
+  image,
+  class: className = '',
+  sizes = '100vw',
+  loading,
+  fetchpriority,
+  decoding = 'async',
+  rounded = true
+} = Astro.props;
+
+const isPriority = Boolean(image?.priority);
+const resolvedLoading = loading ?? (isPriority ? 'eager' : 'lazy');
+const resolvedFetchPriority = fetchpriority ?? (isPriority ? 'high' : 'auto');
+const fileExists = image?.src ? existsSync(join(process.cwd(), 'public', image.src.replace(/^\//, ''))) : false;
+const hasImage = Boolean(image?.src && image?.width && image?.height && image?.alt && fileExists);
+const src = image?.src ?? '';
+const fallbackType = src.includes('/blog/')
+  ? 'blog'
+  : src.includes('/districts/')
+    ? 'district'
+    : src.includes('/services/')
+      ? 'service'
+      : src.includes('/stock/')
+        ? 'support'
+        : 'default';
+const fallbackLabel =
+  fallbackType === 'blog'
+    ? 'Yol Yardım Rehberi'
+    : fallbackType === 'district'
+      ? 'Ankara Çekici'
+      : fallbackType === 'service'
+        ? 'Güvenli Taşıma'
+        : fallbackType === 'support'
+          ? 'Hızlı Destek'
+          : '7/24 Yol Yardım';
+const fallbackBadge =
+  fallbackType === 'blog'
+    ? 'Pratik Bilgi'
+    : fallbackType === 'district'
+      ? 'Konum Odaklı'
+      : fallbackType === 'service'
+        ? 'Operasyon Hazır'
+        : '7/24 Destek';
+const fallbackAriaLabel = `${fallbackLabel} operasyon alanı`;
+---
+
+{hasImage ? (
+  <picture class:list={['block overflow-hidden bg-ink-100', rounded && 'rounded-apple', className]}>
+    {image?.avif && <source srcset={image.avif} type="image/avif" sizes={sizes} />}
+    {image?.webp && <source srcset={image.webp} type="image/webp" sizes={sizes} />}
+    <img
+      class="h-full w-full object-cover"
+      src={image!.src}
+      alt={image!.alt}
+      width={image!.width}
+      height={image!.height}
+      loading={resolvedLoading}
+      fetchpriority={resolvedFetchPriority}
+      decoding={decoding}
+      sizes={sizes}
+    />
+  </picture>
+) : (
+  <div
+    class:list={[
+      'image-fallback relative grid aspect-[16/10] overflow-hidden bg-ink-950 text-white',
+      `image-fallback--${fallbackType}`,
+      rounded && 'rounded-apple',
+      className
+    ]}
+    role="img"
+    aria-label={fallbackAriaLabel}
+  >
+    <div class="absolute left-5 top-5 z-20 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-brand-300 backdrop-blur" aria-hidden="true">
+      {fallbackBadge}
+    </div>
+
+    <svg class="absolute inset-0 h-full w-full text-white/70" viewBox="0 0 640 400" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <path d="M-30 332C96 248 180 234 300 270C420 306 486 250 670 112" stroke="currentColor" stroke-opacity=".10" stroke-width="42" />
+      <path d="M-20 326C110 244 190 238 304 272C426 308 488 250 660 120" stroke="#FFC94A" stroke-opacity=".34" stroke-width="3" stroke-linecap="round" stroke-dasharray="16 18" />
+      <path d="M356 118C408 70 478 70 536 110" stroke="currentColor" stroke-opacity=".14" stroke-width="2" />
+      <circle cx="362" cy="118" r="6" fill="#FFC94A" fill-opacity=".85" />
+      <circle cx="536" cy="110" r="6" fill="#14B87A" fill-opacity=".85" />
+      <path d="M384 262h52l18-36h76l28 36h28c20 0 36 16 36 36v20H346v-24c0-18 18-32 38-32Z" fill="white" fill-opacity=".08" />
+      <path d="M452 226h78l28 36H436l16-36Z" fill="#FFC94A" fill-opacity=".16" />
+      <path d="M392 262h44l18-36h76l28 36h26c20 0 36 16 36 36v18H346v-22c0-18 18-32 46-32Z" stroke="white" stroke-opacity=".34" stroke-width="3" stroke-linejoin="round" />
+      <path d="M456 226h74l28 36H438l18-36Z" stroke="#FFC94A" stroke-opacity=".48" stroke-width="3" stroke-linejoin="round" />
+      <circle cx="424" cy="318" r="22" stroke="white" stroke-opacity=".38" stroke-width="4" />
+      <circle cx="560" cy="318" r="22" stroke="white" stroke-opacity=".38" stroke-width="4" />
+      <path d="M86 116h126M116 154h74M64 194h154" stroke="white" stroke-opacity=".14" stroke-width="3" stroke-linecap="round" />
+      <path d="M94 284h108M122 310h58" stroke="#FFC94A" stroke-opacity=".24" stroke-width="3" stroke-linecap="round" />
+    </svg>
+
+    <div class="relative z-10 mt-auto flex min-h-full items-end p-5 md:p-6">
+      <div>
+        <p class="text-[clamp(1.35rem,4vw,2.15rem)] font-semibold leading-none tracking-normal text-white">{fallbackLabel}</p>
+        <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-white/60">
+          <span class="inline-block size-1.5 rounded-full bg-signal-500" aria-hidden="true"></span>
+          <span>Ankara · Profesyonel destek</span>
+        </div>
+      </div>
+    </div>
+  </div>
+)}

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+legacy-assets/
+.env
+.env.*
+.vercel/
+_write_test.txt
+npm-debug.log*

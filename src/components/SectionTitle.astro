@@ -1,0 +1,35 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  tone?: 'light' | 'dark';
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  tone = 'light'
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center mx-auto items-center' : '';
+const headingClass = tone === 'dark' ? 'section-heading-dark' : 'section-heading';
+const descClass   = tone === 'dark' ? 'text-white/55' : 'text-ink-500';
+---
+
+<div class:list={['flex max-w-3xl flex-col', alignClass]}>
+  {eyebrow && (
+    <p class:list={['section-eyebrow mb-4', tone === 'dark' && 'text-brand-300']}>
+      {eyebrow}
+    </p>
+  )}
+  <h2 class={headingClass}>{title}</h2>
+  {description && (
+    <p class:list={['mt-5 text-base leading-8 md:text-lg', descClass]}>
+      {description}
+    </p>
+  )}
+</div>

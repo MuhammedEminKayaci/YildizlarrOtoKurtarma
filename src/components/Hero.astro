@@ -1,0 +1,159 @@
+---
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+
+/*
+  HERO görseli: gerçek fleet fotoğrafı eklemek için
+  public/images/hero/hero-fleet.jpg dosyasını koyun ve
+  aşağıdaki src'yi '/images/hero/hero-fleet.jpg' yapın.
+  Şimdilik mevcut optimize arka plan kullanılıyor.
+*/
+const heroImage = '/images/hero/hero-fleet.jpg';
+
+const trustItems = [
+  { icon: 'clock',        label: '7/24 Kesintisiz' },
+  { icon: 'map-pin',      label: '25+ Ankara İlçesi' },
+  { icon: 'shield-check', label: 'Güvenli Taşıma' },
+  { icon: 'zap',          label: 'Hızlı Yanıt' }
+];
+---
+<section class="hero-section" aria-label="Ana hero bölümü">
+  <div class="hero-bg" aria-hidden="true">
+    <img src={heroImage} alt="" class="hero-bg-img" width="1920" height="1080"
+      loading="eager" fetchpriority="high" decoding="auto" role="presentation"/>
+    <div class="hero-overlay-base"></div>
+    <div class="hero-overlay-gradient"></div>
+    <div class="hero-grain"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="site-container">
+      <div class="hero-grid">
+
+        <div class="hero-inner">
+          <div class="hero-badge reveal">
+            <span class="hero-badge-dot" aria-hidden="true"></span>
+            Ankara genelinde şu an aktif hizmet
+          </div>
+
+          <h1 class="hero-h1 reveal" style="animation-delay:60ms">
+            Ankara'da 7/24<br class="sm:hidden"/>
+            <span class="hero-h1-highlight">Oto Çekici</span><br/>
+            ve Yol Yardım
+          </h1>
+
+          <p class="hero-sub reveal" style="animation-delay:120ms">
+            Yıldızlar Oto Kurtarma — arıza, kaza, kurtarma ve şehirlerarası araç
+            taşıma ihtiyaçlarında Ankara'nın her ilçesinde güvenilir destek.
+          </p>
+
+          <div class="hero-cta-row reveal" style="animation-delay:180ms">
+            <a href={site.phoneHref} class="hero-btn-primary" aria-label={`Hemen ara: ${site.phoneDisplay}`}>
+              <Icon name="phone-call" size={18} strokeWidth={2} />
+              {site.phoneDisplay}
+            </a>
+            <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="hero-btn-secondary">
+              <Icon name="whatsapp" size={18} />
+              WhatsApp'tan Konum Gönder
+            </a>
+          </div>
+
+          <div class="hero-trust-row reveal" style="animation-delay:240ms">
+            {trustItems.map((item, i) => (
+              <>
+                <div class="hero-trust-item">
+                  <Icon name={item.icon} size={15} strokeWidth={1.75} />
+                  {item.label}
+                </div>
+                {i < trustItems.length - 1 && <span class="hero-trust-sep" aria-hidden="true"></span>}
+              </>
+            ))}
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" style="animation-delay:200ms" aria-label="Hızlı durum kartı">
+          <div class="hero-card-top">
+            <span class="hero-card-live">
+              <span class="hero-card-live-dot" aria-hidden="true"></span>
+              Canlı
+            </span>
+            <span class="hero-card-247">7/24</span>
+          </div>
+
+          <div class="hero-card-stat">
+            <span class="hero-card-stat-num">&lt;30<small>dk</small></span>
+            <span class="hero-card-stat-label">ortalama ilk temas süresi</span>
+          </div>
+
+          <ul class="hero-card-list">
+            <li><Icon name="circle-check" size={16} strokeWidth={2} /> Konum paylaşın, ekip yola çıksın</li>
+            <li><Icon name="circle-check" size={16} strokeWidth={2} /> Tüm araç tipleri için güvenli taşıma</li>
+            <li><Icon name="circle-check" size={16} strokeWidth={2} /> Net fiyat, sürpriz yok</li>
+          </ul>
+
+          <a href={site.phoneHref} class="hero-card-cta" aria-label={`Hemen ara: ${site.phoneDisplay}`}>
+            <Icon name="phone-call" size={17} strokeWidth={2} />
+            Hemen Ara
+          </a>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bottom-scrim" aria-hidden="true"></div>
+</section>
+
+<style>
+.hero-section{position:relative;width:100%;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg-img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;transform:scale(1.04);}
+.hero-overlay-base{position:absolute;inset:0;background:rgba(4,7,14,0.56);}
+.hero-overlay-gradient{position:absolute;inset:0;background:linear-gradient(102deg,rgba(4,7,14,0.86) 0%,rgba(4,7,14,0.55) 48%,rgba(4,7,14,0.20) 100%);}
+.hero-grain{position:absolute;inset:0;opacity:0.5;mix-blend-mode:soft-light;background-image:radial-gradient(rgba(255,255,255,0.07) 0.5px,transparent 0.5px);background-size:4px 4px;}
+.hero-content{position:relative;z-index:10;width:100%;padding-top:96px;padding-bottom:132px;}
+
+.hero-grid{display:grid;gap:48px;align-items:center;}
+@media(min-width:1024px){.hero-grid{grid-template-columns:1.25fr 0.75fr;gap:56px;}}
+
+.hero-inner{max-width:680px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;border:1px solid rgba(52,211,153,0.38);background:rgba(18,185,129,0.13);color:#5ee9b5;font-size:13px;font-weight:600;margin-bottom:26px;backdrop-filter:blur(8px);}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#12b981;box-shadow:0 0 0 3px rgba(18,185,129,0.25);animation:pulse-dot 2.4s ease-in-out infinite;flex-shrink:0;}
+.hero-h1{font-size:clamp(2.5rem,6.5vw,4.9rem);font-weight:800;line-height:1.02;letter-spacing:-0.01em;color:#fff;margin:0 0 22px;}
+.hero-h1-highlight{position:relative;color:#ffc94a;}
+.hero-h1-highlight::after{content:'';position:absolute;left:0;right:0;bottom:0.08em;height:0.16em;background:linear-gradient(90deg,rgba(255,201,74,0.55),rgba(255,201,74,0));border-radius:4px;}
+.hero-sub{font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.72;color:rgba(255,255,255,0.74);max-width:520px;margin:0 0 34px;}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px;}
+.hero-btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:14px;background:#ffc94a;color:#080c14;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,0.18),0 12px 40px rgba(255,201,74,0.30);transition:background 200ms,transform 200ms,box-shadow 200ms;white-space:nowrap;}
+.hero-btn-primary:hover{background:#ffd46a;transform:translateY(-2px);box-shadow:0 4px 0 rgba(0,0,0,0.14),0 20px 56px rgba(255,201,74,0.42);}
+.hero-btn-primary:active{transform:translateY(0);}
+.hero-btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:14px;border:1.5px solid rgba(255,255,255,0.24);background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;font-weight:600;text-decoration:none;backdrop-filter:blur(12px);white-space:nowrap;transition:border-color 200ms,background 200ms,transform 200ms;}
+.hero-btn-secondary:hover{border-color:rgba(255,255,255,0.42);background:rgba(255,255,255,0.15);transform:translateY(-1px);}
+.hero-trust-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 0;}
+.hero-trust-item{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.58);padding:0 16px;}
+.hero-trust-item:first-child{padding-left:0;}
+.hero-trust-item svg{color:#ffc94a;}
+.hero-trust-sep{width:1px;height:14px;background:rgba(255,255,255,0.20);flex-shrink:0;}
+
+/* Quick-status glass card */
+.hero-card{position:relative;justify-self:stretch;border-radius:22px;padding:26px;border:1px solid rgba(255,255,255,0.16);background:linear-gradient(160deg,rgba(255,255,255,0.13),rgba(255,255,255,0.05));backdrop-filter:blur(22px) saturate(1.4);box-shadow:0 24px 70px rgba(0,0,0,0.42);}
+.hero-card::before{content:'';position:absolute;inset:0;border-radius:22px;padding:1px;background:linear-gradient(160deg,rgba(255,201,74,0.45),transparent 55%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+.hero-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.hero-card-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:#5ee9b5;}
+.hero-card-live-dot{width:8px;height:8px;border-radius:50%;background:#12b981;animation:pulse-dot 2.4s ease-in-out infinite;}
+.hero-card-247{font-size:12px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.06em;}
+.hero-card-stat{display:flex;flex-direction:column;gap:4px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.12);}
+.hero-card-stat-num{font-size:clamp(2.4rem,4vw,3rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-0.02em;}
+.hero-card-stat-num small{font-size:0.42em;font-weight:700;color:#ffc94a;margin-left:4px;}
+.hero-card-stat-label{font-size:13px;color:rgba(255,255,255,0.62);}
+.hero-card-list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:11px;}
+.hero-card-list li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,0.82);}
+.hero-card-list svg{color:#5ee9b5;flex-shrink:0;margin-top:1px;}
+.hero-card-cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:14px;border-radius:13px;background:#fff;color:#080c14;font-size:0.95rem;font-weight:700;text-decoration:none;transition:transform 180ms,box-shadow 180ms;box-shadow:0 8px 24px rgba(0,0,0,0.22);}
+.hero-card-cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,0.30);}
+@media(max-width:1023px){.hero-card{display:none;}}
+
+.hero-bottom-scrim{position:absolute;inset-x:0;bottom:0;height:120px;background:linear-gradient(to top,#f5f7fb,transparent);z-index:5;pointer-events:none;}
+@media(max-width:640px){.hero-content{padding-top:72px;padding-bottom:104px;}.hero-trust-item{font-size:12px;padding:0 10px;}}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 3px rgba(18,185,129,0.25);}50%{box-shadow:0 0 0 6px rgba(18,185,129,0.10);}}
+</style>

@@ -1,0 +1,39 @@
+---
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
+import { getBlogCoverBySlug } from '@/data/media';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  publishDate: Date;
+  readingTime: string;
+  slug?: string;
+}
+
+const { title, description, category, publishDate, readingTime, slug } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('tr-TR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+}).format(publishDate);
+const coverImage = getBlogCoverBySlug(slug);
+---
+
+<section class="noise-bg bg-premium-radial">
+  <div class="site-container relative z-10 grid gap-10 py-14 md:grid-cols-[1fr_0.55fr] md:items-center md:py-20">
+    <div class="max-w-4xl">
+      <div class="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink-600">
+        <span class="rounded-full bg-white px-4 py-2 shadow-soft ring-1 ring-ink-900/10">{category}</span>
+        <span>{formattedDate}</span>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime}</span>
+      </div>
+      <h1 class="mt-6 text-[clamp(2.25rem,8vw,4.5rem)] font-semibold leading-[1.02] tracking-normal text-ink-950">{title}</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-ink-500">{description}</p>
+    </div>
+    <div class="visual-frame hidden aspect-[4/3] overflow-hidden rounded-apple md:block">
+      <ResponsiveImage image={coverImage} class="h-full w-full" sizes="34vw" />
+    </div>
+  </div>
+</section>

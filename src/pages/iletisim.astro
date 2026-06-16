@@ -1,0 +1,595 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+import { createBreadcrumbSchema, createLocalBusinessSchema } from '@/lib/schema';
+
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'İletişim',  href: '/iletisim/' }
+];
+
+const pageTitle       = 'İletişim | Ankara Oto Çekici ve Yol Yardım';
+const pageDescription = 'Ankara\'da 7/24 oto çekici ve yol yardım desteği için Yıldızlar Oto Kurtarma ile hemen iletişime geçin. Telefon ve WhatsApp üzerinden konum gönderebilirsiniz.';
+
+const channels = [
+  {
+    key: 'phone',
+    label: 'Telefon',
+    value: site.phoneDisplay,
+    note: '7/24 aktif hat — en hızlı yol',
+    href: site.phoneHref,
+    cta: 'Hemen Ara',
+    primary: true,
+    icon: 'phone-call'
+  },
+  {
+    key: 'whatsapp',
+    label: 'WhatsApp',
+    value: 'Konum Gönder',
+    note: 'Haritadan pin paylaşın, ekip yönlendirilsin',
+    href: site.whatsappHref,
+    cta: 'WhatsApp\'tan Yaz',
+    primary: false,
+    icon: 'whatsapp'
+  },
+  {
+    key: 'email',
+    label: 'E-posta',
+    value: site.email,
+    note: 'Acil olmayan bilgi talepleriniz için',
+    href: site.emailHref,
+    cta: 'E-posta Gönder',
+    primary: false,
+    icon: 'mail'
+  }
+];
+
+const steps = [
+  { title: 'İlçe veya mahalle', desc: 'Ankara\'nın hangi bölgesindesiniz?' },
+  { title: 'Yakın referans nokta', desc: 'Cadde adı, benzinlik, AVM gibi tanınan yer.' },
+  { title: 'Aracın durumu', desc: 'Çalışıyor mu? Kaza mı, arıza mı, kurtarma mı?' },
+  { title: 'Teslimat adresi', desc: 'Servis, otopark veya başka bir nokta.' }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/iletisim/"
+  jsonLd={[createLocalBusinessSchema(), createBreadcrumbSchema(breadcrumbs)]}
+>
+
+<!-- ① HERO ─────────────────────────────────────────── -->
+<section class="ct-hero">
+  <div class="ct-hero-bg" aria-hidden="true">
+    <img src="/images/optimized/stock/tow-truck-night.jpg" alt="" width="1400" height="1866"
+      loading="eager" fetchpriority="high" decoding="auto" class="ct-hero-img"/>
+    <div class="ct-hero-ov"></div>
+  </div>
+
+  <Breadcrumb items={breadcrumbs} />
+
+  <div class="site-container ct-hero-body">
+    <div class="ct-hero-badge">
+      <span class="ct-hero-dot"></span>
+      Şu an aktif — {site.city} geneli
+    </div>
+
+    <h1 class="ct-hero-h1">Ankara'da 7/24 Çekici <span>ve Yol Yardım</span></h1>
+    <p class="ct-hero-sub">Telefon veya WhatsApp ile konumunuzu paylaşın — en yakın ekip yönlendirilsin.</p>
+
+    <!-- Mega phone button -->
+    <a href={site.phoneHref} class="ct-phone-btn">
+      <span class="ct-phone-icon">
+        <Icon name="phone-call" size={22} strokeWidth={2} />
+      </span>
+      <span class="ct-phone-text">
+        <span class="ct-phone-eyebrow">Hemen Ara — 7/24</span>
+        <span class="ct-phone-number">{site.phoneDisplay}</span>
+      </span>
+    </a>
+
+    <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="ct-wa-btn">
+      <Icon name="whatsapp" size={18} strokeWidth={1.75} />
+      WhatsApp'tan Konum Gönder
+      <Icon name="arrow-right" size={16} strokeWidth={2} />
+    </a>
+  </div>
+
+  <div class="ct-hero-scrim" aria-hidden="true"></div>
+</section>
+
+
+<!-- ② CONTACT CHANNELS ─────────────────────────────── -->
+<section class="ct-channels">
+  <div class="site-container">
+    <div class="ct-channels-grid">
+      {channels.map(ch => (
+        <div class:list={['ct-ch', ch.primary && 'ct-ch--primary']}>
+          <div class="ct-ch-top">
+            <div class:list={['ct-ch-icon', ch.primary && 'ct-ch-icon--primary']}>
+              <Icon name={ch.icon} size={28} strokeWidth={1.8} />
+            </div>
+            <span class="ct-ch-label">{ch.label}</span>
+          </div>
+          <div class="ct-ch-value">{ch.value}</div>
+          <p class="ct-ch-note">{ch.note}</p>
+          <a
+            href={ch.href}
+            class:list={['ct-ch-btn', ch.primary ? 'ct-ch-btn--primary' : 'ct-ch-btn--secondary']}
+            target={ch.href.startsWith('https') ? '_blank' : undefined}
+            rel={ch.href.startsWith('https') ? 'noopener noreferrer' : undefined}
+          >
+            {ch.cta}
+            <Icon name="arrow-right" size={15} strokeWidth={2} />
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ③ COVERAGE MAP ──────────────────────────────────── -->
+<section class="ct-map-section">
+  <div class="site-container">
+    <div class="ct-map-grid">
+
+      <div class="ct-map-info">
+        <p class="ct-eyebrow">Hizmet Bölgesi</p>
+        <h2 class="ct-section-title">Ankara'nın<br/>her ilçesindeyiz.</h2>
+        <p class="ct-section-desc">
+          Çankaya'dan Polatlı'ya, Keçiören'den Beypazarı'na — 25 ilçede 7/24 oto çekici ve yol yardım desteği.
+        </p>
+
+        <ul class="ct-district-list">
+          {['Çankaya', 'Keçiören', 'Yenimahalle', 'Mamak', 'Etimesgut', 'Sincan', 'Altındağ', 'Polatlı', 'Gölbaşı', 'Pursaklar', 'Kahramankazan', 'Beypazarı'].map(d => (
+            <li class="ct-district-tag">
+              <Icon name="circle-dot" size={10} strokeWidth={1.8} />
+              {d}
+            </li>
+          ))}
+          <li class="ct-district-tag ct-district-more">+13 ilçe daha</li>
+        </ul>
+
+        <a href="/ankara-cekici/" class="ct-map-link">
+          Tüm ilçeleri görüntüle
+          <Icon name="arrow-right" size={15} strokeWidth={2} />
+        </a>
+      </div>
+
+      <!-- Google Maps embed -->
+      <div class="ct-map-visual">
+        <div class="ct-map-card">
+          <div class="ct-map-header">
+            <span class="ct-map-dot"></span>
+            <span class="ct-map-title-sm">Ankara Hizmet Ağı</span>
+            <span class="ct-map-badge">7/24 Aktif</span>
+          </div>
+
+          <div class="ct-map-body">
+            <iframe
+              title="Yıldızlar Oto Kurtarma — Ankara hizmet bölgesi"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d391030.6!2d32.8597!3d39.9334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d347d520732db5%3A0xbdc57b0c0842b8d!2sAnkara!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str"
+              width="100%"
+              height="340"
+              style="border:0; display:block;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="ct-map-iframe"
+            ></iframe>
+          </div>
+
+          <div class="ct-map-footer">
+            <div class="ct-map-stat"><span>25+</span> İlçe</div>
+            <div class="ct-map-stat-sep"></div>
+            <div class="ct-map-stat"><span>7/24</span> Aktif</div>
+            <div class="ct-map-stat-sep"></div>
+            <div class="ct-map-stat"><span>&lt;30dk</span> Yanıt</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ④ LOCATION STEPS ────────────────────────────────── -->
+<section class="ct-steps-section">
+  <div class="site-container">
+    <div class="ct-steps-head">
+      <p class="ct-eyebrow">Nasıl İletişime Geçilir</p>
+      <h2 class="ct-section-title">Konum paylaşırken<br/>bu bilgileri ekleyin.</h2>
+      <p class="ct-section-desc">
+        Birkaç kısa bilgi paylaşmak çekici yönlendirmesini daha hızlı ve doğru hale getirir.
+      </p>
+    </div>
+
+    <div class="ct-steps-grid">
+      {steps.map((s, i) => (
+        <div class="ct-step">
+          <div class="ct-step-num">{i + 1}</div>
+          <div class="ct-step-body">
+            <h3 class="ct-step-title">{s.title}</h3>
+            <p class="ct-step-desc">{s.desc}</p>
+          </div>
+          {i < steps.length - 1 && <div class="ct-step-arrow" aria-hidden="true">
+            <Icon name="arrow-right" size={20} strokeWidth={1.75} />
+          </div>}
+        </div>
+      ))}
+    </div>
+
+    <div class="ct-steps-note">
+      <Icon name="info" size={16} strokeWidth={1.75} />
+      Daha fazlası için <a href="/blog/cekici-cagirirken-konum-nasil-paylasilir/">konum paylaşımı rehberimizi</a> inceleyebilirsiniz.
+    </div>
+  </div>
+</section>
+
+
+<!-- ⑤ FINAL CTA ─────────────────────────────────────── -->
+<section class="ct-final">
+  <div class="site-container">
+    <div class="ct-final-card">
+      <div class="ct-final-glow" aria-hidden="true"></div>
+
+      <div class="ct-final-status">
+        <span class="ct-final-dot"></span>
+        Şu an aktif hizmet
+      </div>
+
+      <h2 class="ct-final-title">Acil mi? Hemen ulaşın.</h2>
+      <p class="ct-final-desc">Konumunuzu paylaşın, aracınızın durumunu bildirin — en uygun ekip yönlendirilsin.</p>
+
+      <div class="ct-final-btns">
+        <a href={site.phoneHref} class="ct-final-btn-primary">
+          <Icon name="phone-call" size={18} strokeWidth={2} />
+          {site.phoneDisplay}
+        </a>
+        <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="ct-final-btn-secondary">
+          <Icon name="whatsapp" size={18} strokeWidth={1.75} />
+          WhatsApp Konum Gönder
+        </a>
+      </div>
+
+      <p class="ct-final-trust">7/24 ulaşılabilir &nbsp;·&nbsp; Ankara geneli &nbsp;·&nbsp; Güvenli taşıma</p>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.ct-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+@media (min-width:768px) { .ct-hero { min-height: 580px; } }
+
+.ct-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.ct-hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+.ct-hero-ov {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(5,8,18,0.90) 0%, rgba(5,8,18,0.65) 55%, rgba(5,8,18,0.45) 100%);
+}
+
+.ct-hero-body {
+  position: relative; z-index: 10;
+  padding-top: 32px; padding-bottom: 72px;
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+}
+
+.ct-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: #34d399;
+  border: 1px solid rgba(52,211,153,0.30); background: rgba(52,211,153,0.10);
+  border-radius: 999px; padding: 6px 14px; margin-bottom: 24px; width: fit-content;
+}
+.ct-hero-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #12b981;
+  box-shadow: 0 0 0 3px rgba(18,185,129,0.25);
+  animation: pulse-dot 2.4s ease-in-out infinite; flex-shrink: 0;
+}
+
+.ct-hero-h1 {
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 700; color: #fff;
+  letter-spacing: 0; line-height: 1.08;
+  max-width: 100%;
+  margin: 0 0 16px;
+  overflow-wrap: normal;
+}
+.ct-hero-h1 span {
+  display: block;
+}
+.ct-hero-sub {
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.7; color: rgba(255,255,255,0.65);
+  max-width: 480px; margin: 0 0 36px;
+}
+
+/* Phone button */
+.ct-phone-btn {
+  display: inline-flex; align-items: center; gap: 16px;
+  padding: 18px 28px; border-radius: 18px;
+  background: #ffc94a; color: #080c14;
+  text-decoration: none; width: fit-content;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.16), 0 16px 48px rgba(255,201,74,0.35);
+  transition: background 200ms, transform 200ms, box-shadow 200ms;
+  margin-bottom: 14px;
+}
+.ct-phone-btn:hover { background: #ffd46a; transform: translateY(-2px); box-shadow: 0 4px 0 rgba(0,0,0,0.12), 0 24px 64px rgba(255,201,74,0.45); }
+.ct-phone-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: rgba(0,0,0,0.12); display: grid; place-items: center; flex-shrink: 0;
+}
+.ct-phone-text { display: flex; flex-direction: column; gap: 3px; }
+.ct-phone-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(8,12,20,0.55); }
+.ct-phone-number { font-size: clamp(1.35rem, 2.5vw, 1.75rem); font-weight: 800; letter-spacing: 0; line-height: 1; }
+
+/* WhatsApp button */
+.ct-wa-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px; border-radius: 14px;
+  border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.07);
+  color: #fff; font-size: 0.9375rem; font-weight: 600; text-decoration: none;
+  backdrop-filter: blur(12px); width: fit-content;
+  transition: border-color 200ms, background 200ms;
+}
+.ct-wa-btn:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.13); }
+
+.ct-hero-scrim { position: absolute; inset-x:0; bottom:0; height:80px; background: linear-gradient(to top, #f5f7fb, transparent); z-index: 5; pointer-events:none; }
+
+
+/* ══════════════════════════════════════════
+   CHANNELS
+══════════════════════════════════════════ */
+.ct-channels { background: #f5f7fb; padding: 72px 0 80px; }
+
+.ct-channels-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media (min-width:640px)  { .ct-channels-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width:1024px) { .ct-channels-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.ct-ch {
+  background: #fff; border-radius: 22px;
+  border: 1.5px solid rgba(15,23,42,0.08);
+  padding: 28px; display: flex; flex-direction: column; gap: 12px;
+  box-shadow: 0 2px 16px rgba(8,12,20,0.06);
+  transition: transform 260ms cubic-bezier(0.22,1,0.36,1), box-shadow 260ms, border-color 260ms;
+}
+.ct-ch:hover { transform: translateY(-4px); box-shadow: 0 14px 48px rgba(8,12,20,0.12); border-color: rgba(255,201,74,0.35); }
+.ct-ch--primary { border-color: rgba(255,201,74,0.35); background: linear-gradient(135deg, #fffdf5 0%, #fff 100%); }
+.ct-ch--primary:hover { border-color: rgba(255,201,74,0.60); box-shadow: 0 14px 48px rgba(255,201,74,0.18); }
+
+.ct-ch-top { display: flex; align-items: center; gap: 12px; }
+.ct-ch-icon {
+  width: 52px; height: 52px; border-radius: 16px;
+  background: #f1f5f9; color: #374151;
+  display: grid; place-items: center; flex-shrink: 0;
+  transition: background 200ms, color 200ms;
+}
+.ct-ch--primary .ct-ch-icon,
+.ct-ch-icon--primary { background: rgba(255,201,74,0.15); color: #b45309; }
+.ct-ch:hover .ct-ch-icon { background: #080c14; color: #ffc94a; }
+.ct-ch-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #94a3b8; }
+
+.ct-ch-value { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 800; color: #080c14; letter-spacing: 0; line-height: 1.2; }
+.ct-ch-note { font-size: 13.5px; line-height: 1.60; color: #64748b; flex: 1; margin: 0; }
+
+.ct-ch-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 12px;
+  font-size: 13.5px; font-weight: 700; text-decoration: none;
+  margin-top: auto; width: fit-content;
+  transition: background 160ms, transform 160ms;
+}
+.ct-ch-btn--primary { background: #080c14; color: #fff; box-shadow: 0 4px 16px rgba(8,12,20,0.20); }
+.ct-ch-btn--primary:hover { background: #1a2540; transform: translateY(-1px); }
+.ct-ch-btn--secondary { background: #f1f5f9; color: #080c14; }
+.ct-ch-btn--secondary:hover { background: #e2e8f0; }
+
+
+/* ══════════════════════════════════════════
+   MAP SECTION
+══════════════════════════════════════════ */
+.ct-map-section { background: #fff; padding: 80px 0 88px; border-top: 1px solid rgba(15,23,42,0.07); }
+
+.ct-map-grid {
+  display: grid; gap: 48px; align-items: center;
+}
+@media (min-width:1024px) { .ct-map-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+
+.ct-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #b45309; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.ct-eyebrow::before { content: ''; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+.ct-section-title { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; color: #080c14; letter-spacing: 0; line-height: 1.12; margin: 0 0 16px; }
+.ct-section-desc { font-size: 1rem; line-height: 1.75; color: #64748b; max-width: 440px; margin: 0 0 28px; }
+
+.ct-district-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 28px; }
+.ct-district-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600; color: #374151;
+  padding: 5px 12px; border-radius: 999px;
+  background: #f5f7fb; border: 1px solid rgba(15,23,42,0.08);
+}
+.ct-district-tag svg { color: #12b981; }
+.ct-district-more { background: #fef9ec; border-color: rgba(255,201,74,0.35); color: #b45309; }
+
+.ct-map-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 700; color: #080c14; text-decoration: none;
+  transition: gap 180ms;
+}
+.ct-map-link:hover { gap: 12px; color: #b45309; }
+
+/* Map visual card */
+.ct-map-visual { position: relative; }
+.ct-map-card {
+  border-radius: 24px; overflow: hidden;
+  background: linear-gradient(135deg, #0d1421 0%, #111c30 100%);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  box-shadow: 0 24px 80px rgba(8,12,20,0.28);
+}
+.ct-map-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.ct-map-dot { width: 8px; height: 8px; border-radius: 50%; background: #12b981; box-shadow: 0 0 0 3px rgba(18,185,129,0.20); animation: pulse-dot 2.4s ease-in-out infinite; }
+.ct-map-title-sm { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.70); flex: 1; }
+.ct-map-badge { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #ffc94a; background: rgba(255,201,74,0.12); border: 1px solid rgba(255,201,74,0.22); padding: 3px 10px; border-radius: 999px; }
+
+.ct-map-body { padding: 0; overflow: hidden; }
+.ct-map-iframe { width: 100%; display: block; border: 0; min-height: 300px; }
+@media (min-width:768px) { .ct-map-iframe { min-height: 340px; } }
+
+.ct-map-footer {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.07);
+}
+.ct-map-stat { flex: 1; text-align: center; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); }
+.ct-map-stat span { display: block; font-size: 18px; font-weight: 800; color: #ffc94a; letter-spacing: 0; margin-bottom: 2px; }
+.ct-map-stat-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.10); flex-shrink: 0; }
+
+
+/* ══════════════════════════════════════════
+   STEPS
+══════════════════════════════════════════ */
+.ct-steps-section { background: #f5f7fb; padding: 80px 0 88px; border-top: 1px solid rgba(15,23,42,0.07); }
+.ct-steps-head { max-width: 560px; margin-bottom: 48px; }
+
+.ct-steps-grid {
+  display: grid; gap: 12px;
+  grid-template-columns: 1fr;
+}
+@media (min-width:768px) {
+  .ct-steps-grid { grid-template-columns: repeat(4, 1fr); gap: 0; align-items: stretch; }
+}
+
+.ct-step {
+  position: relative;
+  display: flex; flex-direction: column; gap: 14px;
+  background: #fff; border-radius: 20px;
+  border: 1.5px solid rgba(15,23,42,0.08);
+  padding: 24px 22px;
+  box-shadow: 0 2px 12px rgba(8,12,20,0.05);
+  transition: border-color 240ms, box-shadow 240ms, transform 240ms cubic-bezier(0.22,1,0.36,1);
+}
+.ct-step:hover { border-color: rgba(255,201,74,0.35); box-shadow: 0 8px 32px rgba(8,12,20,0.10); transform: translateY(-3px); }
+
+@media (min-width:768px) {
+  .ct-step { border-radius: 0; border-right: none; }
+  .ct-step:first-child { border-radius: 20px 0 0 20px; }
+  .ct-step:last-child  { border-radius: 0 20px 20px 0; border-right: 1.5px solid rgba(15,23,42,0.08); }
+  .ct-step:last-child .ct-step-arrow { display: none; }
+  .ct-step:hover { border-color: rgba(255,201,74,0.35); z-index: 1; }
+}
+
+.ct-step-num {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: #080c14; color: #ffc94a;
+  display: grid; place-items: center;
+  font-size: 15px; font-weight: 800; flex-shrink: 0;
+}
+.ct-step-body { flex: 1; }
+.ct-step-title { font-size: 14.5px; font-weight: 700; color: #080c14; letter-spacing: 0; margin: 0 0 6px; }
+.ct-step-desc  { font-size: 13px; line-height: 1.60; color: #64748b; margin: 0; }
+
+/* Arrow between steps (mobile: hidden, desktop: absolute right of content) */
+.ct-step-arrow {
+  display: none;
+  position: absolute; right: -12px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 24px; height: 24px;
+  background: #fff; border-radius: 50%;
+  border: 1.5px solid rgba(15,23,42,0.10);
+  display: grid; place-items: center;
+  color: #94a3b8;
+  box-shadow: 0 2px 8px rgba(8,12,20,0.08);
+}
+@media (max-width:767px) { .ct-step-arrow { display: none !important; } }
+
+.ct-steps-note {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 28px; padding: 14px 18px;
+  background: rgba(255,201,74,0.08); border: 1px solid rgba(255,201,74,0.22);
+  border-radius: 12px; font-size: 13.5px; color: #64748b;
+  max-width: 560px;
+}
+.ct-steps-note svg { color: #b45309; flex-shrink: 0; }
+.ct-steps-note a { color: #080c14; font-weight: 600; text-decoration: underline; text-decoration-color: #ffc94a; text-underline-offset: 3px; }
+.ct-steps-note a:hover { color: #b45309; }
+
+
+/* ══════════════════════════════════════════
+   FINAL CTA
+══════════════════════════════════════════ */
+.ct-final { background: #fff; padding: 80px 0 96px; border-top: 1px solid rgba(15,23,42,0.07); }
+
+.ct-final-card {
+  position: relative; overflow: hidden;
+  border-radius: 28px; padding: 64px 48px;
+  background: #080c14;
+  background-image: radial-gradient(ellipse at 15% 50%, rgba(255,201,74,0.16) 0%, transparent 45%), radial-gradient(ellipse at 85% 30%, rgba(20,184,122,0.10) 0%, transparent 40%);
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(8,12,20,0.22);
+}
+@media (max-width:640px) { .ct-final-card { padding: 48px 28px; border-radius: 22px; } }
+
+.ct-final-glow {
+  position: absolute; inset-x: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,201,74,0.50), transparent);
+}
+
+.ct-final-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: #34d399;
+  border: 1px solid rgba(52,211,153,0.30); background: rgba(52,211,153,0.10);
+  border-radius: 999px; padding: 6px 14px; margin-bottom: 24px;
+}
+.ct-final-dot { width: 7px; height: 7px; border-radius: 50%; background: #12b981; box-shadow: 0 0 0 3px rgba(18,185,129,0.25); animation: pulse-dot 2.4s ease-in-out infinite; flex-shrink: 0; }
+
+.ct-final-title { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 700; color: #fff; letter-spacing: 0; line-height: 1.1; margin: 0 0 16px; }
+.ct-final-desc  { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.60); max-width: 480px; margin: 0 auto 36px; }
+
+.ct-final-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 24px; }
+.ct-final-btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px; border-radius: 14px;
+  background: #ffc94a; color: #080c14;
+  font-size: 1rem; font-weight: 700; text-decoration: none;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.18), 0 12px 40px rgba(255,201,74,0.32);
+  transition: background 180ms, transform 180ms;
+  white-space: nowrap;
+}
+.ct-final-btn-primary:hover { background: #ffd46a; transform: translateY(-2px); }
+.ct-final-btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 24px; border-radius: 14px;
+  border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.07);
+  color: #fff; font-size: 1rem; font-weight: 600; text-decoration: none;
+  backdrop-filter: blur(12px); white-space: nowrap;
+  transition: border-color 180ms, background 180ms;
+}
+.ct-final-btn-secondary:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.13); }
+
+.ct-final-trust { font-size: 12px; color: rgba(255,255,255,0.30); margin: 0; }
+
+@keyframes pulse-dot {
+  0%,100% { box-shadow: 0 0 0 3px rgba(18,185,129,0.25); }
+  50%      { box-shadow: 0 0 0 6px rgba(18,185,129,0.10); }
+}
+</style>

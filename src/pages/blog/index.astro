@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import ConversionCTA from '@/components/ConversionCTA.astro';
+import { site } from '@/data/site';
+import { createBreadcrumbSchema, createItemListSchema, createWebPageSchema } from '@/lib/schema';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const featuredPosts = posts.filter((post) => post.data.featured);
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Blog', href: '/blog/' }
+];
+const pageTitle = 'Oto Çekici ve Yol Yardım Rehberi | Yıldızlar Oto Kurtarma Blog';
+const pageDescription =
+  'Ankara’da oto çekici, yol yardım, kaza sonrası araç çekimi ve araç taşıma süreçleri hakkında pratik bilgiler ve güvenli yol yardım rehberleri.';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/blog/"
+  jsonLd={[
+    createBreadcrumbSchema(breadcrumbs),
+    createWebPageSchema({
+      title: pageTitle,
+      description: pageDescription,
+      url: '/blog/',
+      name: 'Oto Çekici ve Yol Yardım Rehberi',
+      breadcrumbName: 'Blog'
+    }),
+    createItemListSchema({
+      items: posts.map((post) => ({
+        title: post.data.title,
+        url: `/blog/${post.slug}/`
+      }))
+    })
+  ]}
+>
+  <Breadcrumb items={breadcrumbs} />
+  <section class="noise-bg bg-premium-radial">
+    <div class="site-container relative z-10 py-14 md:py-20">
+      <div class="max-w-4xl">
+        <p class="accent-pill mb-5">
+          {site.city} yol yardım rehberi
+        </p>
+        <h1 class="text-[clamp(2.25rem,8vw,4.5rem)] font-semibold leading-[1.02] tracking-normal text-ink-950">Oto Çekici ve Yol Yardım Rehberi</h1>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink-500">
+          Ankara’da yolda kalma, çekici çağırma, konum paylaşma ve araç taşıma süreçleri hakkında pratik, sade ve güvenli bilgiler.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="section-eyebrow">Öne Çıkanlar</p>
+          <h2 class="mt-3 text-3xl font-semibold text-ink-950 md:text-4xl">En çok ihtiyaç duyulan rehberler</h2>
+        </div>
+        <a class="btn-secondary w-fit" href="/ankara-cekici/">Ankara çekici hizmeti</a>
+      </div>
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {featuredPosts.map((post, index) => (
+          <div class:list={[index === 0 && 'md:col-span-2']}>
+            <BlogCard {...post.data} href={`/blog/${post.slug}/`} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="section-eyebrow">Tüm Yazılar</p>
+          <h2 class="mt-3 text-3xl font-semibold text-ink-950 md:text-4xl">Pratik yol yardım bilgileri</h2>
+        </div>
+        <a class="btn-secondary w-fit" href="/hizmetler/">Hizmetleri incele</a>
+      </div>
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <BlogCard {...post.data} href={`/blog/${post.slug}/`} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container">
+      <ConversionCTA
+        title="Ankara’da çekici veya yol yardım desteğine mi ihtiyacınız var?"
+        description="Rehberleri okuyabilir, acil durumda konumunuzu paylaşarak doğrudan iletişime geçebilirsiniz."
+      />
+    </div>
+  </section>
+</BaseLayout>

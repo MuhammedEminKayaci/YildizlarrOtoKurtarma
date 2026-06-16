@@ -1,0 +1,56 @@
+---
+import Icon from '@/components/Icon.astro';
+
+const stats = [
+  { value: '7/24',  label: 'Kesintisiz destek', desc: 'Hafta içi, hafta sonu, gece gündüz',  icon: 'clock'        },
+  { value: '25+',   label: 'Ankara ilçesi',      desc: 'Tüm ilçelere hızlı ulaşım',           icon: 'map-pin'      },
+  { value: '<30dk', label: 'Ortalama yanıt',     desc: 'Konumdan ilk temas süresine kadar',   icon: 'zap'          },
+  { value: '%100',  label: 'Güvenli taşıma',     desc: 'Her operasyonda araç güvenliği önce', icon: 'shield-check' },
+];
+---
+
+<div class="ss">
+  <div class="ss-glow" aria-hidden="true"></div>
+  <div class="site-container">
+    <div class="ss-grid">
+      {stats.map((s) => (
+        <div class="ss-cell">
+          <div class="ss-chip"><Icon name={s.icon} size={20} strokeWidth={2} /></div>
+          <div class="ss-body">
+            <div class="ss-value">{s.value}</div>
+            <div class="ss-label">{s.label}</div>
+            <div class="ss-desc">{s.desc}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+.ss{
+  position:relative;overflow:hidden;
+  background:linear-gradient(118deg,#ffd664 0%,#ffc030 46%,#f5a900 100%);
+}
+.ss::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(120% 140% at 8% -20%, rgba(255,255,255,0.40), transparent 42%),
+  radial-gradient(120% 160% at 98% 120%, rgba(120,72,0,0.18), transparent 46%);pointer-events:none;}
+.ss::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);}
+.ss-glow{position:absolute;left:50%;bottom:-60%;width:60%;height:120%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,255,255,0.35),transparent);pointer-events:none;}
+
+.ss-grid{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:30px 0;}
+@media(min-width:768px){.ss-grid{grid-template-columns:repeat(4,1fr);gap:0;padding:34px 0;}}
+
+.ss-cell{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:18px;transition:background 240ms,transform 240ms cubic-bezier(.22,1,.36,1);}
+@media(min-width:768px){
+  .ss-cell{padding:8px 26px;}
+  .ss-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:14%;bottom:14%;width:1px;background:linear-gradient(to bottom,transparent,rgba(90,52,0,.28) 28%,rgba(90,52,0,.28) 72%,transparent);}
+}
+.ss-cell:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);}
+
+.ss-chip{flex-shrink:0;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:#0a0e18;color:#ffc94a;box-shadow:0 6px 18px rgba(60,36,0,.30),inset 0 1px 0 rgba(255,255,255,.12);}
+.ss-body{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.ss-value{font-size:clamp(1.7rem,2.6vw,2.35rem);font-weight:800;color:#1a1205;letter-spacing:-.02em;line-height:1.02;font-variant-numeric:tabular-nums;}
+.ss-label{font-size:13.5px;font-weight:700;color:#3a2a08;}
+.ss-desc{font-size:11.5px;font-weight:500;line-height:1.4;color:rgba(58,42,8,.62);}
+</style>

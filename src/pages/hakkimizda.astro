@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CTAButtons from '@/components/CTAButtons.astro';
+import { site } from '@/data/site';
+import { createBreadcrumbSchema, createLocalBusinessSchema, createOrganizationSchema } from '@/lib/schema';
+
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Hakkımızda', href: '/hakkimizda/' }
+];
+
+const pageTitle = 'Hakkımızda | Yıldızlar Oto Kurtarma';
+const pageDescription =
+  'Yıldızlar Oto Kurtarma, Ankara genelinde 7/24 oto çekici, oto kurtarma ve yol yardım hizmeti sunan profesyonel araç taşıma ekibidir.';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/hakkimizda/"
+  jsonLd={[createOrganizationSchema(), createLocalBusinessSchema(), createBreadcrumbSchema(breadcrumbs)]}
+>
+  <Breadcrumb items={breadcrumbs} />
+  <section class="light-section section-pad">
+    <div class="site-container grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+      <div class="max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">Hakkımızda</p>
+        <h1 class="text-4xl font-semibold leading-tight text-ink-950 md:text-6xl">Yıldızlar Oto Kurtarma Hakkında</h1>
+        <p class="mt-5 text-base leading-7 text-ink-500 md:text-lg">
+          {site.name}, Ankara genelinde 7/24 oto çekici, oto kurtarma ve yol yardım ihtiyaçları için profesyonel araç taşıma desteği sunar.
+        </p>
+      </div>
+      <div class="glass-card p-7">
+        <p class="text-base leading-8 text-ink-600">
+          Hizmet yaklaşımımızda abartılı vaatler yerine doğru iletişim, araç güvenliği ve ihtiyaca uygun çözüm vardır. Aracınız arıza yaptığında, kaza sonrası hareket edemediğinde veya servis/otopark noktasına taşınması gerektiğinde süreci net şekilde yönetmeyi hedefleriz.
+        </p>
+        <div class="mt-7">
+          <CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      {[
+        ['Ankara’da 7/24 destek', 'Günün her saatinde ulaşılabilir iletişim ve yönlendirme.'],
+        ['Araç güvenliğine önem', 'Araç tipi ve yol koşullarına göre kontrollü taşıma yaklaşımı.'],
+        ['Hızlı iletişim', 'Telefon ve WhatsApp üzerinden konum paylaşımıyla pratik süreç.'],
+        ['Profesyonel hizmet', 'Açık bilgilendirme ve çözüm odaklı hizmet anlayışı.']
+      ].map(([title, text]) => (
+        <article class="glass-card p-6">
+          <h2 class="text-lg font-semibold text-ink-950">{title}</h2>
+          <p class="mt-3 text-sm leading-6 text-ink-500">{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container grid gap-8 md:grid-cols-[0.85fr_1.15fr] md:items-start">
+      <div>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">Hizmet Yaklaşımı</p>
+        <h2 class="text-3xl font-semibold leading-tight text-ink-950 md:text-4xl">Net bilgi, doğru yönlendirme ve güvenli taşıma.</h2>
+        <p class="mt-5 text-base leading-8 text-ink-600">
+          Çekici hizmetinde en doğru çözüm; aracın bulunduğu konum, yol şartı, araç tipi ve teslim noktası birlikte değerlendirildiğinde ortaya çıkar.
+        </p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        {[
+          ['Konum doğruluğu', 'Canlı konum, yol yönü, yakın referans noktası ve otopark bilgisi yönlendirmeyi hızlandırır.'],
+          ['Araç durumu', 'Aracın çalışıp çalışmadığı, vites ve lastik durumu taşıma yöntemini belirlemeye yardımcı olur.'],
+          ['Şeffaf görüşme', 'Mesafe, araç tipi ve özel koşullar konuşulduktan sonra hizmet kapsamı netleştirilir.'],
+          ['Gerçekçi iletişim', 'Abartılı süre ve fiyat vaadi yerine, mevcut duruma göre uygulanabilir çözüm anlatılır.']
+        ].map(([title, text]) => (
+          <article class="glass-card p-6">
+            <h3 class="text-lg font-semibold text-ink-950">{title}</h3>
+            <p class="mt-3 text-sm leading-6 text-ink-500">{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

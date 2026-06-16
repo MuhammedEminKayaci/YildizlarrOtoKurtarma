@@ -1,0 +1,53 @@
+# Canonical host and protocol. Netlify-compatible redirects.
+http://yakindacekici.com/* https://www.yakindacekici.com/:splat 301!
+http://www.yakindacekici.com/* https://www.yakindacekici.com/:splat 301!
+https://yakindacekici.com/* https://www.yakindacekici.com/:splat 301!
+
+# Legacy core pages.
+/index.html / 301!
+/ankara.html /ankara-cekici/ 301!
+/blog.html /blog/ 301!
+/hakkimizda.html /hakkimizda/ 301!
+/iletisim.html /iletisim/ 301!
+
+# Legacy Ankara district pages.
+/ankara-akyurt.html /ankara-cekici/akyurt/ 301!
+/ankara-altindag.html /ankara-cekici/altindag/ 301!
+/ankara-ayas.html /ankara-cekici/ayas/ 301!
+/ankara-bala.html /ankara-cekici/bala/ 301!
+/ankara-beypazari.html /ankara-cekici/beypazari/ 301!
+/ankara-camlidere.html /ankara-cekici/camlidere/ 301!
+/ankara-cankaya.html /ankara-cekici/cankaya/ 301!
+/ankara-cubuk.html /ankara-cekici/cubuk/ 301!
+/ankara-elmadag.html /ankara-cekici/elmadag/ 301!
+/ankara-etimesgut.html /ankara-cekici/etimesgut/ 301!
+/ankara-evren.html /ankara-cekici/evren/ 301!
+/ankara-golbasi.html /ankara-cekici/golbasi/ 301!
+/ankara-gudul.html /ankara-cekici/gudul/ 301!
+/ankara-haymana.html /ankara-cekici/haymana/ 301!
+/ankara-kahramankazan.html /ankara-cekici/kahramankazan/ 301!
+/ankara-kalinic.html /ankara-cekici/kalecik/ 301!
+/ankara-kalecik.html /ankara-cekici/kalecik/ 301!
+/ankara-kecioren.html /ankara-cekici/kecioren/ 301!
+/ankara-kizilcahamam.html /ankara-cekici/kizilcahamam/ 301!
+/ankara-mamak.html /ankara-cekici/mamak/ 301!
+/ankara-nallihan.html /ankara-cekici/nallihan/ 301!
+/ankara-polatli.html /ankara-cekici/polatli/ 301!
+/ankara-pursaklar.html /ankara-cekici/pursaklar/ 301!
+/ankara-sereflikochisar.html /ankara-cekici/sereflikochisar/ 301!
+/ankara-sincan.html /ankara-cekici/sincan/ 301!
+/ankara-yenimahalle.html /ankara-cekici/yenimahalle/ 301!
+
+# Legacy off-topic service and Istanbul pages should not compete with the Ankara towing site.
+/istanbul.html /ankara-cekici/ 301!
+/istanbul-*.html /ankara-cekici/ 301!
+/boyasızgocuk.html /hizmetler/ 301!
+/boyasçzgocuk.html /hizmetler/ 301!
+/camfilm.html /hizmetler/ 301!
+/kaporta.html /hizmetler/ 301!
+/otopark.html /hizmetler/servis-otopark-arac-tasima/ 301!
+/otoyıkama.html /hizmetler/ 301!
+/otoyçkama.html /hizmetler/ 301!
+/pastacila.html /hizmetler/ 301!
+/ppfkaplama.html /hizmetler/ 301!
+/seramik.html /hizmetler/ 301!

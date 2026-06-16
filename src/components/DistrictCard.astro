@@ -1,0 +1,35 @@
+---
+import Icon from '@/components/Icon.astro';
+interface Props { name: string; description: string; href?: string; }
+const { name, description, href } = Astro.props;
+---
+<article class="dc group">
+  <div class="dc-top">
+    <div class="dc-icon"><Icon name="map-pin-filled" size={18} strokeWidth={2} /></div>
+    <span class="dc-tag">Ankara</span>
+  </div>
+  <h3 class="dc-name">{name}</h3>
+  <p class="dc-desc">{description}</p>
+  {href && (
+    <a href={href} class="dc-link">
+      Sayfaya git
+      <Icon name="arrow-right" size={14} strokeWidth={2} />
+    </a>
+  )}
+</article>
+
+<style>
+.dc{position:relative;display:flex;flex-direction:column;height:100%;padding:20px;background:#fff;border-radius:18px;border:1.5px solid rgba(15,23,42,0.08);box-shadow:0 2px 12px rgba(8,12,20,0.06);overflow:hidden;transition:transform 260ms cubic-bezier(0.22,1,0.36,1),box-shadow 260ms,border-color 260ms;}
+.dc::after{content:'';position:absolute;inset-x:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#ffc94a,transparent);opacity:0;transition:opacity 260ms;}
+.dc:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(8,12,20,0.11);border-color:rgba(255,201,74,0.38);}
+.dc:hover::after{opacity:1;}
+.dc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.dc-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#080c14;color:#ffc94a;flex-shrink:0;transition:transform 260ms;}
+.dc:hover .dc-icon{transform:scale(1.08);}
+.dc-tag{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;padding:4px 10px;border-radius:999px;background:#f1f5f9;border:1px solid rgba(15,23,42,0.06);}
+.dc:hover .dc-tag{background:#fef9ec;color:#b45309;border-color:rgba(255,201,74,0.30);}
+.dc-name{font-size:0.9375rem;font-weight:700;color:#080c14;letter-spacing:0;margin:0 0 6px;}
+.dc-desc{font-size:0.8125rem;line-height:1.6;color:#64748b;flex:1;margin:0 0 16px;}
+.dc-link{display:inline-flex;align-items:center;gap:6px;font-size:0.8125rem;font-weight:600;color:#64748b;text-decoration:none;transition:color 200ms,gap 200ms;}
+.dc:hover .dc-link{color:#b45309;gap:9px;}
+</style>

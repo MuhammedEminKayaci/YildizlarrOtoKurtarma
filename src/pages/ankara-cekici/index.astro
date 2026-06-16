@@ -1,0 +1,291 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import SectionTitle from '@/components/SectionTitle.astro';
+import DistrictCard from '@/components/DistrictCard.astro';
+import FAQ from '@/components/FAQ.astro';
+import CTAButtons from '@/components/CTAButtons.astro';
+import ConversionCTA from '@/components/ConversionCTA.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+import { districts } from '@/data/districts';
+import { faqs } from '@/data/faqs';
+import { processSteps } from '@/data/processSteps';
+import { services } from '@/data/services';
+import {
+  createBreadcrumbSchema,
+  createFAQSchema,
+  createLocalBusinessSchema,
+  createServiceCatalogSchema,
+  createWebPageSchema
+} from '@/lib/schema';
+
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Ankara Çekici', href: '/ankara-cekici/' }
+];
+
+const pageTitle = 'Ankara Çekici Hizmeti | 7/24 Oto Kurtarma ve Yol Yardım';
+const pageDescription =
+  'Ankara’da 7/24 çekici, oto kurtarma ve acil yol yardım hizmeti. Çankaya, Keçiören, Polatlı, Pursaklar ve tüm Ankara ilçeleri için destek.';
+const priorityDistrictSlugs = ['cankaya', 'kecioren', 'yenimahalle', 'mamak', 'etimesgut', 'sincan', 'altindag', 'golbasi'];
+const priorityDistricts = priorityDistrictSlugs
+  .map((slug) => districts.find((district) => district.slug === slug))
+  .filter(Boolean);
+const serviceIntentBlocks = [
+  {
+    title: 'Acil çekici çağırma',
+    icon: 'phone-call',
+    description:
+      'Arıza, kaza veya yolda kalma durumunda canlı konum, araç tipi ve yol yönü alınarak çekici süreci netleştirilir.',
+    href: '/hizmetler/acil-oto-cekici/'
+  },
+  {
+    title: 'Oto kurtarma ihtiyacı',
+    icon: 'wrench',
+    description:
+      'Dar sokak, eğimli yol, otopark rampası veya zor erişimli noktalarda aracın güvenli şekilde alınması planlanır.',
+    href: '/hizmetler/oto-kurtarma/'
+  },
+  {
+    title: 'Acil yol yardım',
+    icon: 'headphones',
+    description:
+      'Akü, lastik, basit arıza veya çekici gerekip gerekmediği konusunda ilk değerlendirme konum bilgisiyle yapılır.',
+    href: '/hizmetler/yol-yardim/'
+  },
+  {
+    title: 'Kaza sonrası araç çekimi',
+    icon: 'shield-check',
+    description:
+      'Kaza sonrası hareket edemeyen aracın trafiği riske atmadan servis, otopark veya güvenli noktaya taşınması sağlanır.',
+    href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+  },
+  {
+    title: 'Kapalı otoparktan araç taşıma',
+    icon: 'building',
+    description:
+      'Otopark yüksekliği, rampa durumu ve aracın hareket kabiliyeti öğrenilerek uygun taşıma yaklaşımı seçilir.',
+    href: '/hizmetler/servis-otopark-arac-tasima/'
+  },
+  {
+    title: 'Şehirlerarası araç taşıma',
+    icon: 'navigation',
+    description:
+      'Ankara çıkışlı uzun mesafe taşımalarda teslim adresi, rota ve araç durumu baştan netleştirilir.',
+    href: '/hizmetler/sehirlerarasi-arac-tasima/'
+  }
+];
+const districtGroups = [
+  {
+    title: 'Merkez ve yoğun bölgeler',
+    description: 'Şehir merkezi, iş bölgeleri, sanayi bağlantıları ve yoğun konut alanları.',
+    slugs: ['cankaya', 'kecioren', 'yenimahalle', 'mamak', 'etimesgut', 'sincan', 'altindag', 'golbasi']
+  },
+  {
+    title: 'Batı aksı',
+    description: 'Ayaş Yolu, Beypazarı, Nallıhan, Polatlı ve çevre bağlantıları.',
+    slugs: ['ayas', 'beypazari', 'gudul', 'nallihan', 'polatli']
+  },
+  {
+    title: 'Kuzey aksı',
+    description: 'Esenboğa, İstanbul Yolu, Çankırı bağlantısı ve kuzey ilçeleri.',
+    slugs: ['akyurt', 'camlidere', 'cubuk', 'kahramankazan', 'kalecik', 'kizilcahamam', 'pursaklar']
+  },
+  {
+    title: 'Güney ve uzak ilçeler',
+    description: 'Konya Yolu, Aksaray yolu, kırsal bağlantılar ve uzun mesafe ihtiyaçları.',
+    slugs: ['bala', 'elmadag', 'evren', 'haymana', 'sereflikochisar']
+  }
+].map((group) => ({
+  ...group,
+  items: group.slugs.map((slug) => districts.find((district) => district.slug === slug)).filter(Boolean)
+}));
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/ankara-cekici/"
+  jsonLd={[
+    createLocalBusinessSchema(),
+    createServiceCatalogSchema({ items: services }),
+    createFAQSchema(faqs),
+    createBreadcrumbSchema(breadcrumbs),
+    createWebPageSchema({
+      title: pageTitle,
+      description: pageDescription,
+      url: '/ankara-cekici/',
+      name: 'Ankara Çekici Hizmeti',
+      breadcrumbName: 'Ankara Çekici'
+    })
+  ]}
+>
+  <Breadcrumb items={breadcrumbs} />
+  <section class="noise-bg light-section section-pad">
+    <div class="site-container grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center">
+      <div class="max-w-3xl">
+        <p class="accent-pill mb-5">Ankara Çekici</p>
+        <h1 class="text-[clamp(2.25rem,9vw,4.5rem)] font-semibold leading-[1.02] text-ink-950">Ankara Çekici ve Oto Kurtarma Hizmeti</h1>
+        <p class="mt-5 text-base leading-7 text-ink-500 md:text-lg">
+          {site.city} içinde yolda kalma, arıza, kaza, kapalı otoparktan araç çıkarma veya planlı araç taşıma durumlarında {site.name} ile güvenli destek alabilirsiniz.
+        </p>
+      </div>
+      <div class="glass-panel p-7">
+        <p class="text-base leading-8 text-ink-600">
+          Ankara’da çekici ihtiyacı çoğu zaman beklenmedik anda ortaya çıkar. Böyle durumlarda doğru konum paylaşımı, aracın durumunun net anlatılması ve güvenli taşıma planı sürecin en kritik adımlarıdır.
+        </p>
+        <div class="mt-7">
+          <CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container">
+      <SectionTitle
+        eyebrow="Hizmet İhtiyacı"
+        title="Ankara’da çekici ihtiyacınızı doğru hizmete bağlayın"
+        description="Her yolda kalma durumu aynı değildir. Aracın bulunduğu yer, hasar durumu, otopark koşulu ve teslim noktası doğru hizmet seçimini belirler."
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {serviceIntentBlocks.map((item) => (
+          <a
+            href={item.href}
+            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-900/10 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-300/60 hover:shadow-card"
+          >
+            <span
+              class="grid size-12 place-items-center rounded-2xl text-ink-950"
+              style="background:linear-gradient(150deg,#ffd664,#f5a900);box-shadow:0 8px 22px rgba(245,169,0,0.30)"
+              aria-hidden="true"
+            >
+              <Icon name={item.icon} size={20} strokeWidth={2} />
+            </span>
+            <h3 class="mt-5 text-xl font-semibold text-ink-950 group-hover:text-brand-700">{item.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-7 text-ink-500">{item.description}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-950 transition-all duration-300 group-hover:gap-2.5 group-hover:text-brand-700">
+              Detaya git
+              <Icon name="arrow-right" size={15} strokeWidth={2.25} />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container grid gap-8 md:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-semibold text-ink-950">Hangi durumlarda çekici gerekir?</h2>
+        <p class="mt-4 text-base leading-8 text-ink-600">
+          Araç arızası, kaza sonrası hareket edememe, servise taşıma, otopark teslimi, motosiklet nakli veya şehirlerarası araç taşıma gibi durumlarda çekici hizmeti gerekebilir.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-3xl font-semibold text-ink-950">Güvenli araç taşıma yaklaşımı</h2>
+        <p class="mt-4 text-base leading-8 text-ink-600">
+          Araç taşımada hız kadar güvenlik de önemlidir. Araç tipi, yol şartı ve teslim noktası dikkate alınarak kontrollü bir taşıma süreci planlanır.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div>
+          <SectionTitle
+            eyebrow="Öncelikli Bölgeler"
+            title="Merkez ilçelerde hızlı sayfa geçişleri"
+            description="En çok aranan Ankara çekici bölgeleri için ilçe rehberlerine doğrudan ulaşabilirsiniz."
+          />
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          {priorityDistricts.map((district) => district && (
+            <a
+              href={district.href}
+              class="group rounded-2xl border border-ink-900/10 bg-white px-5 py-4 shadow-soft transition hover:-translate-y-0.5 hover:border-brand-300/60"
+            >
+              <span class="block text-sm font-semibold text-ink-950 group-hover:text-brand-700">{district.name} çekici</span>
+              <span class="mt-2 block text-sm leading-6 text-ink-500">{district.description}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <SectionTitle
+        eyebrow="İlçeler"
+        title="Ankara’nın tüm ilçelerinde çekici desteği"
+        description="Merkez ilçelerden uzak bağlantı yollarına kadar 25 Ankara ilçesi için özgün ilçe rehberleri ve çekici hizmet bilgileri."
+      />
+      <div class="mt-10 grid gap-8">
+        {districtGroups.map((group) => (
+          <section class="rounded-apple border border-ink-900/10 bg-white/70 p-4 shadow-soft backdrop-blur md:p-6">
+            <div class="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h2 class="text-2xl font-semibold text-ink-950">{group.title}</h2>
+                <p class="mt-2 max-w-2xl text-sm leading-6 text-ink-500">{group.description}</p>
+              </div>
+              <span class="w-fit rounded-full bg-ink-950 px-3 py-1 text-xs font-semibold text-brand-300">{group.items.length} ilçe</span>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {group.items.map((district) => district && <DistrictCard {...district} />)}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-section section-pad">
+    <div class="site-container">
+      <SectionTitle
+        tone="dark"
+        eyebrow="Süreç"
+        title="Acil yol yardım süreci nasıl işler?"
+        description="Konum ve araç bilgisi alındıktan sonra ihtiyaca göre çekici, oto kurtarma veya yol yardım yönlendirmesi planlanır."
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {processSteps.map((step, index) => (
+          <article class="rounded-apple border border-white/10 bg-white/10 p-6">
+            <span class="grid size-10 place-items-center rounded-full bg-brand-300 text-sm font-bold text-ink-950">{index + 1}</span>
+            <h3 class="mt-6 text-lg font-semibold text-white">{step.title}</h3>
+            <p class="muted mt-3 text-sm leading-6">{step.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container">
+      <SectionTitle
+        align="center"
+        eyebrow="Sık Sorulanlar"
+        title="Ankara çekici hizmeti hakkında sorular."
+        description="Hizmet kapsamı, konum paylaşımı ve taşıma süreci hakkında kısa yanıtlar."
+      />
+      <div class="mt-10">
+        <FAQ items={faqs} />
+      </div>
+      <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <a class="btn-secondary" href="/hizmetler/">Tüm hizmetleri incele</a>
+        <a class="btn-primary" href="/iletisim/">İletişime geç</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <ConversionCTA
+        title="Ankara’da çekici desteği için bize ulaşın."
+        description="Konumunuzu paylaşın, araç durumunu birlikte değerlendirelim ve uygun çözümü planlayalım."
+      />
+    </div>
+  </section>
+</BaseLayout>

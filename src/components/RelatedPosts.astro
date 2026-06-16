@@ -1,0 +1,46 @@
+---
+import BlogCard from '@/components/BlogCard.astro';
+
+interface Post {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    category: string;
+    readingTime: string;
+    publishDate: Date;
+  };
+}
+
+interface Props {
+  currentSlug: string;
+  posts: Post[];
+  category: string;
+}
+
+const { currentSlug, posts, category } = Astro.props;
+const related = posts
+  .filter((post) => post.slug !== currentSlug && post.data.category === category)
+  .concat(posts.filter((post) => post.slug !== currentSlug && post.data.category !== category))
+  .slice(0, 3);
+---
+
+{related.length > 0 && (
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <h2 class="section-heading">İlgili rehberler</h2>
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        {related.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            category={post.data.category}
+            readingTime={post.data.readingTime}
+            publishDate={post.data.publishDate}
+            href={`/blog/${post.slug}/`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+)}

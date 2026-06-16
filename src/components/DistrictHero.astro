@@ -1,0 +1,39 @@
+---
+import CTAButtons from '@/components/CTAButtons.astro';
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
+import { media } from '@/data/media';
+
+interface Props {
+  name: string;
+  h1: string;
+  shortIntro: string;
+}
+
+const { name, h1, shortIntro } = Astro.props;
+---
+
+<section class="noise-bg relative overflow-hidden bg-premium-radial">
+  <div class="site-container relative z-10 grid gap-8 py-10 md:grid-cols-[1fr_0.8fr] md:items-center md:gap-10 md:py-20">
+    <div>
+      <p class="accent-pill mb-5">
+        Ankara / {name}
+      </p>
+      <h1 class="max-w-4xl text-[clamp(2.25rem,9vw,4.25rem)] font-semibold leading-[1.02] tracking-normal text-ink-950">{h1}</h1>
+      <p class="mt-6 max-w-2xl text-base leading-8 text-ink-500 md:text-lg">{shortIntro}</p>
+      <div class="mt-8">
+        <CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" />
+      </div>
+    </div>
+    <div class="glass-panel p-3 md:p-5">
+      <div class="visual-frame aspect-[4/3] p-0">
+        <ResponsiveImage image={media.districtAnkara} class="h-full w-full" sizes="(min-width: 768px) 38vw, 100vw" />
+      </div>
+      <div class="mt-4 rounded-[1.35rem] p-7 text-white dark-gradient-surface">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-brand-300">İlçe Odaklı Destek</p>
+        <p class="mt-6 text-xl font-semibold leading-tight md:text-2xl">
+          Konum, araç durumu ve teslim noktası netleştiğinde taşıma süreci daha sağlıklı planlanır.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

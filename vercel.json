@@ -1,0 +1,33 @@
+{
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/ankara.html", "destination": "/ankara-cekici/", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog/", "permanent": true },
+    { "source": "/hakkimizda.html", "destination": "/hakkimizda/", "permanent": true },
+    { "source": "/iletisim.html", "destination": "/iletisim/", "permanent": true },
+    { "source": "/ankara-kalinic.html", "destination": "/ankara-cekici/kalecik/", "permanent": true },
+    { "source": "/ankara-:district.html", "destination": "/ankara-cekici/:district/", "permanent": true },
+    { "source": "/istanbul.html", "destination": "/ankara-cekici/", "permanent": true },
+    { "source": "/istanbul-:district.html", "destination": "/ankara-cekici/", "permanent": true },
+    { "source": "/boyasızgocuk.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/boyasçzgocuk.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/camfilm.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/kaporta.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/otopark.html", "destination": "/hizmetler/servis-otopark-arac-tasima/", "permanent": true },
+    { "source": "/otoyıkama.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/otoyçkama.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/pastacila.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/ppfkaplama.html", "destination": "/hizmetler/", "permanent": true },
+    { "source": "/seramik.html", "destination": "/hizmetler/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

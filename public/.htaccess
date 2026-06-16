@@ -1,0 +1,34 @@
+RewriteEngine On
+
+# Force HTTPS and canonical www host on Apache-compatible hosting.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\.yakindacekici\.com$ [NC]
+RewriteRule ^(.*)$ https://www.yakindacekici.com/$1 [R=301,L]
+
+# Legacy core pages.
+Redirect 301 /index.html /
+Redirect 301 /ankara.html /ankara-cekici/
+Redirect 301 /blog.html /blog/
+Redirect 301 /hakkimizda.html /hakkimizda/
+Redirect 301 /iletisim.html /iletisim/
+
+# Legacy typo.
+Redirect 301 /ankara-kalinic.html /ankara-cekici/kalecik/
+
+# Legacy district pages.
+RewriteRule ^ankara-([a-z0-9-]+)\.html$ /ankara-cekici/$1/ [R=301,L]
+
+# Legacy off-topic pages.
+RewriteRule ^istanbul(-[a-z0-9-]+)?\.html$ /ankara-cekici/ [R=301,L]
+Redirect 301 /otopark.html /hizmetler/servis-otopark-arac-tasima/
+RewriteRule ^(boyas.zgocuk|camfilm|kaporta|otoy.kama|pastacila|ppfkaplama|seramik)\.html$ /hizmetler/ [R=301,L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+</IfModule>

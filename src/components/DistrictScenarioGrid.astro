@@ -1,0 +1,29 @@
+---
+import Icon from '@/components/Icon.astro';
+
+interface Scenario {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  items: Scenario[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="grid gap-5 md:grid-cols-3">
+  {items.map((item, index) => (
+    <article class="glass-card p-6">
+      <div class="flex items-center gap-3">
+        <span class="grid size-9 place-items-center rounded-2xl bg-brand-100 text-brand-700" aria-hidden="true">
+          <Icon name={index === 0 ? 'alert-circle' : index === 1 ? 'truck' : 'shield-check'} size={17} strokeWidth={1.9} />
+        </span>
+        <span class="text-sm font-semibold text-brand-700">0{index + 1}</span>
+      </div>
+      <h3 class="mt-4 text-xl font-semibold text-ink-950">{item.title}</h3>
+      <p class="mt-3 text-sm leading-6 text-ink-500">{item.description}</p>
+    </article>
+  ))}
+</div>

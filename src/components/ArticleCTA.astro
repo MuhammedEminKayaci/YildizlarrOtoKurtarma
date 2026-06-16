@@ -1,0 +1,17 @@
+---
+import ConversionCTA from '@/components/ConversionCTA.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Ankara’da çekiciye ihtiyacınız varsa konumunuzu paylaşın.',
+  description = 'Aracın durumu, bulunduğunuz nokta ve gidilecek adres netleştiğinde size daha sağlıklı yönlendirme yapılabilir.'
+} = Astro.props;
+---
+
+<aside class="my-12">
+  <ConversionCTA title={title} description={description} variant="dark" />
+</aside>

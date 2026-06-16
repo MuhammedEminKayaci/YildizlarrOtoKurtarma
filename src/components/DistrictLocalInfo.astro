@@ -1,0 +1,35 @@
+---
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  neighborhoods: string[];
+  mainRoads: string[];
+}
+
+const { neighborhoods, mainRoads } = Astro.props;
+---
+
+<div class="grid gap-5 md:grid-cols-2">
+  <article class="premium-card p-6">
+    <div class="relative z-10 mb-5 grid size-11 place-items-center rounded-2xl bg-ink-950 text-brand-300" aria-hidden="true">
+      <Icon name="map-pin-filled" size={20} strokeWidth={1.8} />
+    </div>
+    <h3 class="relative z-10 text-xl font-semibold text-ink-950">Mahalle ve bölgeler</h3>
+    <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+      {neighborhoods.map((item) => (
+        <li class="relative z-10 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-ink-700 ring-1 ring-ink-900/10">{item}</li>
+      ))}
+    </ul>
+  </article>
+  <article class="premium-card p-6">
+    <div class="relative z-10 mb-5 grid size-11 place-items-center rounded-2xl bg-brand-300 text-ink-950" aria-hidden="true">
+      <Icon name="navigation" size={20} strokeWidth={1.8} />
+    </div>
+    <h3 class="relative z-10 text-xl font-semibold text-ink-950">Ana arter ve bağlantılar</h3>
+    <ul class="mt-5 grid gap-3">
+      {mainRoads.map((item) => (
+        <li class="relative z-10 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-ink-700 ring-1 ring-ink-900/10">{item}</li>
+      ))}
+    </ul>
+  </article>
+</div>

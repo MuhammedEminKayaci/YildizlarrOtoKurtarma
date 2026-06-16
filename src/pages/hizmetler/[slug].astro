@@ -1,0 +1,241 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CTAButtons from '@/components/CTAButtons.astro';
+import ConversionCTA from '@/components/ConversionCTA.astro';
+import FAQ from '@/components/FAQ.astro';
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import SectionTitle from '@/components/SectionTitle.astro';
+import { site } from '@/data/site';
+import { services, type Service } from '@/data/services';
+import { getServiceImageByTitle } from '@/data/media';
+import {
+  createBreadcrumbSchema,
+  createFAQSchema,
+  createLocalBusinessSchema,
+  createServiceCatalogSchema,
+  createWebPageSchema
+} from '@/lib/schema';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service }
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const canonical = service.href;
+const serviceImage = getServiceImageByTitle(service.title);
+const relatedServices = service.relatedSlugs
+  .map((slug) => services.find((item) => item.slug === slug))
+  .filter(Boolean) as Service[];
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Hizmetler', href: '/hizmetler/' },
+  { label: service.title, href: canonical }
+];
+---
+
+<BaseLayout
+  title={service.seoTitle}
+  description={service.seoDescription}
+  canonical={canonical}
+  ogImage={serviceImage.src}
+  ogImageWidth={serviceImage.width}
+  ogImageHeight={serviceImage.height}
+  jsonLd={[
+    createLocalBusinessSchema(),
+    createServiceCatalogSchema({ items: [service] }),
+    createFAQSchema(service.faqs),
+    createBreadcrumbSchema(breadcrumbs),
+    createWebPageSchema({
+      title: service.seoTitle,
+      description: service.seoDescription,
+      url: canonical,
+      name: service.h1,
+      breadcrumbName: service.title
+    })
+  ]}
+>
+  <Breadcrumb items={breadcrumbs} />
+
+  <section class="service-hero">
+    <div class="site-container service-hero-grid">
+      <div>
+        <p class="accent-pill mb-5">{site.city} hizmeti</p>
+        <h1 class="service-h1">{service.h1}</h1>
+        <p class="service-intro">{service.intro}</p>
+        <div class="mt-8">
+          <CTAButtons whatsappLabel="WhatsApp'tan Konum Gönder" />
+        </div>
+      </div>
+      <div class="service-visual">
+        <ResponsiveImage
+          image={serviceImage}
+          class="h-full w-full"
+          sizes="(min-width: 1024px) 42vw, 100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container service-info-grid">
+      <div>
+        <SectionTitle
+          eyebrow="Ne Zaman Gerekir"
+          title={`${service.title} hangi durumlarda tercih edilir?`}
+          description={service.useCase}
+        />
+      </div>
+      <div class="service-detail-list">
+        {service.details.map((detail, index) => (
+          <article class="service-detail-card">
+            <span class="service-detail-num">{index + 1}</span>
+            <div>
+              <h2>{detail.title}</h2>
+              <p>{detail.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <SectionTitle
+        align="center"
+        eyebrow="Sık Sorulanlar"
+        title={`${service.title} hakkında sorular`}
+        description="Hizmet kapsamı, süreç ve paylaşmanız gereken bilgiler hakkında kısa yanıtlar."
+      />
+      <div class="mt-10">
+        <FAQ items={service.faqs} />
+      </div>
+    </div>
+  </section>
+
+  {relatedServices.length > 0 && (
+    <section class="bg-white section-pad">
+      <div class="site-container">
+        <SectionTitle
+          eyebrow="İlgili Hizmetler"
+          title="Bu hizmetlerle birlikte değerlendirilebilir."
+          description="Aracın durumuna göre çekici, yol yardım veya planlı taşıma seçenekleri birlikte netleştirilebilir."
+        />
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          {relatedServices.map((related) => (
+            <ServiceCard {...related} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <ConversionCTA
+        title={`${service.title} için destek mi gerekiyor?`}
+        description="Konumunuzu, araç durumunu ve gidilecek noktayı paylaşın; uygun taşıma sürecini birlikte netleştirelim."
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.service-hero {
+  background: #f5f7fb;
+  padding: 56px 0 80px;
+}
+.service-hero-grid {
+  display: grid;
+  gap: 36px;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .service-hero-grid {
+    grid-template-columns: 1fr 0.82fr;
+    gap: 56px;
+  }
+}
+.service-h1 {
+  margin: 0;
+  max-width: 760px;
+  color: #080c14;
+  font-size: clamp(2.25rem, 7vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.04;
+}
+.service-intro {
+  margin: 22px 0 0;
+  max-width: 660px;
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.service-visual {
+  height: min(520px, 72vw);
+  min-height: 300px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 70px rgba(8, 12, 20, 0.14);
+  background: #e2e8f0;
+}
+.service-info-grid {
+  display: grid;
+  gap: 36px;
+}
+@media (min-width: 960px) {
+  .service-info-grid {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+  }
+}
+.service-detail-list {
+  display: grid;
+  gap: 14px;
+}
+.service-detail-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 2px 18px rgba(8, 12, 20, 0.06);
+}
+.service-detail-num {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #080c14;
+  color: #ffc94a;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.service-detail-card h2 {
+  margin: 0;
+  color: #080c14;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.service-detail-card p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+</style>

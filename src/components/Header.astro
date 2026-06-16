@@ -1,0 +1,145 @@
+---
+import { site } from '@/data/site';
+import { navigation } from '@/data/navigation';
+import BrandLogo from '@/components/BrandLogo.astro';
+import Icon from '@/components/Icon.astro';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="hdr" data-header>
+  <div class="site-container hdr-inner">
+    <a href="/" class="hdr-logo" aria-label={`${site.name} ana sayfa`}>
+      <BrandLogo variant="dark" />
+    </a>
+
+    <nav class="hdr-nav" aria-label="Ana navigasyon">
+      {navigation.map(item => (
+        <a href={item.href}
+          class:list={['hdr-nav-link', isActive(item.href) && 'hdr-nav-link--active']}
+          aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hdr-actions">
+      <a href={site.phoneHref} class="hdr-btn-call" aria-label="Hemen ara">
+        <Icon name="phone-call" size={15} />
+        Hemen Ara
+      </a>
+      <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="hdr-btn-wa" aria-label="WhatsApp">
+        <Icon name="whatsapp" size={15} />
+        WhatsApp
+      </a>
+      <button class="hdr-burger" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-nav" data-burger>
+        <span class="hdr-burger-line" data-line="1"></span>
+        <span class="hdr-burger-line" data-line="2"></span>
+        <span class="hdr-burger-line" data-line="3"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mob-overlay" id="mob-overlay" aria-hidden="true" data-mob-overlay></div>
+
+<nav class="mob-drawer" id="mobile-nav" aria-label="Mobil navigasyon" data-mob-drawer>
+  <div class="mob-drawer-head">
+    <BrandLogo variant="dark" />
+    <button class="mob-close" type="button" aria-label="Menüyü kapat" data-mob-close>
+      <Icon name="x" size={20} />
+    </button>
+  </div>
+
+  <div class="mob-status">
+    <span class="mob-status-dot"></span>
+    {site.city} · {site.workingHours} aktif hizmet
+  </div>
+
+  <div class="mob-links">
+    {navigation.map(item => (
+      <a href={item.href}
+        class:list={['mob-link', isActive(item.href) && 'mob-link--active']}
+        data-mob-link aria-current={isActive(item.href) ? 'page' : undefined}>
+        {item.label}
+        <Icon name="chevron-right" size={16} />
+      </a>
+    ))}
+  </div>
+
+  <div class="mob-ctas">
+    <a href={site.phoneHref} class="mob-cta-call" data-mob-link>
+      <Icon name="phone-call" size={18} />
+      Hemen Ara — {site.phoneDisplay}
+    </a>
+    <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="mob-cta-wa" data-mob-link>
+      <Icon name="whatsapp" size={18} />
+      WhatsApp'tan Konum Gönder
+    </a>
+  </div>
+</nav>
+
+<style>
+.hdr { position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.88); border-bottom:1px solid rgba(15,23,42,0.08); backdrop-filter:blur(20px) saturate(1.6); -webkit-backdrop-filter:blur(20px) saturate(1.6); transition:background 250ms,box-shadow 250ms,border-color 250ms; }
+.hdr.scrolled { background:rgba(255,255,255,0.96); box-shadow:0 4px 24px rgba(8,12,20,0.08); border-color:rgba(15,23,42,0.10); }
+.hdr-inner { display:flex; align-items:center; height:64px; gap:12px; }
+@media(min-width:768px){.hdr-inner{height:72px;}}
+.hdr-logo{flex-shrink:0;text-decoration:none;display:flex;align-items:center;}
+.hdr-nav{display:none;align-items:center;gap:2px;margin:0 auto;}
+@media(min-width:1024px){.hdr-nav{display:flex;}}
+.hdr-nav-link{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;color:#374151;text-decoration:none;transition:background 160ms,color 160ms;white-space:nowrap;}
+.hdr-nav-link:hover,.hdr-nav-link--active{background:#080c14;color:#fff;}
+.hdr-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
+@media(min-width:1024px){.hdr-actions{margin-left:0;}}
+.hdr-btn-call{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:#080c14;color:#fff;font-size:13.5px;font-weight:700;text-decoration:none;box-shadow:0 8px 28px rgba(8,12,20,0.22);transition:background 160ms,transform 160ms;white-space:nowrap;}
+.hdr-btn-call:hover{background:#1a2540;transform:translateY(-1px);}
+.hdr-btn-wa{display:none;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:#fff;color:#080c14;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid rgba(15,23,42,0.12);transition:border-color 160ms,background 160ms;white-space:nowrap;}
+.hdr-btn-wa:hover{border-color:rgba(255,201,74,0.50);background:#fffdf5;}
+@media(min-width:1024px){.hdr-btn-wa{display:inline-flex;}}
+.hdr-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:#fff;border:1.5px solid rgba(15,23,42,0.10);cursor:pointer;flex-shrink:0;box-shadow:0 2px 10px rgba(8,12,20,0.08);transition:background 160ms;}
+.hdr-burger:hover{background:#f5f7fb;}
+@media(min-width:1024px){.hdr-burger{display:none;}}
+.hdr-burger-line{display:block;width:20px;height:2px;border-radius:2px;background:#080c14;transition:transform 280ms cubic-bezier(0.22,1,0.36,1),opacity 200ms;transform-origin:center;}
+.hdr-burger.open [data-line="1"]{transform:translateY(7px) rotate(45deg);}
+.hdr-burger.open [data-line="2"]{opacity:0;transform:scaleX(0);}
+.hdr-burger.open [data-line="3"]{transform:translateY(-7px) rotate(-45deg);}
+.mob-overlay{position:fixed;inset:0;z-index:98;background:rgba(5,8,18,0.70);opacity:0;pointer-events:none;transition:opacity 280ms ease;}
+.mob-overlay.open{opacity:1;pointer-events:auto;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;z-index:99;width:min(340px,90vw);background:#fff;display:flex;flex-direction:column;overflow-y:auto;transform:translateX(100%);transition:transform 320ms cubic-bezier(0.22,1,0.36,1);box-shadow:-8px 0 48px rgba(8,12,20,0.22);}
+.mob-drawer.open{transform:translateX(0);}
+.mob-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid rgba(15,23,42,0.07);flex-shrink:0;}
+.mob-close{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#f1f5f9;color:#374151;border:none;cursor:pointer;transition:background 160ms;flex-shrink:0;}
+.mob-close:hover{background:#e2e8f0;}
+.mob-status{display:flex;align-items:center;gap:8px;margin:16px 20px 8px;padding:10px 14px;border-radius:12px;background:rgba(18,185,129,0.08);border:1px solid rgba(18,185,129,0.20);font-size:13px;font-weight:600;color:#059669;flex-shrink:0;}
+.mob-status-dot{width:8px;height:8px;border-radius:50%;background:#12b981;flex-shrink:0;animation:pulse-dot 2.4s ease-in-out infinite;}
+.mob-links{display:flex;flex-direction:column;padding:8px 12px;gap:2px;flex:1;}
+.mob-link{display:flex;align-items:center;justify-content:space-between;padding:14px 12px;border-radius:12px;font-size:15px;font-weight:600;color:#080c14;text-decoration:none;transition:background 140ms;}
+.mob-link svg{color:#94a3b8;flex-shrink:0;}
+.mob-link:hover{background:#f5f7fb;}
+.mob-link:hover svg,.mob-link--active svg{color:#ffc94a;}
+.mob-link--active{background:#f5f7fb;}
+.mob-ctas{display:flex;flex-direction:column;gap:10px;padding:16px 20px 32px;border-top:1px solid rgba(15,23,42,0.07);flex-shrink:0;}
+.mob-cta-call{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 20px;border-radius:14px;background:#080c14;color:#fff;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(8,12,20,0.20);transition:background 160ms;}
+.mob-cta-call:hover{background:#1a2540;}
+.mob-cta-wa{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 20px;border-radius:14px;background:#ffc94a;color:#080c14;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(255,201,74,0.30);transition:background 160ms;}
+.mob-cta-wa:hover{background:#ffd46a;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 3px rgba(18,185,129,0.25);}50%{box-shadow:0 0 0 6px rgba(18,185,129,0.10);}}
+</style>
+
+<script>
+  const hdr=document.querySelector('[data-header]') as HTMLElement|null;
+  window.addEventListener('scroll',()=>hdr?.classList.toggle('scrolled',window.scrollY>24),{passive:true});
+  const burger=document.querySelector('[data-burger]') as HTMLButtonElement|null;
+  const overlay=document.querySelector('[data-mob-overlay]') as HTMLElement|null;
+  const drawer=document.querySelector('[data-mob-drawer]') as HTMLElement|null;
+  const closeBtn=document.querySelector('[data-mob-close]') as HTMLButtonElement|null;
+  const links=document.querySelectorAll('[data-mob-link]');
+  const open=()=>{burger?.classList.add('open');burger?.setAttribute('aria-expanded','true');overlay?.classList.add('open');drawer?.classList.add('open');document.documentElement.style.overflow='hidden';closeBtn?.focus();};
+  const close=()=>{burger?.classList.remove('open');burger?.setAttribute('aria-expanded','false');overlay?.classList.remove('open');drawer?.classList.remove('open');document.documentElement.style.overflow='';burger?.focus();};
+  burger?.addEventListener('click',()=>burger.getAttribute('aria-expanded')==='true'?close():open());
+  closeBtn?.addEventListener('click',close);
+  overlay?.addEventListener('click',close);
+  links.forEach(l=>l.addEventListener('click',close));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+</script>

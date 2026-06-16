@@ -1,0 +1,74 @@
+---
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+---
+<div class="support-widget" data-support-widget>
+  <button class="support-launcher" type="button" aria-label="Destek panelini aç" aria-expanded="false" aria-controls="support-widget-panel" data-support-launcher>
+    <span class="sw-icon-wrap" aria-hidden="true">
+      <Icon name="headphones" size={18} strokeWidth={1.75} />
+    </span>
+    <span class="hidden text-sm font-semibold sm:inline">Hızlı Destek</span>
+  </button>
+
+  <div class="support-panel" id="support-widget-panel" hidden data-support-panel>
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">Destek Merkezi</p>
+        <h2 class="mt-1.5 text-lg font-bold text-ink-950">Nasıl yardımcı olabiliriz?</h2>
+      </div>
+      <button class="grid size-8 place-items-center rounded-full bg-ink-100 text-ink-500 hover:bg-ink-200 transition" type="button" aria-label="Destek panelini kapat" data-support-close>
+        <Icon name="x" size={16} strokeWidth={2.5} />
+      </button>
+    </div>
+
+    <p class="mt-3 text-sm leading-6 text-ink-500">Konumunuzu paylaşarak destek talebi oluşturabilirsiniz.</p>
+
+    <div class="mt-5 grid gap-2.5 sm:grid-cols-2">
+      <a class="sw-btn sw-btn--dark" href={site.phoneHref}>
+        <Icon name="phone-call" size={16} />
+        Hemen Ara
+      </a>
+      <a class="sw-btn sw-btn--amber" href={site.whatsappHref} target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" size={16} />
+        WhatsApp
+      </a>
+      <a class="sw-btn sw-btn--light" href={site.whatsappHref} target="_blank" rel="noopener noreferrer">
+        <Icon name="map-pin" size={16} />
+        Konum Gönder
+      </a>
+      <a class="sw-btn sw-btn--light" href={site.emailHref}>
+        <Icon name="mail" size={16} />
+        E-posta
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+.sw-icon-wrap{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:#ffc94a;color:#080c14;flex-shrink:0;}
+.sw-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:background 160ms,transform 160ms;}
+.sw-btn:hover{transform:translateY(-1px);}
+.sw-btn--dark{background:#080c14;color:#fff;}
+.sw-btn--dark:hover{background:#1a2540;}
+.sw-btn--amber{background:#ffc94a;color:#080c14;box-shadow:0 3px 0 rgba(0,0,0,0.12);}
+.sw-btn--amber:hover{background:#ffd46a;}
+.sw-btn--light{background:#f1f5f9;color:#374151;}
+.sw-btn--light:hover{background:#e2e8f0;}
+</style>
+
+<script>
+  const root=document.querySelector('[data-support-widget]');
+  const launcher=root?.querySelector('[data-support-launcher]');
+  const panel=root?.querySelector('[data-support-panel]');
+  const close=root?.querySelector('[data-support-close]');
+  const setOpen=(open:boolean)=>{
+    if(!(launcher instanceof HTMLButtonElement)||!(panel instanceof HTMLElement))return;
+    panel.hidden=!open;launcher.setAttribute('aria-expanded',String(open));
+    if(open){const f=panel.querySelector('a,button');if(f instanceof HTMLElement)f.focus();}
+    else launcher.focus();
+  };
+  launcher?.addEventListener('click',()=>setOpen(launcher.getAttribute('aria-expanded')!=='true'));
+  close?.addEventListener('click',()=>setOpen(false));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false);});
+  document.addEventListener('click',e=>{if(!root||!(e.target instanceof Node))return;if(!root.contains(e.target))setOpen(false);});
+</script>

@@ -1,0 +1,17 @@
+---
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+interface Props { compact?: boolean; align?: 'start'|'center'; whatsappLabel?: string; }
+const { compact=false, align='start', whatsappLabel='WhatsApp' } = Astro.props;
+const wrap = align === 'center' ? 'justify-center' : 'justify-start';
+---
+<div class:list={['flex flex-col gap-3 sm:flex-row', wrap]}>
+  <a class="btn-primary" href={site.phoneHref} aria-label={`${site.name} telefon ile ara`}>
+    <Icon name="phone-call" size={16} strokeWidth={2} />
+    {compact ? 'Ara' : site.phoneDisplay}
+  </a>
+  <a class="btn-secondary" href={site.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label={`${site.name} WhatsApp`}>
+    <Icon name="whatsapp" size={16} />
+    {whatsappLabel}
+  </a>
+</div>

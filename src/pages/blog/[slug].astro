@@ -1,0 +1,94 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import BlogHero from '@/components/BlogHero.astro';
+import ArticleCTA from '@/components/ArticleCTA.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import { getBlogCoverBySlug } from '@/data/media';
+import { site } from '@/data/site';
+import {
+  createArticleSchema,
+  createBreadcrumbSchema,
+  createOrganizationSchema,
+  createWebPageSchema
+} from '@/lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const { Content } = await post.render();
+const canonical = `/blog/${post.slug}/`;
+const coverImage = getBlogCoverBySlug(post.slug);
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: post.data.title, href: canonical }
+];
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonical={canonical}
+  ogImage={coverImage.src}
+  ogImageWidth={coverImage.width}
+  ogImageHeight={coverImage.height}
+  jsonLd={[
+    createArticleSchema({
+      title: post.data.title,
+      description: post.data.description,
+      url: canonical,
+      publishDate: post.data.publishDate,
+      updatedDate: post.data.updatedDate,
+      authorName: site.name,
+      publisherName: site.name,
+      image: coverImage.src
+    }),
+    createBreadcrumbSchema(breadcrumbs),
+    createWebPageSchema({
+      title: post.data.title,
+      description: post.data.description,
+      url: canonical,
+      name: post.data.title,
+      breadcrumbName: post.data.title
+    }),
+    createOrganizationSchema()
+  ]}
+>
+  <Breadcrumb items={breadcrumbs} />
+  <BlogHero
+    title={post.data.title}
+    description={post.data.description}
+    category={post.data.category}
+    publishDate={post.data.publishDate}
+    readingTime={post.data.readingTime}
+    slug={post.slug}
+  />
+
+  <article class="bg-white">
+    <div class="site-container py-12 md:py-16">
+      <div class="mx-auto max-w-3xl">
+        <div class="prose-blog">
+          <Content />
+        </div>
+        <ArticleCTA />
+      </div>
+    </div>
+  </article>
+
+  <RelatedPosts currentSlug={post.slug} posts={allPosts} category={post.data.category} />
+</BaseLayout>

@@ -1,0 +1,287 @@
+---
+import { site } from '@/data/site';
+import { navigation } from '@/data/navigation';
+import BrandLogo from '@/components/BrandLogo.astro';
+import Icon from '@/components/Icon.astro';
+---
+
+<footer class="ft">
+
+  <!-- Top trust bar -->
+  <div class="ft-trust-bar">
+    <div class="site-container">
+      <div class="ft-trust-grid">
+        {[
+          { label: '7/24 Kesintisiz Destek', icon: 'clock' },
+          { label: 'Ankara Geneli Hizmet', icon: 'map-pin' },
+          { label: 'Güvenli Araç Taşıma', icon: 'shield-check' },
+        ].map(item => (
+          <div class="ft-trust-item">
+            <span class="ft-trust-icon"><Icon name={item.icon} size={16} strokeWidth={1.8} /></span>
+            {item.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Main footer body -->
+  <div class="ft-body">
+    <div class="site-container">
+      <div class="ft-cols">
+
+        <!-- Brand -->
+        <div class="ft-brand">
+          <a href="/" class="ft-logo" aria-label={`${site.name} ana sayfa`}>
+            <BrandLogo variant="light" />
+          </a>
+          <p class="ft-tagline">
+            Ankara genelinde 7/24 oto çekici, oto kurtarma ve yol yardım ihtiyaçları için hızlı ve profesyonel destek.
+          </p>
+          <div class="ft-contact-pills">
+            <a href={site.phoneHref} class="ft-pill">
+              <Icon name="phone-call" size={14} strokeWidth={2} />
+              {site.phoneDisplay}
+            </a>
+            <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="ft-pill ft-pill--wa">
+              <Icon name="whatsapp" size={14} strokeWidth={1.75} />
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Nav links -->
+        <div class="ft-col">
+          <h3 class="ft-col-title">Bağlantılar</h3>
+          <ul class="ft-list">
+            {navigation.filter(i => i.href !== '/').map(item => (
+              <li><a href={item.href} class="ft-link">{item.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Districts -->
+        <div class="ft-col">
+          <h3 class="ft-col-title">Öne Çıkan İlçeler</h3>
+          <ul class="ft-list">
+            {[
+              ['Çankaya',     '/ankara-cekici/cankaya/'],
+              ['Keçiören',    '/ankara-cekici/kecioren/'],
+              ['Yenimahalle', '/ankara-cekici/yenimahalle/'],
+              ['Mamak',       '/ankara-cekici/mamak/'],
+              ['Etimesgut',   '/ankara-cekici/etimesgut/'],
+              ['Polatlı',     '/ankara-cekici/polatli/'],
+            ].map(([label, href]) => (
+              <li><a href={href} class="ft-link">{label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="ft-col">
+          <h3 class="ft-col-title">İletişim</h3>
+          <ul class="ft-contact-list">
+            <li>
+              <Icon name="phone-call" size={15} strokeWidth={1.8} />
+              <a href={site.phoneHref} class="ft-link">{site.phoneDisplay}</a>
+            </li>
+            <li>
+              <Icon name="mail" size={15} strokeWidth={1.8} />
+              <a href={site.emailHref} class="ft-link">{site.email}</a>
+            </li>
+            <li>
+              <Icon name="map-pin" size={15} strokeWidth={1.8} />
+              <span class="ft-muted">{site.city} · {site.workingHours}</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="ft-bottom">
+    <div class="site-container">
+      <div class="ft-bottom-inner">
+        <p>© {new Date().getFullYear()} {site.name}. Tüm hakları saklıdır.</p>
+        <p>{site.domain}</p>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="ft-btt" aria-label="Sayfanın başına git">
+  <Icon name="arrow-up" size={18} strokeWidth={2.2} />
+</button>
+
+<style>
+/* ── Footer base ── */
+.ft {
+  background: #080c14;
+  background-image:
+    radial-gradient(ellipse at 10% 0%, rgba(255,201,74,0.14) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 20%, rgba(20,184,122,0.08) 0%, transparent 38%);
+  color: #ffffff;
+}
+
+/* ── Trust bar ── */
+.ft-trust-bar {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 18px 0;
+}
+.ft-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+@media (max-width: 640px) {
+  .ft-trust-grid { grid-template-columns: 1fr; gap: 8px; }
+}
+.ft-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+}
+.ft-trust-icon { color: #ffc94a; flex-shrink: 0; }
+
+/* ── Main body ── */
+.ft-body { padding: 56px 0 48px; }
+.ft-cols {
+  display: grid;
+  gap: 40px 32px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px)  { .ft-cols { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .ft-cols { grid-template-columns: 1.4fr 0.7fr 0.7fr 0.9fr; } }
+
+/* Brand col */
+.ft-logo {
+  display: inline-block;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+.ft-tagline {
+  font-size: 13.5px;
+  line-height: 1.70;
+  color: rgba(255,255,255,0.50);
+  max-width: 280px;
+  margin: 0 0 20px;
+}
+.ft-contact-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.ft-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.70);
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  text-decoration: none;
+  transition: background 180ms, border-color 180ms, color 180ms;
+}
+.ft-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); color: #fff; }
+.ft-pill--wa { border-color: rgba(18,185,129,0.25); background: rgba(18,185,129,0.08); color: #34d399; }
+.ft-pill--wa:hover { background: rgba(18,185,129,0.16); border-color: rgba(18,185,129,0.40); color: #6ee7b7; }
+
+/* Columns */
+.ft-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 16px;
+}
+.ft-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ft-link {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color 160ms;
+}
+.ft-link:hover { color: #ffffff; }
+
+/* Contact list */
+.ft-contact-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.ft-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+}
+.ft-contact-list svg { color: #ffc94a; flex-shrink: 0; margin-top: 2px; }
+.ft-muted { color: rgba(255,255,255,0.40); }
+
+/* Bottom bar */
+.ft-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 18px 0;
+}
+.ft-bottom-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.30);
+}
+@media (min-width: 640px) {
+  .ft-bottom-inner { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* Back to top */
+.ft-btt {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  z-index: 40;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1.5px solid rgba(15,23,42,0.12);
+  background: rgba(255,255,255,0.92);
+  color: #080c14;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(8,12,20,0.12);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 240ms ease, transform 240ms ease, background 160ms;
+}
+.ft-btt:hover { background: #ffffff; }
+.ft-btt.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+@media (min-width: 768px) { .ft-btt { bottom: 28px; right: 28px; } }
+</style>
+
+<script>
+  const btt = document.getElementById('back-to-top');
+  if (btt) {
+    window.addEventListener('scroll', () => {
+      btt.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+</script>

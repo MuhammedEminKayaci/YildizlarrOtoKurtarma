@@ -1,0 +1,30 @@
+---
+import { districtPageBySlug } from '@/data/districtPages';
+
+interface Props {
+  slugs: string[];
+}
+
+const { slugs } = Astro.props;
+const items = slugs
+  .map((slug) => districtPageBySlug.get(slug))
+  .filter((item) => Boolean(item));
+---
+
+{items.length > 0 && (
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <h2 class="section-heading">Yakın bölgelerde oto çekici hizmeti</h2>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-ink-500">
+        Bulunduğunuz nokta ilçe sınırına yakınsa çevre bölgelerdeki hizmet sayfalarını da inceleyebilirsiniz.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {items.map((item) => item && (
+          <a class="rounded-full border border-ink-900/10 bg-white px-5 py-3 text-sm font-semibold text-ink-950 shadow-soft hover:-translate-y-0.5 hover:border-brand-300/60 hover:text-brand-700" href={`/ankara-cekici/${item.slug}/`}>
+            <span>{item.name} çekici</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
