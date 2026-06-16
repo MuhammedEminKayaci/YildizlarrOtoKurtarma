@@ -8,7 +8,7 @@
 :root {
   color-scheme: light;
   --header-height: 64px;
-  --mobile-cta-height: 128px;
+  --mobile-cta-height: 78px;
 
   /* Brand */
   --color-ink:     #070a12;
@@ -329,7 +329,7 @@ a { @apply transition-colors duration-200; }
    ============================================================ */
 .mobile-cta-bar {
   @apply fixed inset-x-0 bottom-0 z-50 md:hidden;
-  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
   background: rgba(8, 12, 20, 0.95);
   border-top: 1px solid rgb(255 255 255 / 0.08);
   backdrop-filter: blur(24px) saturate(1.8);

@@ -15,7 +15,7 @@ const stats = [
     <div class="ss-grid">
       {stats.map((s) => (
         <div class="ss-cell">
-          <div class="ss-chip"><Icon name={s.icon} size={20} strokeWidth={2} /></div>
+          <div class="ss-chip"><Icon name={s.icon} size={18} strokeWidth={2} /></div>
           <div class="ss-body">
             <div class="ss-value">{s.value}</div>
             <div class="ss-label">{s.label}</div>
@@ -38,19 +38,20 @@ const stats = [
 .ss::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);}
 .ss-glow{position:absolute;left:50%;bottom:-60%;width:60%;height:120%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,255,255,0.35),transparent);pointer-events:none;}
 
-.ss-grid{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:30px 0;}
-@media(min-width:768px){.ss-grid{grid-template-columns:repeat(4,1fr);gap:0;padding:34px 0;}}
+.ss-grid{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 4px;padding:22px 0;}
+@media(min-width:768px){.ss-grid{grid-template-columns:repeat(4,1fr);gap:0;padding:28px 0;}}
 
-.ss-cell{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:18px;transition:background 240ms,transform 240ms cubic-bezier(.22,1,.36,1);}
+.ss-cell{position:relative;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;-webkit-tap-highlight-color:transparent;transition:background 240ms,transform 240ms cubic-bezier(.22,1,.36,1);}
 @media(min-width:768px){
-  .ss-cell{padding:8px 26px;}
-  .ss-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:14%;bottom:14%;width:1px;background:linear-gradient(to bottom,transparent,rgba(90,52,0,.28) 28%,rgba(90,52,0,.28) 72%,transparent);}
+  .ss-cell{align-items:flex-start;padding:6px 24px;}
+  .ss-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:22%;bottom:22%;width:1px;background:linear-gradient(to bottom,transparent,rgba(90,52,0,.22) 30%,rgba(90,52,0,.22) 70%,transparent);}
 }
-.ss-cell:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);}
+@media(hover:hover){.ss-cell:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);}}
 
-.ss-chip{flex-shrink:0;display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:#0a0e18;color:#ffc94a;box-shadow:0 6px 18px rgba(60,36,0,.30),inset 0 1px 0 rgba(255,255,255,.12);}
+.ss-chip{flex-shrink:0;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:rgba(10,14,24,.92);color:#ffc94a;box-shadow:0 4px 12px rgba(60,36,0,.22);}
+@media(min-width:768px){.ss-chip{width:40px;height:40px;border-radius:12px;}}
 .ss-body{display:flex;flex-direction:column;gap:2px;min-width:0;}
-.ss-value{font-size:clamp(1.7rem,2.6vw,2.35rem);font-weight:800;color:#1a1205;letter-spacing:-.02em;line-height:1.02;font-variant-numeric:tabular-nums;}
-.ss-label{font-size:13.5px;font-weight:700;color:#3a2a08;}
-.ss-desc{font-size:11.5px;font-weight:500;line-height:1.4;color:rgba(58,42,8,.62);}
+.ss-value{font-size:clamp(1.45rem,2.1vw,1.95rem);font-weight:800;color:#1a1205;letter-spacing:-.025em;line-height:1.05;font-variant-numeric:tabular-nums;}
+.ss-label{font-size:13px;font-weight:700;color:#3a2a08;letter-spacing:-.005em;}
+.ss-desc{font-size:11px;font-weight:500;line-height:1.4;color:rgba(58,42,8,.58);margin-top:1px;}
 </style>
