@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Yıldızlar Oto Kurtarma">
-  <rect width="64" height="64" rx="18" fill="#080c14"/>
-  <path d="M18 18h28l-9.5 16.2V46h-9V34.2L18 18Z" fill="#ffd15a"/>
+  <rect width="64" height="64" rx="14" fill="#080c14"/>
+  <path d="M14 14h11.5l6.5 12 6.5-12H50L37.7 35.8V50h-11V35.8L14 14Z" fill="#ffc94a"/>
 </svg>

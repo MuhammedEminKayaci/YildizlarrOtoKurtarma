@@ -156,7 +156,8 @@ const DISTRICTS_HREF = '/ankara-cekici/';
 .hdr-nav-link--trigger{display:inline-flex;align-items:center;gap:5px;}
 .hdr-nav-chevron{transition:transform 220ms ease;flex-shrink:0;}
 .hdr-nav-item--has-menu:hover .hdr-nav-chevron,.hdr-nav-item--has-menu.hdr-mega-open .hdr-nav-chevron{transform:rotate(180deg);}
-.hdr-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);z-index:60;width:min(880px,86vw);padding:28px 28px 20px;background:#fff;border:1px solid rgba(15,23,42,0.08);border-radius:var(--radius-lg,20px);box-shadow:0 24px 64px rgba(8,12,20,0.18);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms ease,transform 200ms ease,visibility 200ms;}
+.hdr-nav-item--has-menu{padding-bottom:14px;margin-bottom:-14px;}
+.hdr-mega-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(6px);z-index:60;width:min(880px,86vw);padding:28px 28px 20px;background:#fff;border:1px solid rgba(15,23,42,0.08);border-radius:var(--radius-lg,20px);box-shadow:0 24px 64px rgba(8,12,20,0.18);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms ease,transform 200ms ease,visibility 200ms;}
 .hdr-nav-item--has-menu:hover .hdr-mega-panel,.hdr-nav-item--has-menu:focus-within .hdr-mega-panel,.hdr-nav-item--has-menu.hdr-mega-open .hdr-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
 .hdr-mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
 .hdr-mega-col-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin:0 0 12px;}
@@ -250,12 +251,18 @@ const DISTRICTS_HREF = '/ankara-cekici/';
   const megaWraps=document.querySelectorAll('[data-hdr-mega-wrap]');
   megaWraps.forEach(wrap=>{
     const trigger=wrap.querySelector('[data-hdr-mega-trigger]') as HTMLAnchorElement|null;
+    let closeTimer:ReturnType<typeof setTimeout>|null=null;
     const setOpen=(open:boolean)=>{
+      if(closeTimer){clearTimeout(closeTimer);closeTimer=null;}
       wrap.classList.toggle('hdr-mega-open',open);
       trigger?.setAttribute('aria-expanded',String(open));
     };
+    const scheduleClose=()=>{
+      if(closeTimer)clearTimeout(closeTimer);
+      closeTimer=setTimeout(()=>setOpen(false),150);
+    };
     wrap.addEventListener('mouseenter',()=>setOpen(true));
-    wrap.addEventListener('mouseleave',()=>setOpen(false));
+    wrap.addEventListener('mouseleave',scheduleClose);
     wrap.addEventListener('focusin',()=>setOpen(true));
     wrap.addEventListener('focusout',(e)=>{
       const next=(e as FocusEvent).relatedTarget as Node|null;
