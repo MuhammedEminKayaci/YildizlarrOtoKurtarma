@@ -1,6 +1,12 @@
 ---
 import ResponsiveImage from '@/components/ResponsiveImage.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import { getBlogCoverBySlug } from '@/data/media';
+
+type BreadcrumbItem = {
+  label: string;
+  href: string;
+};
 
 interface Props {
   title: string;
@@ -9,9 +15,10 @@ interface Props {
   publishDate: Date;
   readingTime: string;
   slug?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { title, description, category, publishDate, readingTime, slug } = Astro.props;
+const { title, description, category, publishDate, readingTime, slug, breadcrumbs = [] } = Astro.props;
 const formattedDate = new Intl.DateTimeFormat('tr-TR', {
   day: 'numeric',
   month: 'long',
@@ -21,6 +28,7 @@ const coverImage = getBlogCoverBySlug(slug);
 ---
 
 <section class="noise-bg bg-premium-radial">
+  {breadcrumbs.length > 0 && <Breadcrumb items={breadcrumbs} />}
   <div class="site-container relative z-10 grid gap-10 py-14 md:grid-cols-[1fr_0.55fr] md:items-center md:py-20">
     <div class="max-w-4xl">
       <div class="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink-600">

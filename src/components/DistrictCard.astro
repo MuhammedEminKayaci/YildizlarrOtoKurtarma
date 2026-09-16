@@ -1,12 +1,12 @@
 ---
 import Icon from '@/components/Icon.astro';
-interface Props { name: string; description: string; href?: string; }
-const { name, description, href } = Astro.props;
+interface Props { name: string; description: string; href?: string; regionLabel?: string; }
+const { name, description, href, regionLabel } = Astro.props;
 ---
 <article class="dc group">
   <div class="dc-top">
     <div class="dc-icon"><Icon name="map-pin-filled" size={18} strokeWidth={2} /></div>
-    <span class="dc-tag">Ankara</span>
+    <span class="dc-tag">{regionLabel ? `Ankara · ${regionLabel}` : 'Ankara'}</span>
   </div>
   <h3 class="dc-name">{name}</h3>
   <p class="dc-desc">{description}</p>
@@ -26,7 +26,7 @@ const { name, description, href } = Astro.props;
 .dc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .dc-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#080c14;color:#ffc94a;flex-shrink:0;transition:transform 260ms;}
 .dc:hover .dc-icon{transform:scale(1.08);}
-.dc-tag{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;padding:4px 10px;border-radius:999px;background:#f1f5f9;border:1px solid rgba(15,23,42,0.06);}
+.dc-tag{max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;padding:4px 10px;border-radius:999px;background:#f1f5f9;border:1px solid rgba(15,23,42,0.06);}
 .dc:hover .dc-tag{background:#fef9ec;color:#b45309;border-color:rgba(255,201,74,0.30);}
 .dc-name{font-size:0.9375rem;font-weight:700;color:#080c14;letter-spacing:0;margin:0 0 6px;}
 .dc-desc{font-size:0.8125rem;line-height:1.6;color:#64748b;flex:1;margin:0 0 16px;}

@@ -7,20 +7,24 @@ import { join } from 'node:path';
 interface Props {
   variant?: 'dark' | 'light';
   tone?: 'dark' | 'light';
+  size?: 'header' | 'footer';
   showTextFallback?: boolean;
   class?: string;
 }
 
-const { variant, tone, showTextFallback = true, class: className = '' } = Astro.props;
+const { variant, tone, size = 'header', showTextFallback = true, class: className = '' } = Astro.props;
 const resolvedVariant = variant ?? tone ?? 'dark';
 const logo = resolvedVariant === 'light' ? media.brandLogoWhite : media.brandLogoDark;
 const logoExists = existsSync(join(process.cwd(), 'public', logo.src.replace(/^\//, '')));
+const imageSizeClass = size === 'footer'
+  ? 'h-16 w-auto max-w-[210px] object-contain sm:h-20 sm:max-w-[270px]'
+  : 'h-[52px] w-auto max-w-[165px] object-contain sm:h-16 sm:max-w-[205px]';
 ---
 
 <span class:list={['inline-flex min-w-0 items-center gap-3', className]}>
   {logoExists ? (
     <img
-      class="h-9 w-auto max-w-[150px] object-contain sm:h-11 sm:max-w-[176px]"
+      class={imageSizeClass}
       src={logo.src}
       alt={`${site.name} logosu`}
       width={logo.width}

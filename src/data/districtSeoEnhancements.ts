@@ -603,6 +603,423 @@ export const districtSeoEnhancements: DistrictSeoEnhancement[] = [
           'Resmi süreç ve güvenlik şartları tamamlandıktan sonra aracın durumu, konumu ve teslim adresine göre çekim planlanabilir.'
       }
     ]
+  },
+  {
+    slug: 'ayas',
+    focusTitle: 'Ayaş’ta çekici planı Batı aksı trafiğine göre nasıl şekillenir?',
+    focusIntro:
+      'Ayaş’ta çekici ihtiyacı genellikle Ayaş Yolu üzerindeki uzun mesafe seyahatler ile Sinanlı, Oltan ve Başbereket gibi mahalle içi yolda kalmalar arasında farklılaşır. Aracın ana yol üzerinde mi yoksa mahalle içinde mi olduğu, yaklaşım süresini doğrudan etkiler.',
+    routeNotes: [
+      'Ayaş Merkez ve Sinanlı çevresinde cadde adı ile birlikte yakın esnaf veya cami bilgisi tarifi netleştirir.',
+      'Ayaş Yolu üzerinde kalan araçlarda kilometre işareti veya en yakın yerleşim adı yön bilgisini hızlandırır.',
+      'Beypazarı bağlantısına çıkmadan önce arıza fark edilirse güvenli bir cepte bekleme önerilir.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Ayaş Yolu veya mahalle içinde ani arıza durumunda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Acil yol yardım',
+        description: 'Akü, lastik gibi basit arızalarda çekici gerekip gerekmediği ilk değerlendirmeyle netleşir.',
+        href: '/hizmetler/yol-yardim/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Beypazarı, Nallıhan veya Ankara merkez yönüne planlı taşımalarda tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      }
+    ],
+    callout:
+      'Ayaş’ta konum paylaşırken bulunduğunuz caddeyi, Ayaş Yolu üzerindeyseniz yön ve kilometre bilgisini iletmeniz süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Ayaş Yolu üzerinde çekici ne kadar sürede ulaşır?',
+        answer:
+          'Süre; konum, trafik durumu ve aracın bulunduğu noktaya göre değişir. Canlı konum paylaşımı yaklaşım süresini netleştirir.'
+      },
+      {
+        question: 'Ayaş’tan Beypazarı yönüne araç taşıma yapılır mı?',
+        answer: 'Evet. Rota, araç tipi ve teslim noktası bilgisiyle planlı taşıma değerlendirilebilir.'
+      }
+    ]
+  },
+  {
+    slug: 'beypazari',
+    focusTitle: 'Beypazarı’nda çekici süreci hangi bilgilerle netleşir?',
+    focusIntro:
+      'Beypazarı’nda çekici talepleri sıklıkla şehirlerarası taşıma ihtiyacı ile ilçe merkezi ve sanayi bölgesindeki arızalar arasında ayrışır. Ayaş-Beypazarı Yolu ve Nallıhan bağlantısı üzerindeki konum bilgisi süreç planlamasını kolaylaştırır.',
+    routeNotes: [
+      'Beypazarı Merkez, Başağaç ve Hacıkara çevresinde sokak adı ve yakın referans nokta tarifi hızlandırıcıdır.',
+      'Ayaş-Beypazarı Yolu üzerinde arıza fark edildiğinde güvenli cep veya dinlenme alanına çekilmek önerilir.',
+      'Sanayi bölgesine servis taşıması gerekiyorsa teslim adresinin önceden netleştirilmesi süreci kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'İlçe merkezi veya ana yol üzerindeki arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Servis ve otopark araç taşıma',
+        description: 'Sanayi bölgesi veya servis randevusu olan araçlar için uygundur.',
+        href: '/hizmetler/servis-otopark-arac-tasima/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Nallıhan, Ankara merkez veya farklı şehir bağlantılarına planlı taşımalarda tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      }
+    ],
+    callout:
+      'Beypazarı’ndan çekici çağırırken aracın sanayi bölgesinde mi, ana yolda mı yoksa ilçe merkezinde mi olduğunu belirtmeniz yönlendirmeyi hızlandırır.',
+    faqs: [
+      {
+        question: 'Beypazarı’ndan Nallıhan yönüne araç taşıma fiyatı neye göre belirlenir?',
+        answer: 'Mesafe, araç tipi, yol şartları ve teslim noktası birlikte değerlendirilerek fiyat netleşir.'
+      },
+      {
+        question: 'Beypazarı sanayi bölgesinden servise araç çekimi yapılır mı?',
+        answer: 'Evet. Servis adresi ve araç durumu paylaşıldığında taşıma süreci planlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'gudul',
+    focusTitle: 'Güdül’de kırsal yol koşulları çekici sürecini nasıl etkiler?',
+    focusIntro:
+      'Güdül’de çekici ihtiyacı çoğunlukla Ayaş-Güdül Yolu üzerindeki uzun mesafe arızalar ile Yeşilöz, Çağa ve Sapanlı gibi mahallelerdeki yolda kalmalar arasında değişir. Kırsal yol koşullarında konum tarifinin netliği erişim süresini doğrudan etkiler.',
+    routeNotes: [
+      'Güdül Merkez ve çevresinde mahalle adı ile birlikte en yakın cami, market veya kavşak bilgisi tarifi kolaylaştırır.',
+      'Ayaş-Güdül Yolu üzerinde arıza durumunda güvenli bir noktada bekleme ve yol yönü bilgisi paylaşılmalıdır.',
+      'Beypazarı bağlantısına çıkan araçlarda kilometre işareti veya yakın yerleşim adı yönlendirmeyi hızlandırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Kırsal yol veya mahalle içi arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Acil yol yardım',
+        description: 'Basit arızalarda çekici gerekip gerekmediği konum bilgisiyle değerlendirilir.',
+        href: '/hizmetler/yol-yardim/'
+      },
+      {
+        title: 'Servis ve otopark araç taşıma',
+        description: 'Aracın servise veya belirlenen teslim noktasına taşınması için uygundur.',
+        href: '/hizmetler/servis-otopark-arac-tasima/'
+      }
+    ],
+    callout:
+      'Güdül’de konum paylaşırken bulunduğunuz mahalle ve en yakın referans noktasını belirtmeniz çekici yönlendirmesini kolaylaştırır.',
+    faqs: [
+      {
+        question: 'Güdül’de mahalle içinde çekici ulaşımı ne kadar sürer?',
+        answer: 'Süre; konum, yol koşulları ve mesafeye göre değişir, canlı konum paylaşımı süreci hızlandırır.'
+      }
+    ]
+  },
+  {
+    slug: 'nallihan',
+    focusTitle: 'Nallıhan’da şehirlerarası taşıma ve yerel çekici ihtiyacı nasıl ayrışır?',
+    focusIntro:
+      'Nallıhan, Ankara’nın en batı ucundaki ilçelerinden biri olduğu için çekici talepleri sıklıkla uzun mesafe taşıma planlamasıyla birlikte değerlendirilir. Nallıhan Merkez, Çayırhan ve Beypazarı-Nallıhan Yolu üzerindeki konum bilgisi süreci netleştirir.',
+    routeNotes: [
+      'Nallıhan Merkez ve Çayırhan çevresinde sokak adı ve yakın işletme bilgisi tarifi hızlandırır.',
+      'Beypazarı-Nallıhan Yolu üzerinde arıza fark edildiğinde güvenli bir cepte bekleme önerilir.',
+      'İstanbul bağlantısına çıkan uzun mesafe taşımalarda rota ve teslim adresinin önceden netleşmesi önemlidir.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'İlçe merkezi veya ana yol üzerindeki ani arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Nallıhan çıkışlı veya varışlı uzun mesafe taşımalarda öncelikli tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      },
+      {
+        title: 'Kaza sonrası araç çekimi',
+        description: 'Ana yol üzerinde kaza sonrası hareket edemeyen araçlar için güvenli taşıma sağlar.',
+        href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+      }
+    ],
+    callout:
+      'Nallıhan’dan çekici çağırırken aracın Çayırhan mı yoksa merkez mi yakınında olduğunu ve gidilecek noktayı belirtmeniz planlamayı kolaylaştırır.',
+    faqs: [
+      {
+        question: 'Nallıhan’dan Ankara merkeze araç taşıma ne kadar sürer?',
+        answer: 'Süre; mesafe, yol koşulları ve trafik durumuna göre değişir, rota netleştiğinde süreç planlanır.'
+      },
+      {
+        question: 'Çayırhan çevresinde çekici hizmeti verilir mi?',
+        answer: 'Evet. Konum ve araç durumu paylaşıldığında Çayırhan çevresinde de destek sağlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'camlidere',
+    focusTitle: 'Çamlıdere’de dağ yolu koşulları çekici planını nasıl belirler?',
+    focusIntro:
+      'Çamlıdere’de çekici ihtiyacı genellikle virajlı ve eğimli dağ yolu koşullarıyla birlikte değerlendirilir. Peçenek, Osmansin ve Kızılcahamam bağlantısı üzerindeki konum, güvenli yaklaşım planını doğrudan etkiler.',
+    routeNotes: [
+      'Çamlıdere Merkez ve Peçenek çevresinde mahalle adı ile yakın referans noktası tarifi hızlandırır.',
+      'Virajlı veya eğimli yol kesimlerinde aracın güvenli bir cepte olup olmadığı önceden belirtilmelidir.',
+      'Kızılcahamam bağlantısında kalan araçlarda yol yönü ve yakın yerleşim bilgisi yönlendirmeyi kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Dağ yolu veya mahalle içi arızalarda güvenli ve hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Oto kurtarma',
+        description: 'Şevden çıkmış veya zor erişimli noktalardaki araçlar için uygundur.',
+        href: '/hizmetler/oto-kurtarma/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Ankara merkez veya Gerede yönüne planlı taşımalarda tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      }
+    ],
+    callout:
+      'Çamlıdere’de konum paylaşırken virajlı bir kesimde miydiniz, düz yolda mı olduğunuzu belirtmeniz güvenli yaklaşım planını kolaylaştırır.',
+    faqs: [
+      {
+        question: 'Çamlıdere’de dağ yolunda gece çekici hizmeti alınır mı?',
+        answer: 'Evet, 7/24 hizmet kapsamında konum ve yol koşulu bilgisiyle gece de destek sağlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'kizilcahamam',
+    focusTitle: 'Kızılcahamam’da İstanbul Yolu trafiği çekici sürecini nasıl etkiler?',
+    focusIntro:
+      'Kızılcahamam’da çekici talepleri sıklıkla İstanbul Yolu ve D750 aksındaki yoğun geçiş trafiğiyle birlikte değerlendirilir. Soğuksu, İsmetpaşa ve Akçay çevresindeki konum bilgisi, çekicinin doğru noktaya yönlendirilmesini kolaylaştırır.',
+    routeNotes: [
+      'İstanbul Yolu üzerinde arıza durumunda şerit bilgisi ve en yakın çıkış veya dinlenme tesisi önemlidir.',
+      'Soğuksu ve İsmetpaşa çevresinde sokak adı ile birlikte yakın otel veya işletme referansı tarifi hızlandırır.',
+      'Dağlık ve virajlı kesimlerde güvenli bekleme noktası ve yol yönü bilgisi paylaşılmalıdır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'İstanbul Yolu veya ilçe merkezindeki ani arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Kaza sonrası araç çekimi',
+        description: 'Yoğun geçiş trafiğinde kaza sonrası güvenli ve kontrollü çekim için uygundur.',
+        href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Ankara veya İstanbul yönü planlı taşımalarında tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      }
+    ],
+    callout:
+      'Kızılcahamam’dan çekici çağırırken İstanbul Yolu üzerindeyseniz yön, kilometre ve şerit bilgisini paylaşmanız süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Kızılcahamam İstanbul Yolu’nda kaza sonrası çekici ne kadar sürede ulaşır?',
+        answer: 'Süre; trafik yoğunluğu, konum ve hava koşullarına göre değişir, canlı konum paylaşımı süreci hızlandırır.'
+      },
+      {
+        question: 'Kızılcahamam’dan Ankara’ya araç taşıma yapılır mı?',
+        answer: 'Evet. Rota, araç durumu ve teslim noktası bilgisiyle planlı taşıma değerlendirilebilir.'
+      }
+    ]
+  },
+  {
+    slug: 'bala',
+    focusTitle: 'Bala’da kırsal bağlantılar çekici planını nasıl şekillendirir?',
+    focusIntro:
+      'Bala’da çekici ihtiyacı çoğunlukla Konya Yolu bağlantısı üzerindeki arızalar ile Kesikköprü, Afşar ve Beynam gibi kırsal yerleşimlerdeki yolda kalmalar arasında değişir. Mesafenin uzunluğu nedeniyle rota bilgisinin baştan netleşmesi önemlidir.',
+    routeNotes: [
+      'Bala Merkez ve Kesikköprü çevresinde mahalle adı ile yakın referans noktası tarifi hızlandırır.',
+      'Konya Yolu bağlantısında arıza fark edildiğinde güvenli bir cepte bekleme ve yol yönü bilgisi paylaşılmalıdır.',
+      'Köy yollarında kalan araçlar için en yakın yerleşim adı ve kilometre bilgisi yönlendirmeyi kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Kırsal yol veya ana bağlantı üzerindeki arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Bala çıkışlı veya varışlı uzun mesafe taşımalarda tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      },
+      {
+        title: 'Acil yol yardım',
+        description: 'Basit arızalarda çekici gerekip gerekmediği ilk değerlendirmeyle netleşir.',
+        href: '/hizmetler/yol-yardim/'
+      }
+    ],
+    callout:
+      'Bala’dan çekici çağırırken bulunduğunuz köy veya mahalle adını, Konya Yolu üzerindeyseniz kilometre bilgisini iletmeniz süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Bala’da köy yollarında çekici hizmeti verilir mi?',
+        answer: 'Evet. Konum ve yol tarifi paylaşıldığında köy yollarında da destek sağlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'evren',
+    focusTitle: 'Evren’de uzun mesafe koşulları çekici sürecini nasıl etkiler?',
+    focusIntro:
+      'Evren, Ankara’nın güneydoğusunda yer aldığı için çekici talepleri genellikle uzun mesafe planlaması gerektirir. Solakuşağı, İnebeyli ve Şereflikoçhisar bağlantısı üzerindeki konum bilgisi, teslim noktası ve rota netleşmesini kolaylaştırır.',
+    routeNotes: [
+      'Evren Merkez ve Solakuşağı çevresinde mahalle adı ile birlikte en yakın referans noktası paylaşılmalıdır.',
+      'Hirfanlı çevresinde kalan araçlar için yakın yerleşim veya kıyı yolu bilgisi yönlendirmeyi kolaylaştırır.',
+      'Şereflikoçhisar bağlantısına çıkan araçlarda yol yönü ve kilometre bilgisi süreci hızlandırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Uzun mesafe yol üzerindeki ani arızalarda güvenli yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Evren çıkışlı veya varışlı uzun mesafe taşımalarda öncelikli tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      },
+      {
+        title: 'Kaza sonrası araç çekimi',
+        description: 'Ana yol üzerinde kaza sonrası hareket edemeyen araçlar için güvenli taşıma sağlar.',
+        href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+      }
+    ],
+    callout:
+      'Evren’den çekici çağırırken Hirfanlı çevresinde mi yoksa merkez yakınında mı olduğunuzu ve gidilecek noktayı belirtmeniz planlamayı kolaylaştırır.',
+    faqs: [
+      {
+        question: 'Evren’den Ankara merkeze araç taşıma süresi ne kadar tutar?',
+        answer: 'Mesafe uzun olduğu için süre; rota, araç tipi ve trafik durumuna göre değişir.'
+      }
+    ]
+  },
+  {
+    slug: 'haymana',
+    focusTitle: 'Haymana’da çekici planı yol mesafesine göre nasıl şekillenir?',
+    focusIntro:
+      'Haymana’da çekici ihtiyacı çoğunlukla Haymana Yolu ve Konya Yolu bağlantısı üzerindeki uzun mesafe arızalarla birlikte değerlendirilir. Medrese, Yenice ve Balçıkhisar çevresindeki konum bilgisi yönlendirme süresini kısaltır.',
+    routeNotes: [
+      'Haymana Merkez ve Medrese çevresinde sokak adı ile yakın referans noktası tarifi hızlandırır.',
+      'Haymana Yolu üzerinde arıza fark edildiğinde güvenli bir cepte bekleme ve yol yönü bilgisi paylaşılmalıdır.',
+      'Kırsal bağlantılarda en yakın yerleşim adı ve kilometre bilgisi çekici erişimini kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Haymana Yolu veya ilçe merkezindeki ani arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Haymana çıkışlı taşıma taleplerinde rota ve teslim noktasıyla planlanır.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      },
+      {
+        title: 'Acil yol yardım',
+        description: 'Basit arızalarda çekici gerekip gerekmediği konum bilgisiyle değerlendirilir.',
+        href: '/hizmetler/yol-yardim/'
+      }
+    ],
+    callout:
+      'Haymana’dan çekici çağırırken Haymana Yolu üzerindeyseniz kilometre ve yön bilgisini, mahalle içindeyseniz sokak adını paylaşmanız süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Haymana’da gece çekici hizmeti alınır mı?',
+        answer: 'Evet, 7/24 hizmet kapsamında konum bilgisiyle gece de destek sağlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'kalecik',
+    focusTitle: 'Kalecik’te Çankırı Yolu trafiği çekici sürecini nasıl etkiler?',
+    focusIntro:
+      'Kalecik’te çekici talepleri sıklıkla Çankırı Yolu üzerindeki geçiş trafiği ile Çandır, Gökdere ve Hançılı gibi mahallelerdeki yolda kalmalar arasında ayrışır. Ana yol ile mahalle içi konum farkı, çekicinin doğru noktaya yönlendirilmesini belirler.',
+    routeNotes: [
+      'Kalecik Merkez ve Çandır çevresinde sokak adı ile yakın referans noktası tarifi hızlandırır.',
+      'Çankırı Yolu üzerinde arıza durumunda şerit bilgisi ve en yakın kavşak veya dinlenme noktası önemlidir.',
+      'Mahalle yollarında kalan araçlar için yön ve yakın yerleşim bilgisi çekici erişimini kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Çankırı Yolu veya ilçe merkezindeki ani arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Servis ve otopark araç taşıma',
+        description: 'Kalecik veya Ankara’daki servis noktasına taşıma talepleri için uygundur.',
+        href: '/hizmetler/servis-otopark-arac-tasima/'
+      },
+      {
+        title: 'Kaza sonrası araç çekimi',
+        description: 'Çankırı Yolu üzerinde kaza sonrası güvenli ve kontrollü çekim sağlar.',
+        href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+      }
+    ],
+    callout:
+      'Kalecik’ten çekici çağırırken Çankırı Yolu üzerindeyseniz yön ve kilometre bilgisini, mahalle içindeyseniz sokak adını paylaşmanız süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Kalecik’ten Ankara’daki servise araç taşıma yapılır mı?',
+        answer: 'Evet. Servis adresi ve araç durumu paylaşıldığında taşıma süreci planlanabilir.'
+      }
+    ]
+  },
+  {
+    slug: 'sereflikochisar',
+    focusTitle: 'Şereflikoçhisar’da Aksaray Yolu trafiği çekici sürecini nasıl belirler?',
+    focusIntro:
+      'Şereflikoçhisar’da çekici ihtiyacı genellikle Ankara-Aksaray Yolu üzerindeki uzun mesafe arızalar ile Sanayi, Tuzla ve Yeşilova gibi mahallelerdeki yolda kalmalar arasında değişir. Tuz Gölü çevresindeki konum bilgisi yönlendirme süresini kısaltır.',
+    routeNotes: [
+      'Şereflikoçhisar Merkez ve Sanayi bölgesinde sokak adı ile yakın işletme referansı tarifi hızlandırır.',
+      'Ankara-Aksaray Yolu üzerinde arıza durumunda şerit bilgisi ve en yakın dinlenme tesisi önemlidir.',
+      'Tuz Gölü çevresinde kalan araçlar için yakın yerleşim veya kilometre bilgisi çekici erişimini kolaylaştırır.'
+    ],
+    serviceLinks: [
+      {
+        title: 'Acil oto çekici',
+        description: 'Aksaray Yolu veya ilçe merkezindeki ani arızalarda hızlı yönlendirme sağlar.',
+        href: '/hizmetler/acil-oto-cekici/'
+      },
+      {
+        title: 'Şehirlerarası araç taşıma',
+        description: 'Aksaray, Konya veya Ankara merkez yönüne planlı taşımalarda tercih edilir.',
+        href: '/hizmetler/sehirlerarasi-arac-tasima/'
+      },
+      {
+        title: 'Kaza sonrası araç çekimi',
+        description: 'Ana yol üzerinde kaza sonrası güvenli ve kontrollü çekim için uygundur.',
+        href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+      }
+    ],
+    callout:
+      'Şereflikoçhisar’dan çekici çağırırken Aksaray Yolu üzerindeyseniz yön ve kilometre bilgisini, sanayi bölgesindeyseniz servis adresini paylaşmanız süreci hızlandırır.',
+    faqs: [
+      {
+        question: 'Şereflikoçhisar’dan Aksaray yönüne araç taşıma yapılır mı?',
+        answer: 'Evet. Rota, araç tipi ve teslim noktası bilgisiyle planlı taşıma değerlendirilebilir.'
+      },
+      {
+        question: 'Tuz Gölü çevresinde arıza durumunda çekici ulaşır mı?',
+        answer: 'Evet. Konum ve yol tarifi paylaşıldığında Tuz Gölü çevresinde de destek sağlanabilir.'
+      }
+    ]
   }
 ];
 

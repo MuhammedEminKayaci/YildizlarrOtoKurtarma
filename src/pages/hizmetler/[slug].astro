@@ -9,7 +9,7 @@ import ServiceCard from '@/components/ServiceCard.astro';
 import SectionTitle from '@/components/SectionTitle.astro';
 import { site } from '@/data/site';
 import { services, type Service } from '@/data/services';
-import { getServiceImageByTitle } from '@/data/media';
+import { getServiceGalleryBySlug, getServiceImageByTitle } from '@/data/media';
 import {
   createBreadcrumbSchema,
   createFAQSchema,
@@ -32,6 +32,7 @@ interface Props {
 const { service } = Astro.props;
 const canonical = service.href;
 const serviceImage = getServiceImageByTitle(service.title);
+const serviceGallery = getServiceGalleryBySlug(service.slug);
 const relatedServices = service.relatedSlugs
   .map((slug) => services.find((item) => item.slug === slug))
   .filter(Boolean) as Service[];
@@ -63,9 +64,8 @@ const breadcrumbs = [
     })
   ]}
 >
-  <Breadcrumb items={breadcrumbs} />
-
   <section class="service-hero">
+    <Breadcrumb items={breadcrumbs} />
     <div class="site-container service-hero-grid">
       <div>
         <p class="accent-pill mb-5">{site.city} hizmeti</p>
@@ -109,6 +109,31 @@ const breadcrumbs = [
       </div>
     </div>
   </section>
+
+  {serviceGallery.length > 0 && (
+    <section class="service-gallery-section section-pad">
+      <div class="site-container">
+        <SectionTitle
+          eyebrow="Sahadan Gerçek Görüntüler"
+          title={`${service.title} çalışmalarımız`}
+          description="Farklı araç ve makine tiplerinin kayar kasa üzerinde kontrollü yükleme ve taşıma örnekleri."
+          tone="dark"
+        />
+        <div class:list={['service-gallery', serviceGallery.length === 1 && 'service-gallery--single']}>
+          {serviceGallery.map((image) => (
+            <figure class="service-gallery-card">
+              <ResponsiveImage
+                image={image}
+                class="service-gallery-image"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
+              {image.caption && <figcaption>{image.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="light-section section-pad">
     <div class="site-container">
@@ -154,12 +179,13 @@ const breadcrumbs = [
 <style>
 .service-hero {
   background: #f5f7fb;
-  padding: 56px 0 80px;
 }
 .service-hero-grid {
   display: grid;
   gap: 36px;
   align-items: center;
+  padding-top: 56px;
+  padding-bottom: 80px;
 }
 @media (min-width: 960px) {
   .service-hero-grid {
@@ -237,5 +263,44 @@ const breadcrumbs = [
   color: #64748b;
   font-size: 0.92rem;
   line-height: 1.7;
+}
+.service-gallery-section {
+  background: #080c14;
+  color: #ffffff;
+}
+.service-gallery {
+  display: grid;
+  gap: 18px;
+  margin-top: 38px;
+}
+@media (min-width: 640px) {
+  .service-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .service-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .service-gallery--single {
+    grid-template-columns: minmax(0, 760px);
+  }
+}
+.service-gallery-card {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.service-gallery-image {
+  height: clamp(260px, 34vw, 410px);
+  border-radius: 0;
+}
+.service-gallery-card figcaption {
+  padding: 15px 18px 17px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.88rem;
+  font-weight: 650;
 }
 </style>

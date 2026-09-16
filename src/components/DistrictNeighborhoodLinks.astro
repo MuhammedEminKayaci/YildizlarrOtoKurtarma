@@ -1,0 +1,65 @@
+---
+import Icon from '@/components/Icon.astro';
+import { getNeighborhoodsForDistrict } from '@/data/neighborhoodPages';
+
+interface Props {
+  districtSlug: string;
+  districtName: string;
+}
+
+const { districtSlug, districtName } = Astro.props;
+const neighborhoods = getNeighborhoodsForDistrict(districtSlug);
+---
+
+{neighborhoods.length > 0 && (
+  <section class="neighborhood-section section-pad">
+    <div class="site-container">
+      <div class="neighborhood-heading">
+        <div>
+          <p class="section-eyebrow mb-4">Semt ve Bölgeler</p>
+          <h2 class="section-heading">{districtName} bölgesinde hizmet verdiğimiz noktalar</h2>
+          <p class="neighborhood-intro">
+            Bulunduğunuz semti seçerek bölgeye özel çekici, oto kurtarıcı ve araç taşıma bilgilerini inceleyebilirsiniz.
+          </p>
+        </div>
+        <span class="neighborhood-count">{neighborhoods.length} bölge</span>
+      </div>
+
+      <div class="neighborhood-grid">
+        {neighborhoods.map((item) => (
+          <a href={`/ankara-cekici/${districtSlug}/${item.slug}/`} class="neighborhood-card">
+            <span>
+              <strong>{item.name}</strong>
+              <small>Oto çekici ve kurtarıcı</small>
+            </span>
+            <Icon name="arrow-right" size={17} strokeWidth={2.2} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+.neighborhood-section { background: #f5f7fb; }
+.neighborhood-heading { display: flex; flex-direction: column; gap: 20px; }
+.neighborhood-intro { max-width: 700px; margin: 18px 0 0; color: #64748b; font-size: 1rem; line-height: 1.75; }
+.neighborhood-count { align-self: flex-start; padding: 8px 13px; border-radius: 999px; background: #080c14; color: #ffc94a; font-size: 0.78rem; font-weight: 750; white-space: nowrap; }
+.neighborhood-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 34px; }
+.neighborhood-card { display: flex; min-width: 0; min-height: 74px; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 15px; border: 1px solid rgba(15, 23, 42, 0.08); border-radius: 15px; background: #fff; color: #111827; text-decoration: none; box-shadow: 0 4px 18px rgba(8, 12, 20, 0.045); transition: transform 180ms, border-color 180ms, box-shadow 180ms; }
+.neighborhood-card span { min-width: 0; }
+.neighborhood-card strong { display: block; overflow: hidden; font-size: 0.9rem; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+.neighborhood-card small { display: block; margin-top: 4px; color: #94a3b8; font-size: 0.68rem; }
+.neighborhood-card :global(svg) { flex-shrink: 0; color: #64748b; transition: transform 180ms, color 180ms; }
+.neighborhood-card:hover { transform: translateY(-2px); border-color: rgba(255, 201, 74, 0.65); box-shadow: 0 10px 28px rgba(8, 12, 20, 0.08); }
+.neighborhood-card:hover :global(svg) { transform: translateX(3px); color: #b45309; }
+@media (min-width: 640px) {
+  .neighborhood-heading { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .neighborhood-count { align-self: auto; }
+  .neighborhood-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+}
+@media (min-width: 1024px) {
+  .neighborhood-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .neighborhood-card { min-height: 82px; padding: 16px 17px; }
+}
+</style>

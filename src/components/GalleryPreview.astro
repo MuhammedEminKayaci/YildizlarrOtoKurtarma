@@ -3,7 +3,23 @@ import ResponsiveImage from '@/components/ResponsiveImage.astro';
 import Icon from '@/components/Icon.astro';
 import { media } from '@/data/media';
 
-const images = media.galleryImages.slice(0, 9);
+const galleryCrop = (image: (typeof media.services)[keyof typeof media.services], filename: string) => ({
+  ...image,
+  src: `/images/gallery/heavy-transport/${filename}`,
+  webp: undefined,
+  width: 1200,
+  height: 900
+});
+const newTransportImages = [
+  galleryCrop(media.services.largeVehicleTransport, 'kayar-kasa-buyuk-arac-tasima.jpg'),
+  galleryCrop(media.services.forkliftTransport, 'forklift-tasima.jpg'),
+  galleryCrop(media.services.manliftTransport, 'manlift-tasima.jpg'),
+  galleryCrop(media.services.truckTransport, 'kamyon-tasima.jpg'),
+  galleryCrop(media.services.tractorTransport, 'traktor-tasima.jpg'),
+  galleryCrop(media.services.compactMachineTransport, 'is-makinesi-tasima.jpg'),
+  galleryCrop(media.services.manliftTransportVertical, 'manlift-kayar-kasa.jpg')
+];
+const images = [...newTransportImages, ...media.galleryImages.slice(0, 5)];
 ---
 
 <section class="gal-section">
@@ -13,7 +29,7 @@ const images = media.galleryImages.slice(0, 9);
       <div>
         <p class="section-eyebrow" style="margin-bottom:14px">Galeri</p>
         <h2 class="section-heading">Operasyondan Kareler</h2>
-        <p class="gal-sub">Ankara genelinde gerçekleştirdiğimiz çekici ve araç taşıma operasyonlarından — klasiklerden lüks araçlara, her araca özenli taşıma.</p>
+        <p class="gal-sub">Büyük ticari araç, forklift, manlift, traktör, iş makinesi ve otomobil taşıma operasyonlarımızdan gerçek saha görüntüleri.</p>
       </div>
       <a class="btn-secondary btn-arrow" href="/iletisim/" style="flex-shrink:0">İletişime Geçin <Icon name="arrow-right" size={16} strokeWidth={2.25} /></a>
     </div>
@@ -87,7 +103,7 @@ const images = media.galleryImages.slice(0, 9);
   .gal-item--large { grid-column: span 2; grid-row: span 2; }
 }
 
-.gal-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 600ms cubic-bezier(0.22,1,0.36,1); }
+.gal-img { width: 100%; height: 100%; display: block; background: #e2e8f0; transition: transform 600ms cubic-bezier(0.22,1,0.36,1); }
 .gal-item:hover .gal-img, .gal-item:focus-visible .gal-img { transform: scale(1.07); }
 
 .gal-overlay {

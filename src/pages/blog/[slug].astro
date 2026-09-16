@@ -1,7 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumb from '@/components/Breadcrumb.astro';
 import BlogHero from '@/components/BlogHero.astro';
 import ArticleCTA from '@/components/ArticleCTA.astro';
 import RelatedPosts from '@/components/RelatedPosts.astro';
@@ -69,7 +68,6 @@ const breadcrumbs = [
     createOrganizationSchema()
   ]}
 >
-  <Breadcrumb items={breadcrumbs} />
   <BlogHero
     title={post.data.title}
     description={post.data.description}
@@ -77,6 +75,7 @@ const breadcrumbs = [
     publishDate={post.data.publishDate}
     readingTime={post.data.readingTime}
     slug={post.slug}
+    breadcrumbs={breadcrumbs}
   />
 
   <article class="bg-white">

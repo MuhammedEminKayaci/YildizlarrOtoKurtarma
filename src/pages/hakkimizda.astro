@@ -21,9 +21,9 @@ const pageDescription =
   canonical="/hakkimizda/"
   jsonLd={[createOrganizationSchema(), createLocalBusinessSchema(), createBreadcrumbSchema(breadcrumbs)]}
 >
-  <Breadcrumb items={breadcrumbs} />
-  <section class="light-section section-pad">
-    <div class="site-container grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+  <section class="light-section">
+    <Breadcrumb items={breadcrumbs} />
+    <div class="site-container grid gap-10 py-16 md:grid-cols-[0.9fr_1.1fr] md:items-center md:py-24">
       <div class="max-w-3xl">
         <p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">Hakkımızda</p>
         <h1 class="text-4xl font-semibold leading-tight text-ink-950 md:text-6xl">Yıldızlar Oto Kurtarma Hakkında</h1>

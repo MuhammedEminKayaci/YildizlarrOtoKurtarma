@@ -1,0 +1,281 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CTAButtons from '@/components/CTAButtons.astro';
+import FAQ from '@/components/FAQ.astro';
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
+import SectionTitle from '@/components/SectionTitle.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import ConversionCTA from '@/components/ConversionCTA.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/data/site';
+import { services, type Service } from '@/data/services';
+import {
+  getNearbyNeighborhoods,
+  neighborhoodPages,
+  type NeighborhoodPage,
+  type NeighborhoodProfile
+} from '@/data/neighborhoodPages';
+import { resolveDistrictHeroImage } from '@/data/media';
+import {
+  createBreadcrumbSchema,
+  createFAQSchema,
+  createLocalBusinessSchema,
+  createServiceCatalogSchema,
+  createWebPageSchema
+} from '@/lib/schema';
+
+export function getStaticPaths() {
+  return neighborhoodPages.map((page) => ({
+    params: { district: page.districtSlug, neighborhood: page.slug },
+    props: { page }
+  }));
+}
+
+interface Props {
+  page: NeighborhoodPage;
+}
+
+const { page } = Astro.props;
+const canonical = `/ankara-cekici/${page.districtSlug}/${page.slug}/`;
+const parentUrl = `/ankara-cekici/${page.districtSlug}/`;
+const districtSeoName = page.districtSlug === 'kahramankazan' ? 'Kahramankazan (Kazan)' : page.districtName;
+const pageTitle = `${page.name} Oto Çekici ve Oto Kurtarıcı | ${districtSeoName}`;
+const pageDescription = `${page.name}, ${districtSeoName} bölgesinde 7/24 oto çekici, oto kurtarıcı, yol yardım ve araç taşıma desteği. Konum göndererek hizmet talebi oluşturun.`;
+const h1 = `${page.name} Oto Çekici ve Oto Kurtarıcı`;
+const heroImage = resolveDistrictHeroImage(page.heroImageKey, `${page.name}, ${page.districtName}`);
+const nearbyNeighborhoods = getNearbyNeighborhoods(page);
+
+const profileCopy: Record<NeighborhoodProfile, {
+  label: string;
+  intro: string;
+  approach: string;
+  checks: string[];
+}> = {
+  central: {
+    label: 'Merkez ve yoğun trafik',
+    intro: 'Merkezi bölgelerde çekici operasyonu, trafik akışını aksatmayacak güvenli bir yükleme noktası belirlenerek planlanır.',
+    approach: 'Cadde yönü, aracın bulunduğu şerit ve en yakın açık referans noktası yönlendirmeyi kolaylaştırır.',
+    checks: ['Cadde ve gidiş yönü', 'Aracın trafiğe etkisi', 'Güvenli bekleme noktası']
+  },
+  residential: {
+    label: 'Konut, site ve otopark',
+    intro: 'Konut ve site bölgelerinde bina girişi, otopark koşulları ve aracın hareket kabiliyeti birlikte değerlendirilir.',
+    approach: 'Blok, kapı, otopark katı ve giriş yüksekliği gibi bilgiler doğru ekipmanla yönlendirme yapılmasına yardımcı olur.',
+    checks: ['Site veya blok girişi', 'Otopark yüksekliği', 'Rampa ve manevra alanı']
+  },
+  hillside: {
+    label: 'Eğimli ve dar yollar',
+    intro: 'Eğimli veya dar sokaklarda aracın yönü, yol genişliği ve çevredeki park durumu güvenli çekim planını belirler.',
+    approach: 'Sokağın üst veya alt girişinden yaklaşım, aracın fren ve teker durumu öğrenildikten sonra netleştirilir.',
+    checks: ['Yol eğimi ve genişliği', 'Aracın duruş yönü', 'Teker ve fren durumu']
+  },
+  commercial: {
+    label: 'İş merkezi ve ticari alan',
+    intro: 'İş merkezi, servis ve ticari alanlarda giriş kapısı, yükleme bölümü ve tesis kuralları dikkate alınarak taşıma planlanır.',
+    approach: 'Servis adı, otopark veya saha girişi ve teslim alacak kişi bilgisi sürecin daha kontrollü ilerlemesini sağlar.',
+    checks: ['Tesis veya servis girişi', 'Araç tipi ve ölçüsü', 'Teslim alacak kişi']
+  },
+  outer: {
+    label: 'Çevre ve bağlantı yolları',
+    intro: 'Merkez dışındaki bölgelerde canlı konum, yol yönü ve zemin koşulları doğru çekici yönlendirmesi için özellikle önemlidir.',
+    approach: 'Yakın kavşak, yol ayrımı veya bilinen bir referans ile aracın güvenli bekleme durumu birlikte paylaşılmalıdır.',
+    checks: ['Canlı konum ve yol yönü', 'Yakın kavşak veya referans', 'Yol zemini ve araç durumu']
+  }
+};
+
+const profile = profileCopy[page.profile];
+const featuredServices = ['acil-oto-cekici', 'oto-kurtarma', 'servis-otopark-arac-tasima']
+  .map((slug) => services.find((service) => service.slug === slug))
+  .filter((service): service is Service => Boolean(service));
+
+const faqs = [
+  {
+    question: `${page.name} bölgesinde oto çekici çağırmak için ne paylaşmalıyım?`,
+    answer: `Canlı konum, araç tipi, aracın çalışıp çalışmadığı, yol yönü ve gidilecek adres bilgisi ${page.name} için yönlendirmeyi kolaylaştırır.`
+  },
+  {
+    question: `${page.name} için 7/24 oto kurtarıcı desteği var mı?`,
+    answer: `Evet. ${site.name} ile günün her saatinde iletişime geçebilir; konum ve araç durumunu paylaşarak talebinizi iletebilirsiniz.`
+  },
+  {
+    question: `${page.name} bölgesinden servise araç taşınabilir mi?`,
+    answer: `Evet. Araç ${page.name} bölgesinden Ankara içindeki servis, otopark veya belirttiğiniz uygun teslim noktasına taşınabilir.`
+  },
+  {
+    question: `${page.name} çekici fiyatı nasıl belirlenir?`,
+    answer: 'Fiyat; araç tipi, alınacak konum, teslim adresi, mesafe ve aracın yükleme durumuna göre netleşir. Konum paylaşılması daha doğru bilgi verilmesini sağlar.'
+  }
+];
+
+const breadcrumbs = [
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Ankara Çekici', href: '/ankara-cekici/' },
+  { label: `${page.districtName} Çekici`, href: parentUrl },
+  { label: `${page.name} Çekici`, href: canonical }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonical}
+  ogImage={heroImage.src}
+  ogImageWidth={heroImage.width}
+  ogImageHeight={heroImage.height}
+  jsonLd={[
+    createLocalBusinessSchema(`${page.name}, ${page.districtName}`),
+    createServiceCatalogSchema({ items: featuredServices }),
+    createFAQSchema(faqs),
+    createBreadcrumbSchema(breadcrumbs),
+    createWebPageSchema({
+      title: pageTitle,
+      description: pageDescription,
+      url: canonical,
+      name: h1,
+      breadcrumbName: `${page.name} Çekici`
+    })
+  ]}
+>
+  <section class="neighborhood-hero">
+    <Breadcrumb items={breadcrumbs} />
+    <div class="site-container neighborhood-hero-grid">
+      <div>
+        <p class="accent-pill mb-5">{page.districtName} · {page.name}</p>
+        <h1>{h1}</h1>
+        <p class="hero-lead">
+          {page.name} bölgesinde arıza, kaza, otoparktan araç alma veya servis taşıma ihtiyaçları için 7/24 ulaşılabilir çekici desteği.
+        </p>
+        <div class="mt-8"><CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" /></div>
+        <div class="hero-trust">
+          <span><Icon name="clock" size={17} /> 7/24 iletişim</span>
+          <span><Icon name="map-pin" size={17} /> Konumla yönlendirme</span>
+          <span><Icon name="shield-check" size={17} /> Kontrollü taşıma</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <ResponsiveImage image={heroImage} class="h-full w-full" sizes="(min-width: 960px) 42vw, 100vw" loading="eager" fetchpriority="high" />
+        <div class="hero-visual-label">
+          <strong>{page.name}</strong>
+          <span>{profile.label}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container local-grid">
+      <div>
+        <SectionTitle
+          eyebrow="Bölgesel Çekici Desteği"
+          title={`${page.name} bölgesinde araç taşıma planı`}
+          description={profile.intro}
+        />
+        <p class="local-context">{page.localContext}</p>
+      </div>
+      <aside class="location-card">
+        <p class="location-label">Konum gönderirken ekleyin</p>
+        <ul>
+          {profile.checks.map((check) => <li><Icon name="circle-check" size={18} /> {check}</li>)}
+        </ul>
+        <p>{profile.approach}</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <SectionTitle
+        eyebrow="Hizmetler"
+        title={`${page.name} için çekici ve oto kurtarıcı seçenekleri`}
+        description="Aracın bulunduğu yer ve teknik durumuna göre acil çekici, kurtarma veya planlı servis taşıması değerlendirilir."
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {featuredServices.map((service) => service && <ServiceCard {...service} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="nearby-section section-pad">
+    <div class="site-container">
+      <div class="nearby-head">
+        <SectionTitle
+          tone="dark"
+          eyebrow="Yakın Bölgeler"
+          title={`${page.districtName} içindeki diğer hizmet noktaları`}
+          description={`${page.name} çevresindeki semt sayfalarına geçerek bölgesel bilgileri inceleyebilirsiniz.`}
+        />
+        <a href={parentUrl} class="parent-link">Tüm {page.districtName} bölgeleri <Icon name="arrow-right" size={17} /></a>
+      </div>
+      <div class="nearby-grid">
+        {nearbyNeighborhoods.map((item) => (
+          <a href={`/ankara-cekici/${item.districtSlug}/${item.slug}/`}>
+            <span>{item.name}</span>
+            <small>{item.districtName} oto çekici</small>
+            <Icon name="arrow-right" size={17} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white section-pad">
+    <div class="site-container">
+      <SectionTitle
+        align="center"
+        eyebrow="Sık Sorulanlar"
+        title={`${page.name} oto çekici hakkında sorular`}
+        description="Hizmet kapsamı, konum paylaşımı ve araç taşıma süreci hakkında kısa yanıtlar."
+      />
+      <div class="mt-10"><FAQ items={faqs} /></div>
+    </div>
+  </section>
+
+  <section class="light-section section-pad">
+    <div class="site-container">
+      <ConversionCTA
+        title={`${page.name} bölgesinde çekici mi gerekiyor?`}
+        description="Konumunuzu ve aracın durumunu paylaşın; uygun oto çekici veya oto kurtarıcı yönlendirmesini birlikte netleştirelim."
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.neighborhood-hero { background: #f5f7fb; }
+.neighborhood-hero-grid { display: grid; gap: 36px; align-items: center; padding-top: 48px; padding-bottom: 72px; }
+.neighborhood-hero h1 { max-width: 760px; margin: 0; color: #080c14; font-size: clamp(2.3rem, 7vw, 4.3rem); font-weight: 750; line-height: 1.03; letter-spacing: -0.035em; }
+.hero-lead { max-width: 680px; margin: 22px 0 0; color: #526078; font-size: 1rem; line-height: 1.8; }
+.hero-trust { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 26px; color: #64748b; font-size: 0.78rem; font-weight: 650; }
+.hero-trust span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-trust :global(svg) { color: #d99600; }
+.hero-visual { position: relative; min-height: 310px; height: min(520px, 75vw); overflow: hidden; border-radius: 25px; background: #dce3ed; box-shadow: 0 22px 65px rgba(8,12,20,.14); }
+.hero-visual-label { position: absolute; right: 16px; bottom: 16px; left: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: rgba(8,12,20,.82); color: #fff; backdrop-filter: blur(10px); }
+.hero-visual-label strong { font-size: .92rem; }
+.hero-visual-label span { color: #ffc94a; font-size: .7rem; font-weight: 700; text-align: right; }
+.local-grid { display: grid; gap: 34px; align-items: start; }
+.local-context { margin: 26px 0 0; padding: 20px 22px; border-left: 3px solid #ffc94a; border-radius: 0 15px 15px 0; background: #f8fafc; color: #526078; font-size: .94rem; line-height: 1.75; }
+.location-card { padding: 25px; border: 1px solid rgba(15,23,42,.09); border-radius: 20px; background: #fff; box-shadow: 0 12px 38px rgba(8,12,20,.08); }
+.location-label { margin: 0; color: #080c14; font-size: 1.05rem; font-weight: 750; }
+.location-card ul { display: grid; gap: 11px; margin: 20px 0; padding: 0; list-style: none; }
+.location-card li { display: flex; align-items: center; gap: 9px; color: #334155; font-size: .88rem; font-weight: 650; }
+.location-card li :global(svg) { color: #d99600; }
+.location-card > p:last-child { margin: 0; color: #64748b; font-size: .82rem; line-height: 1.7; }
+.nearby-section { background: #080c14; }
+.nearby-head { display: flex; flex-direction: column; gap: 24px; }
+.parent-link { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: #fff; font-size: .82rem; font-weight: 700; text-decoration: none; }
+.nearby-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 34px; }
+.nearby-grid a { position: relative; min-width: 0; padding: 17px; border: 1px solid rgba(255,255,255,.1); border-radius: 15px; background: rgba(255,255,255,.055); color: #fff; text-decoration: none; transition: transform 180ms, border-color 180ms, background 180ms; }
+.nearby-grid a span { display: block; padding-right: 24px; overflow: hidden; font-size: .9rem; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+.nearby-grid a small { display: block; margin-top: 5px; color: rgba(255,255,255,.45); font-size: .68rem; }
+.nearby-grid a :global(svg) { position: absolute; top: 18px; right: 14px; color: #ffc94a; }
+.nearby-grid a:hover { transform: translateY(-2px); border-color: rgba(255,201,74,.48); background: rgba(255,255,255,.08); }
+@media (min-width: 640px) { .nearby-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 960px) {
+  .neighborhood-hero-grid { grid-template-columns: 1fr .82fr; gap: 58px; padding-top: 58px; padding-bottom: 84px; }
+  .local-grid { grid-template-columns: 1fr .72fr; gap: 56px; }
+  .nearby-head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .parent-link { align-self: auto; flex-shrink: 0; }
+  .nearby-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+</style>

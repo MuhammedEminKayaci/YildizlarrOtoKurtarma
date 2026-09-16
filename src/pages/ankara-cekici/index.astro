@@ -2,14 +2,15 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 import SectionTitle from '@/components/SectionTitle.astro';
-import DistrictCard from '@/components/DistrictCard.astro';
 import FAQ from '@/components/FAQ.astro';
 import CTAButtons from '@/components/CTAButtons.astro';
 import ConversionCTA from '@/components/ConversionCTA.astro';
 import Icon from '@/components/Icon.astro';
+import ResponsiveImage from '@/components/ResponsiveImage.astro';
 import { site } from '@/data/site';
-import { districts } from '@/data/districts';
+import { districtGroups } from '@/data/districtGroups';
 import { faqs } from '@/data/faqs';
+import { media } from '@/data/media';
 import { processSteps } from '@/data/processSteps';
 import { services } from '@/data/services';
 import {
@@ -25,82 +26,83 @@ const breadcrumbs = [
   { label: 'Ankara Çekici', href: '/ankara-cekici/' }
 ];
 
-const pageTitle = 'Ankara Çekici Hizmeti | 7/24 Oto Kurtarma ve Yol Yardım';
+const pageTitle = 'Ankara Oto Çekici ve Oto Kurtarıcı | 7/24 Yol Yardım';
 const pageDescription =
-  'Ankara’da 7/24 çekici, oto kurtarma ve acil yol yardım hizmeti. Çankaya, Keçiören, Polatlı, Pursaklar ve tüm Ankara ilçeleri için destek.';
-const priorityDistrictSlugs = ['cankaya', 'kecioren', 'yenimahalle', 'mamak', 'etimesgut', 'sincan', 'altindag', 'golbasi'];
-const priorityDistricts = priorityDistrictSlugs
-  .map((slug) => districts.find((district) => district.slug === slug))
-  .filter(Boolean);
+  'Ankara’da 7/24 oto çekici, oto kurtarıcı, acil yol yardım ve kayar kasa araç taşıma. Tüm Ankara ilçelerinde otomobil ve iş makinesi taşıma desteği.';
 const serviceIntentBlocks = [
   {
     title: 'Acil çekici çağırma',
     icon: 'phone-call',
     description:
       'Arıza, kaza veya yolda kalma durumunda canlı konum, araç tipi ve yol yönü alınarak çekici süreci netleştirilir.',
-    href: '/hizmetler/acil-oto-cekici/'
+    href: '/hizmetler/acil-oto-cekici/',
+    image: media.services.emergencyTowing
   },
   {
     title: 'Oto kurtarma ihtiyacı',
     icon: 'wrench',
     description:
       'Dar sokak, eğimli yol, otopark rampası veya zor erişimli noktalarda aracın güvenli şekilde alınması planlanır.',
-    href: '/hizmetler/oto-kurtarma/'
+    href: '/hizmetler/oto-kurtarma/',
+    image: media.services.towingRecovery
   },
   {
     title: 'Acil yol yardım',
     icon: 'headphones',
     description:
       'Akü, lastik, basit arıza veya çekici gerekip gerekmediği konusunda ilk değerlendirme konum bilgisiyle yapılır.',
-    href: '/hizmetler/yol-yardim/'
+    href: '/hizmetler/yol-yardim/',
+    image: media.services.roadsideAssistance
   },
   {
     title: 'Kaza sonrası araç çekimi',
     icon: 'shield-check',
     description:
       'Kaza sonrası hareket edemeyen aracın trafiği riske atmadan servis, otopark veya güvenli noktaya taşınması sağlanır.',
-    href: '/hizmetler/kaza-sonrasi-arac-cekimi/'
+    href: '/hizmetler/kaza-sonrasi-arac-cekimi/',
+    image: media.services.accidentTowing
   },
   {
     title: 'Kapalı otoparktan araç taşıma',
     icon: 'building',
     description:
       'Otopark yüksekliği, rampa durumu ve aracın hareket kabiliyeti öğrenilerek uygun taşıma yaklaşımı seçilir.',
-    href: '/hizmetler/servis-otopark-arac-tasima/'
+    href: '/hizmetler/servis-otopark-arac-tasima/',
+    image: media.services.parkingServiceTransport
   },
   {
     title: 'Şehirlerarası araç taşıma',
     icon: 'navigation',
     description:
       'Ankara çıkışlı uzun mesafe taşımalarda teslim adresi, rota ve araç durumu baştan netleştirilir.',
-    href: '/hizmetler/sehirlerarasi-arac-tasima/'
+    href: '/hizmetler/sehirlerarasi-arac-tasima/',
+    image: media.services.intercityTransport
+  },
+  {
+    title: 'Kayar kasa büyük araç taşıma',
+    icon: 'truck',
+    description:
+      'Kamyonet, panelvan, hafif kamyon, traktör ve uygun tonajdaki büyük araçlar ölçüleri kontrol edilerek taşınır.',
+    href: '/hizmetler/kayar-kasa-buyuk-arac-tasima/',
+    image: media.services.largeVehicleTransport
+  },
+  {
+    title: 'Forklift taşıma',
+    icon: 'wrench',
+    description:
+      'Forkliftin ağırlığı, direk yüksekliği ve saha erişimi değerlendirilerek kayar kasa üzerinde güvenli nakil planlanır.',
+    href: '/hizmetler/forklift-tasima/',
+    image: media.services.forkliftTransport
+  },
+  {
+    title: 'Manlift taşıma',
+    icon: 'building',
+    description:
+      'Makaslı platform ve personel yükselticiler ölçü ve tonaj uygunluğuna göre şantiye, servis veya depoya taşınır.',
+    href: '/hizmetler/manlift-tasima/',
+    image: media.services.manliftTransport
   }
 ];
-const districtGroups = [
-  {
-    title: 'Merkez ve yoğun bölgeler',
-    description: 'Şehir merkezi, iş bölgeleri, sanayi bağlantıları ve yoğun konut alanları.',
-    slugs: ['cankaya', 'kecioren', 'yenimahalle', 'mamak', 'etimesgut', 'sincan', 'altindag', 'golbasi']
-  },
-  {
-    title: 'Batı aksı',
-    description: 'Ayaş Yolu, Beypazarı, Nallıhan, Polatlı ve çevre bağlantıları.',
-    slugs: ['ayas', 'beypazari', 'gudul', 'nallihan', 'polatli']
-  },
-  {
-    title: 'Kuzey aksı',
-    description: 'Esenboğa, İstanbul Yolu, Çankırı bağlantısı ve kuzey ilçeleri.',
-    slugs: ['akyurt', 'camlidere', 'cubuk', 'kahramankazan', 'kalecik', 'kizilcahamam', 'pursaklar']
-  },
-  {
-    title: 'Güney ve uzak ilçeler',
-    description: 'Konya Yolu, Aksaray yolu, kırsal bağlantılar ve uzun mesafe ihtiyaçları.',
-    slugs: ['bala', 'elmadag', 'evren', 'haymana', 'sereflikochisar']
-  }
-].map((group) => ({
-  ...group,
-  items: group.slugs.map((slug) => districts.find((district) => district.slug === slug)).filter(Boolean)
-}));
 ---
 
 <BaseLayout
@@ -121,22 +123,52 @@ const districtGroups = [
     })
   ]}
 >
-  <Breadcrumb items={breadcrumbs} />
-  <section class="noise-bg light-section section-pad">
-    <div class="site-container grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center">
-      <div class="max-w-3xl">
-        <p class="accent-pill mb-5">Ankara Çekici</p>
-        <h1 class="text-[clamp(2.25rem,9vw,4.5rem)] font-semibold leading-[1.02] text-ink-950">Ankara Çekici ve Oto Kurtarma Hizmeti</h1>
-        <p class="mt-5 text-base leading-7 text-ink-500 md:text-lg">
-          {site.city} içinde yolda kalma, arıza, kaza, kapalı otoparktan araç çıkarma veya planlı araç taşıma durumlarında {site.name} ile güvenli destek alabilirsiniz.
+  <section class="service-hero">
+    <div class="service-hero-glow" aria-hidden="true"></div>
+    <div class="service-hero-breadcrumb">
+      <Breadcrumb items={breadcrumbs} tone="dark" />
+    </div>
+    <div class="site-container service-hero-grid">
+      <div class="service-hero-copy">
+        <p class="service-hero-eyebrow">
+          <span></span>
+          Ankara genelinde 7/24 yol yardım
         </p>
-      </div>
-      <div class="glass-panel p-7">
-        <p class="text-base leading-8 text-ink-600">
-          Ankara’da çekici ihtiyacı çoğu zaman beklenmedik anda ortaya çıkar. Böyle durumlarda doğru konum paylaşımı, aracın durumunun net anlatılması ve güvenli taşıma planı sürecin en kritik adımlarıdır.
+        <h1>
+          <span>Ankara’da güvenli</span>
+          <span><em>çekici</em> ve araç</span>
+          <span>taşıma.</span>
+        </h1>
+        <p class="service-hero-lead">
+          Arıza, kaza veya planlı taşıma durumunda konumunuzu paylaşın. Araç ve yol koşuluna uygun desteği netleştirip süreci güvenle planlayalım.
         </p>
-        <div class="mt-7">
+        <div class="hero-actions">
           <CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" />
+        </div>
+        <div class="service-hero-trust" aria-label="Hizmet özellikleri">
+          <div><Icon name="clock" size={17} /><span><strong>7/24</strong> kesintisiz iletişim</span></div>
+          <div><Icon name="map-pin" size={17} /><span><strong>25 ilçe</strong> hizmet ağı</span></div>
+          <div><Icon name="shield-check" size={17} /><span><strong>Kontrollü</strong> araç taşıma</span></div>
+        </div>
+      </div>
+
+      <div class="service-hero-visual">
+        <ResponsiveImage
+          image={media.services.emergencyTowing}
+          class="service-hero-image"
+          rounded={false}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="service-hero-shade" aria-hidden="true"></div>
+        <div class="service-hero-badge service-hero-badge--top">
+          <span class="service-hero-badge-icon"><Icon name="map-pin" size={17} /></span>
+          <span><strong>Konumunuzu paylaşın</strong><small>En uygun yönlendirmeyi planlayalım</small></span>
+        </div>
+        <div class="service-hero-caption">
+          <span class="service-hero-caption-icon"><Icon name="truck" size={20} /></span>
+          <span><small>Yıldızlar Oto Kurtarma</small><strong>Sahadan gerçek hizmet görüntüsü</strong></span>
         </div>
       </div>
     </div>
@@ -149,25 +181,27 @@ const districtGroups = [
         title="Ankara’da çekici ihtiyacınızı doğru hizmete bağlayın"
         description="Her yolda kalma durumu aynı değildir. Aracın bulunduğu yer, hasar durumu, otopark koşulu ve teslim noktası doğru hizmet seçimini belirler."
       />
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {serviceIntentBlocks.map((item) => (
           <a
             href={item.href}
-            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-900/10 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-300/60 hover:shadow-card"
+            class="group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-ink-900/10 bg-white shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-brand-300/60 hover:shadow-card"
           >
-            <span
-              class="grid size-12 place-items-center rounded-2xl text-ink-950"
-              style="background:linear-gradient(150deg,#ffd664,#f5a900);box-shadow:0 8px 22px rgba(245,169,0,0.30)"
-              aria-hidden="true"
-            >
-              <Icon name={item.icon} size={20} strokeWidth={2} />
-            </span>
-            <h3 class="mt-5 text-xl font-semibold text-ink-950 group-hover:text-brand-700">{item.title}</h3>
-            <p class="mt-3 flex-1 text-sm leading-7 text-ink-500">{item.description}</p>
-            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-950 transition-all duration-300 group-hover:gap-2.5 group-hover:text-brand-700">
-              Detaya git
-              <Icon name="arrow-right" size={15} strokeWidth={2.25} />
-            </span>
+            <div class="relative overflow-hidden">
+              <ResponsiveImage image={item.image} class="aspect-[16/9] rounded-none" rounded={false} sizes="(min-width: 1024px) 31vw, (min-width: 768px) 48vw, 100vw" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink-950/45 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 grid size-11 place-items-center rounded-2xl bg-brand-300 text-ink-950 shadow-lg" aria-hidden="true">
+                <Icon name={item.icon} size={19} strokeWidth={2} />
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-xl font-semibold text-ink-950 group-hover:text-brand-700">{item.title}</h3>
+              <p class="mt-3 flex-1 text-sm leading-7 text-ink-500">{item.description}</p>
+              <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-950 transition-all duration-300 group-hover:gap-2.5 group-hover:text-brand-700">
+                Hizmeti incele
+                <Icon name="arrow-right" size={15} strokeWidth={2.25} />
+              </span>
+            </div>
           </a>
         ))}
       </div>
@@ -175,66 +209,59 @@ const districtGroups = [
   </section>
 
   <section class="bg-white section-pad">
-    <div class="site-container grid gap-8 md:grid-cols-2">
-      <div>
-        <h2 class="text-3xl font-semibold text-ink-950">Hangi durumlarda çekici gerekir?</h2>
-        <p class="mt-4 text-base leading-8 text-ink-600">
-          Araç arızası, kaza sonrası hareket edememe, servise taşıma, otopark teslimi, motosiklet nakli veya şehirlerarası araç taşıma gibi durumlarda çekici hizmeti gerekebilir.
-        </p>
+    <div class="site-container grid gap-10 overflow-hidden rounded-[2rem] bg-ink-950 p-4 text-white md:p-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <div class="relative overflow-hidden rounded-[1.5rem]">
+        <ResponsiveImage image={media.services.towingRecovery} class="aspect-[4/3] min-h-[260px] sm:min-h-[380px]" sizes="(min-width: 1024px) 52vw, 100vw" />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"></div>
+        <div class="absolute bottom-6 left-6 rounded-full border border-white/15 bg-ink-950/65 px-4 py-2 text-xs font-semibold text-white backdrop-blur">Araç tipine uygun taşıma</div>
       </div>
-      <div>
-        <h2 class="text-3xl font-semibold text-ink-950">Güvenli araç taşıma yaklaşımı</h2>
-        <p class="mt-4 text-base leading-8 text-ink-600">
-          Araç taşımada hız kadar güvenlik de önemlidir. Araç tipi, yol şartı ve teslim noktası dikkate alınarak kontrollü bir taşıma süreci planlanır.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="light-section section-pad">
-    <div class="site-container">
-      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <div>
-          <SectionTitle
-            eyebrow="Öncelikli Bölgeler"
-            title="Merkez ilçelerde hızlı sayfa geçişleri"
-            description="En çok aranan Ankara çekici bölgeleri için ilçe rehberlerine doğrudan ulaşabilirsiniz."
-          />
-        </div>
-        <div class="grid gap-3 sm:grid-cols-2">
-          {priorityDistricts.map((district) => district && (
-            <a
-              href={district.href}
-              class="group rounded-2xl border border-ink-900/10 bg-white px-5 py-4 shadow-soft transition hover:-translate-y-0.5 hover:border-brand-300/60"
-            >
-              <span class="block text-sm font-semibold text-ink-950 group-hover:text-brand-700">{district.name} çekici</span>
-              <span class="mt-2 block text-sm leading-6 text-ink-500">{district.description}</span>
-            </a>
+      <div class="px-3 pb-6 md:px-6 lg:py-8 lg:pr-10">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">Doğru ekipman, kontrollü süreç</p>
+        <h2 class="mt-5 text-3xl font-semibold leading-tight text-white md:text-4xl">Sadece çekmek değil, aracı güvenle taşımak.</h2>
+        <p class="mt-5 text-base leading-8 text-white/60">Araç ve konum bilgisi ilk görüşmede netleştirilir. Böylece hem uygun ekipman belirlenir hem de teslim noktasına kadar süreç kontrollü ilerler.</p>
+        <ul class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          {['Arıza ve kaza sonrası taşıma', 'Kapalı otopark ve dar alan', 'Servis veya otopark teslimi', 'Şehirlerarası planlı nakil'].map((item) => (
+            <li class="flex items-center gap-3 text-sm font-medium text-white/85">
+              <span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand-300 text-ink-950"><Icon name="check" size={14} strokeWidth={2.5} /></span>
+              {item}
+            </li>
           ))}
-        </div>
+        </ul>
+        <a href="/hizmetler/" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-300 hover:text-brand-200">Tüm hizmetleri incele <Icon name="arrow-right" size={16} /></a>
       </div>
     </div>
   </section>
 
-  <section class="light-section section-pad">
+  <section class="district-hub" id="ilceler">
     <div class="site-container">
-      <SectionTitle
-        eyebrow="İlçeler"
-        title="Ankara’nın tüm ilçelerinde çekici desteği"
-        description="Merkez ilçelerden uzak bağlantı yollarına kadar 25 Ankara ilçesi için özgün ilçe rehberleri ve çekici hizmet bilgileri."
-      />
-      <div class="mt-10 grid gap-8">
-        {districtGroups.map((group) => (
-          <section class="rounded-apple border border-ink-900/10 bg-white/70 p-4 shadow-soft backdrop-blur md:p-6">
-            <div class="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <div class="district-hub-head">
+        <div>
+          <p class="district-hub-eyebrow">Ankara hizmet ağı</p>
+          <h2>25 ilçeye tek noktadan ulaşın.</h2>
+        </div>
+        <p>Bulunduğunuz ilçeyi seçerek bölgeye özel rota, hizmet ve sık sorulan sorular bilgisine ulaşabilirsiniz.</p>
+      </div>
+      <div class="district-hub-grid">
+        {districtGroups.map((group, index) => (
+          <section class="district-group-panel">
+            <div class="district-group-head">
+              <span class="district-group-number">0{index + 1}</span>
               <div>
-                <h2 class="text-2xl font-semibold text-ink-950">{group.title}</h2>
-                <p class="mt-2 max-w-2xl text-sm leading-6 text-ink-500">{group.description}</p>
+                <h3>{group.title}</h3>
+                <p>{group.description}</p>
               </div>
-              <span class="w-fit rounded-full bg-ink-950 px-3 py-1 text-xs font-semibold text-brand-300">{group.items.length} ilçe</span>
             </div>
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {group.items.map((district) => district && <DistrictCard {...district} />)}
+            <div class="district-link-grid">
+              {group.items.map((district) => district && (
+                <a href={district.href} class="district-card-link">
+                  <span class="district-card-icon"><Icon name="map-pin" size={17} strokeWidth={2} /></span>
+                  <span class="district-card-copy">
+                    <strong>{district.name}</strong>
+                    <small>Ankara çekici rehberi</small>
+                  </span>
+                  <span class="district-card-arrow"><Icon name="arrow-right" size={15} strokeWidth={2.2} /></span>
+                </a>
+              ))}
             </div>
           </section>
         ))}
@@ -289,3 +316,351 @@ const districtGroups = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .service-hero {
+    position: relative;
+    overflow: hidden;
+    background: #080c14;
+    color: #fff;
+  }
+  .service-hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 8% 8%, rgba(255,201,74,.12), transparent 28%),
+      radial-gradient(circle at 92% 92%, rgba(20,184,122,.09), transparent 32%);
+  }
+  .service-hero-breadcrumb {
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .service-hero-breadcrumb :global(nav) { padding-bottom: 1.25rem; }
+  .service-hero-grid {
+    position: relative;
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 2.5rem 3.25rem;
+  }
+  .service-hero-copy { min-width: 0; }
+  .service-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    margin: 0 0 1.4rem;
+    color: #ffc94a;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+  .service-hero-eyebrow span {
+    width: .5rem;
+    height: .5rem;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: #12b981;
+    box-shadow: 0 0 0 5px rgba(18,185,129,.12);
+  }
+  .service-hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.25rem, 10.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -.045em;
+    line-height: .99;
+    overflow-wrap: break-word;
+  }
+  .service-hero h1 em { color: #ffc94a; font-style: normal; }
+  .service-hero h1 > span { display: block; }
+  .service-hero-lead {
+    max-width: 36rem;
+    margin: 1.5rem 0 0;
+    color: rgba(255,255,255,.64);
+    font-size: .95rem;
+    line-height: 1.75;
+  }
+  .hero-actions { margin-top: 1.75rem; }
+  .hero-actions :global(.btn-primary),
+  .hero-actions :global(.btn-secondary) { width: 100%; }
+  .hero-actions :global(.btn-primary) {
+    background: #ffc94a;
+    color: #080c14;
+    box-shadow: 0 12px 38px rgba(255, 201, 74, 0.28);
+  }
+  .hero-actions :global(.btn-primary:hover) {
+    background: #ffd46a;
+  }
+  .hero-actions :global(.btn-secondary) {
+    box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 12px 34px rgba(0,0,0,.18);
+  }
+  .service-hero-trust {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: .5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .service-hero-trust > div {
+    min-width: 0;
+    color: #ffc94a;
+  }
+  .service-hero-trust svg { display: none; }
+  .service-hero-trust span {
+    display: block;
+    color: rgba(255,255,255,.42);
+    font-size: .66rem;
+    line-height: 1.45;
+  }
+  .service-hero-trust strong {
+    display: block;
+    margin-bottom: .18rem;
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 650;
+  }
+  .service-hero-visual {
+    position: relative;
+    min-width: 0;
+    height: clamp(17rem, 78vw, 27rem);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 1.5rem;
+    box-shadow: 0 28px 80px rgba(0,0,0,.36);
+  }
+  .service-hero-visual :global(.service-hero-image) {
+    width: 100%;
+    height: 100%;
+  }
+  .service-hero-visual :global(.service-hero-image img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .service-hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,12,20,.82), transparent 55%);
+    pointer-events: none;
+  }
+  .service-hero-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .7rem .85rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: .9rem;
+    background: rgba(255,255,255,.94);
+    color: #080c14;
+    box-shadow: 0 14px 38px rgba(0,0,0,.18);
+    backdrop-filter: blur(12px);
+  }
+  .service-hero-badge--top { top: .8rem; left: .8rem; }
+  .service-hero-badge-icon {
+    display: grid;
+    width: 2.2rem;
+    height: 2.2rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: .7rem;
+    background: rgba(20,184,122,.12);
+    color: #047857;
+  }
+  .service-hero-badge strong,
+  .service-hero-badge small { display: block; }
+  .service-hero-badge strong { font-size: .72rem; }
+  .service-hero-badge small { margin-top: .18rem; color: #64748b; font-size: .62rem; }
+  .service-hero-caption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: #fff;
+  }
+  .service-hero-caption-icon {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: #ffc94a;
+    color: #080c14;
+  }
+  .service-hero-caption small,
+  .service-hero-caption strong { display: block; }
+  .service-hero-caption small { color: #ffc94a; font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .service-hero-caption strong { margin-top: .2rem; font-size: .75rem; font-weight: 600; }
+
+  .district-hub {
+    padding-block: 4rem;
+    background: #f5f7fb;
+  }
+  .district-hub-head {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .district-hub-eyebrow {
+    margin: 0 0 .75rem;
+    color: #b77900;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .district-hub h2 {
+    max-width: 13ch;
+    margin: 0;
+    color: #080c14;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -.035em;
+    line-height: 1.05;
+  }
+  .district-hub-head > p {
+    max-width: 34rem;
+    margin: 0;
+    color: #64748b;
+    font-size: .95rem;
+    line-height: 1.75;
+  }
+  .district-hub-grid { display: grid; gap: 2.25rem; }
+  .district-group-panel {
+    min-width: 0;
+    padding: 0;
+  }
+  .district-group-head {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    margin-bottom: 1rem;
+  }
+  .district-group-number {
+    display: grid;
+    width: 2.2rem;
+    height: 2.2rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: .7rem;
+    background: #080c14;
+    color: #ffc94a;
+    font-size: .72rem;
+    font-weight: 700;
+  }
+  .district-group-head h3 { margin: 0; color: #080c14; font-size: 1.08rem; font-weight: 700; }
+  .district-group-head p { margin: .35rem 0 0; color: #64748b; font-size: .8rem; line-height: 1.55; }
+  .district-link-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .7rem;
+  }
+  .district-card-link {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: .75rem;
+    min-height: 4.5rem;
+    padding: .8rem;
+    border: 1px solid rgba(15,23,42,.09);
+    border-radius: 1rem;
+    background: #fff;
+    color: #334155;
+    box-shadow: 0 4px 16px rgba(8,12,20,.05);
+    text-decoration: none;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+  .district-card-icon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: .8rem;
+    background: #080c14;
+    color: #ffc94a;
+  }
+  .district-card-copy { min-width: 0; flex: 1; }
+  .district-card-copy strong,
+  .district-card-copy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .district-card-copy strong { color: #080c14; font-size: .86rem; font-weight: 700; }
+  .district-card-copy small { margin-top: .2rem; color: #94a3b8; font-size: .68rem; }
+  .district-card-arrow {
+    display: grid;
+    width: 1.9rem;
+    height: 1.9rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #64748b;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .district-card-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,201,74,.55);
+    box-shadow: 0 10px 28px rgba(8,12,20,.09);
+  }
+  .district-card-link:hover .district-card-arrow { background: #ffc94a; color: #080c14; transform: translateX(2px); }
+
+  @media (min-width: 640px) {
+    .hero-actions :global(.btn-primary),
+    .hero-actions :global(.btn-secondary) { width: auto; }
+    .service-hero-trust svg { display: block; margin-bottom: .55rem; }
+    .service-hero-trust strong { font-size: .9rem; }
+    .service-hero-badge--top { top: 1.25rem; left: 1.25rem; }
+    .service-hero-caption { right: 1.5rem; bottom: 1.5rem; left: 1.5rem; }
+    .service-hero-caption strong { font-size: .9rem; }
+    .district-link-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  }
+
+  @media (min-width: 768px) {
+    .district-hub { padding-block: 6rem; }
+    .district-hub-head { grid-template-columns: 1fr .8fr; align-items: end; margin-bottom: 2.5rem; }
+    .district-hub-grid { gap: 3rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .service-hero-grid {
+      grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+      align-items: center;
+      min-height: 590px;
+      gap: 4rem;
+      padding-block: 4rem;
+    }
+    .service-hero-lead { font-size: 1.05rem; }
+    .service-hero-visual { height: 30rem; border-radius: 1.75rem; }
+    .service-hero-badge--top { top: 1.5rem; left: -2rem; }
+    .service-hero-caption { right: 2rem; bottom: 2rem; left: 2rem; }
+    .district-link-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  }
+
+  @media (max-width: 374px) {
+    .service-hero-grid { padding-block: 2.25rem 2.75rem; }
+    .service-hero h1 { font-size: 2.1rem; }
+    .service-hero-lead { font-size: .88rem; line-height: 1.65; }
+    .service-hero-trust span { font-size: .6rem; }
+    .service-hero-trust strong { font-size: .74rem; }
+    .service-hero-badge--top { display: none; }
+    .district-link-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 639px) {
+    .service-hero-grid,
+    .service-hero-copy { width: 100%; max-width: 100%; }
+    .service-hero-copy { overflow: hidden; }
+    .service-hero h1 { max-width: 100%; font-size: clamp(2.05rem, 10.2vw, 2.65rem); line-height: 1.02; }
+    .service-hero-trust { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .service-hero-trust > div:last-child { grid-column: 1 / -1; }
+    .service-hero-trust > div:last-child span { max-width: 10rem; }
+  }
+</style>

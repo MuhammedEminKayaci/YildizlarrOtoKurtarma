@@ -22,9 +22,16 @@ import {
   createWebsiteSchema
 } from '@/lib/schema';
 
-const pageTitle       = 'Ankara Oto Çekici ve 7/24 Yol Yardım | Yıldızlar Oto Kurtarma';
-const pageDescription = 'Ankara genelinde 7/24 oto çekici, oto kurtarma, yol yardım ve araç taşıma hizmeti. Acil durumlarda hızlı, güvenli ve profesyonel destek.';
+const pageTitle       = 'Ankara Oto Çekici ve Oto Kurtarıcı | Yıldızlar Oto Kurtarma';
+const pageDescription = 'Ankara genelinde 7/24 oto çekici, oto kurtarıcı, yol yardım; kayar kasa büyük araç, forklift ve manlift taşıma hizmeti.';
 const featuredDistricts = districts.slice(0, 8);
+const featuredServices = [
+  'acil-oto-cekici',
+  'oto-kurtarma',
+  'kayar-kasa-buyuk-arac-tasima',
+  'forklift-tasima',
+  'manlift-tasima'
+].map((slug) => services.find((service) => service.slug === slug)).filter(Boolean);
 ---
 
 <BaseLayout
@@ -86,14 +93,14 @@ const featuredDistricts = districts.slice(0, 8);
       <div class="section-header reveal">
         <SectionTitle
           eyebrow="Hizmetler"
-          title="Tüm çekici ve yol yardım çözümleri."
-          description="Acil çekici, kurtarma, kaza sonrası ve şehirlerarası taşıma hizmetleri."
+          title="Oto kurtarmadan iş makinesi taşımaya."
+          description="Acil oto çekici, oto kurtarıcı, kayar kasa büyük araç, forklift ve manlift taşıma çözümleri."
         />
         <a class="btn-secondary btn-arrow" href="/hizmetler/" style="flex-shrink:0">Tüm hizmetleri gör <Icon name="arrow-right" size={16} strokeWidth={2.25} /></a>
       </div>
 
       <div class="services-grid">
-        {services.slice(0, 5).map((service, i) => (
+        {featuredServices.map((service, i) => service && (
           <div class:list={['reveal', i === 0 && 'services-featured']} style={`animation-delay:${i*55}ms`}>
             <ServiceCard {...service} />
           </div>

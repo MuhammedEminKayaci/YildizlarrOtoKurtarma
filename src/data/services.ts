@@ -74,18 +74,18 @@ export const services: Service[] = [
   },
   {
     slug: 'oto-kurtarma',
-    title: 'Oto Kurtarma',
+    title: 'Oto Kurtarıcı',
     description:
-      'Zorlu konumlarda kalan araçlar için kontrollü ve araç güvenliğini önceleyen kurtarma yaklaşımı.',
+      'Zorlu konumlarda kalan araçlar için kontrollü, güvenli ve 7/24 oto kurtarıcı desteği.',
     useCase:
       'Araç park alanı, yol kenarı, eğimli zemin veya erişimi zor bir noktada kaldığında ihtiyaç duyulur.',
     href: '/hizmetler/oto-kurtarma/',
-    seoTitle: 'Ankara Oto Kurtarma | Güvenli Araç Kurtarma Hizmeti',
+    seoTitle: 'Ankara Oto Kurtarıcı | 7/24 Oto Kurtarma Hizmeti',
     seoDescription:
-      'Ankara’da oto kurtarma desteği. Eğimli yol, dar sokak, otopark veya zorlu konumlarda kalan araçlar için güvenli taşıma yaklaşımı.',
-    h1: 'Ankara Oto Kurtarma Hizmeti',
+      'Ankara oto kurtarıcı ve 7/24 oto kurtarma desteği. Eğimli yol, dar sokak, otopark veya zorlu konumda kalan araçlar için güvenli taşıma.',
+    h1: 'Ankara Oto Kurtarıcı ve Oto Kurtarma Hizmeti',
     intro:
-      'Oto kurtarma taleplerinde aracın yalnızca nerede kaldığı değil, bulunduğu zeminin ve çevrenin durumu da önemlidir. Araç güvenliği için konum ve erişim koşulları birlikte değerlendirilir.',
+      'Oto kurtarıcı taleplerinde aracın yalnızca nerede kaldığı değil, bulunduğu zeminin ve çevrenin durumu da önemlidir. Araç güvenliği için konum ve erişim koşulları birlikte değerlendirilir.',
     details: [
       {
         title: 'Zorlu konum değerlendirmesi',
@@ -270,7 +270,7 @@ export const services: Service[] = [
           'Rota, mesafe, araç tipi, aracın yürür durumda olup olmaması ve teslim koşullarına göre netleşir.'
       }
     ],
-    relatedSlugs: ['acil-oto-cekici', 'servis-otopark-arac-tasima', 'oto-kurtarma']
+    relatedSlugs: ['kayar-kasa-buyuk-arac-tasima', 'servis-otopark-arac-tasima', 'oto-kurtarma']
   },
   {
     slug: 'motosiklet-cekici',
@@ -371,6 +371,156 @@ export const services: Service[] = [
       }
     ],
     relatedSlugs: ['acil-oto-cekici', 'oto-kurtarma', 'sehirlerarasi-arac-tasima']
+  },
+  {
+    slug: 'kayar-kasa-buyuk-arac-tasima',
+    title: 'Kayar Kasa Büyük Araç Taşıma',
+    description:
+      'Kamyonet, panelvan, hafif kamyon, traktör ve uygun tonajdaki büyük araçlar için kayar kasa taşıma.',
+    useCase:
+      'Standart otomobilden daha büyük ticari araç, traktör veya iş makinesinin servise, şantiyeye ya da teslim adresine götürülmesi gerektiğinde tercih edilir.',
+    href: '/hizmetler/kayar-kasa-buyuk-arac-tasima/',
+    seoTitle: 'Ankara Kayar Kasa Büyük Araç Taşıma | Oto Kurtarıcı',
+    seoDescription:
+      'Ankara’da kayar kasa oto kurtarıcı ile kamyonet, panelvan, hafif kamyon, traktör ve uygun tonajdaki büyük araç taşıma hizmeti.',
+    h1: 'Ankara Kayar Kasa Büyük Araç Taşıma',
+    intro:
+      'Büyük araç taşımasında aracın ölçüsü, ağırlığı ve yükleme alanının koşulları birlikte değerlendirilir. Uygunluğu teyit edilen ticari araç ve iş makineleri kayar kasa platforma kontrollü biçimde alınır, sabitlenir ve planlanan adrese taşınır.',
+    details: [
+      {
+        title: 'Ölçü ve tonaj kontrolü',
+        description:
+          'Araç tipi, yaklaşık ağırlık, dingil mesafesi, yükseklik ve genişlik bilgileri alınarak platform uygunluğu taşıma öncesinde netleştirilir.'
+      },
+      {
+        title: 'Kontrollü yükleme ve sabitleme',
+        description:
+          'Tekerlek, direksiyon, fren ve yürürlük durumu dikkate alınır; araç platform üzerinde uygun noktalardan sabitlenir.'
+      },
+      {
+        title: 'Rota ve teslim planı',
+        description:
+          'Alım alanının zemini, yol genişliği, güzergâh ve teslim noktasındaki indirme koşulları önceden değerlendirilir.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Kayar kasa ile hangi büyük araçlar taşınabilir?',
+        answer:
+          'Kamyonet, panelvan, hafif kamyon, traktör ve bazı kompakt iş makineleri; ölçü ve tonaj uygunluğu kontrol edildikten sonra taşınabilir.'
+      },
+      {
+        question: 'Taşıma öncesinde hangi bilgiler gerekir?',
+        answer:
+          'Araç fotoğrafı, marka-model, yaklaşık ağırlık, ölçüler, çalışıp çalışmadığı ve alım ile teslim adresleri paylaşılmalıdır.'
+      },
+      {
+        question: 'Şehir dışına büyük araç taşıması yapılabilir mi?',
+        answer:
+          'Evet. Platform uygunluğu, rota ve teslim koşulları netleştirildikten sonra şehirlerarası planlama yapılabilir.'
+      }
+    ],
+    relatedSlugs: ['forklift-tasima', 'manlift-tasima', 'sehirlerarasi-arac-tasima']
+  },
+  {
+    slug: 'forklift-tasima',
+    title: 'Forklift Taşıma',
+    description:
+      'Forklift ve kompakt depo ekipmanları için kayar kasa üzerinde kontrollü yükleme ve güvenli nakil.',
+    useCase:
+      'Forkliftin fabrika, depo, sanayi sitesi, servis veya farklı bir çalışma alanına karayolunda güvenle taşınması gerektiğinde kullanılır.',
+    href: '/hizmetler/forklift-tasima/',
+    seoTitle: 'Ankara Forklift Taşıma | Kayar Kasa Oto Kurtarıcı',
+    seoDescription:
+      'Ankara forklift taşıma hizmeti. Forklift ve kompakt iş makineleri için kayar kasa oto kurtarıcı ile kontrollü yükleme, sabitleme ve nakil.',
+    h1: 'Ankara Forklift Taşıma Hizmeti',
+    intro:
+      'Forklift taşımasında makinenin ağırlığı, direk yüksekliği, teker yapısı ve bulunduğu zemine erişim önemlidir. Bu bilgiler doğrulandıktan sonra yükleme, sabitleme ve teslim süreci planlanır.',
+    details: [
+      {
+        title: 'Makine bilgilerinin doğrulanması',
+        description:
+          'Forkliftin marka-modeli, ağırlığı, kapalı direk yüksekliği, çatal ölçüsü ve çalışır durumu taşıma uygunluğunu belirler.'
+      },
+      {
+        title: 'Güvenli platform yüklemesi',
+        description:
+          'Yükleme alanının eğimi ve zemin yapısı kontrol edilir; forklift dengeli biçimde platforma alınarak uygun noktalardan sabitlenir.'
+      },
+      {
+        title: 'Sanayi ve depo teslimi',
+        description:
+          'Fabrika, depo, servis ve sanayi sahalarındaki giriş kuralları ile indirme alanı önceden konuşularak teslim planlanır.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Her forklift kayar kasa ile taşınabilir mi?',
+        answer:
+          'Hayır. Taşıma; forkliftin ağırlığı, ölçüleri ve platform kapasitesine bağlıdır. Fotoğraf ve teknik bilgilerle uygunluk önceden kontrol edilir.'
+      },
+      {
+        question: 'Çalışmayan forklift taşınabilir mi?',
+        answer:
+          'Teker, fren ve direksiyon durumu paylaşıldığında yükleme imkânı değerlendirilir; uygun yöntem taşıma öncesinde belirlenir.'
+      },
+      {
+        question: 'Forklift şehirlerarası taşınır mı?',
+        answer:
+          'Ölçü, tonaj, güzergâh ve teslim alanı uygun olduğunda şehirlerarası forklift taşıması planlanabilir.'
+      }
+    ],
+    relatedSlugs: ['kayar-kasa-buyuk-arac-tasima', 'manlift-tasima', 'sehirlerarasi-arac-tasima']
+  },
+  {
+    slug: 'manlift-tasima',
+    title: 'Manlift Taşıma',
+    description:
+      'Makaslı platform ve personel yükseltici manliftler için kayar kasa ile güvenli makine taşıma.',
+    useCase:
+      'Manliftin şantiye, fabrika, servis, kiralama noktası veya yeni çalışma sahasına taşınması gerektiğinde tercih edilir.',
+    href: '/hizmetler/manlift-tasima/',
+    seoTitle: 'Ankara Manlift Taşıma | Platform ve İş Makinesi Nakli',
+    seoDescription:
+      'Ankara manlift taşıma hizmeti. Makaslı platform ve personel yükselticiler için kayar kasa oto kurtarıcı ile güvenli yükleme ve nakil.',
+    h1: 'Ankara Manlift Taşıma Hizmeti',
+    intro:
+      'Manlift ve makaslı platform taşımalarında makinenin kapalı yüksekliği, toplam ağırlığı, akü durumu ve teker yapısı önemlidir. Uygunluğu doğrulanan ekipman kayar kasa platformda kontrollü biçimde taşınır.',
+    details: [
+      {
+        title: 'Kapalı ölçü ve ağırlık kontrolü',
+        description:
+          'Platform tipi, kapalı yükseklik, genişlik, uzunluk ve toplam ağırlık bilgileri taşıma aracının uygunluğu için kontrol edilir.'
+      },
+      {
+        title: 'Dengeli yükleme ve sabitleme',
+        description:
+          'Akü ve yürürlük durumu dikkate alınır; manlift platforma dengeli şekilde alınır ve taşıma boyunca hareket etmeyecek biçimde sabitlenir.'
+      },
+      {
+        title: 'Şantiye ve servis teslimi',
+        description:
+          'Giriş yüksekliği, zemin durumu ve indirme alanı öğrenilerek şantiye, servis veya kiralama noktasına teslim planı oluşturulur.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Hangi manlift türleri taşınabilir?',
+        answer:
+          'Makaslı platform ve kompakt personel yükselticiler, ölçü ve tonajları platform kapasitesine uygunsa taşınabilir.'
+      },
+      {
+        question: 'Aküsü bitmiş manlift taşınabilir mi?',
+        answer:
+          'Makinenin teker ve fren durumu ile manuel serbest bırakma imkânı öğrenilerek yükleme yöntemi değerlendirilir.'
+      },
+      {
+        question: 'Manlift taşıma fiyatı nasıl belirlenir?',
+        answer:
+          'Makinenin ölçü ve ağırlığı, alım-teslim mesafesi, saha erişimi ve yükleme koşullarına göre fiyat netleşir.'
+      }
+    ],
+    relatedSlugs: ['kayar-kasa-buyuk-arac-tasima', 'forklift-tasima', 'servis-otopark-arac-tasima']
   }
 ];
 

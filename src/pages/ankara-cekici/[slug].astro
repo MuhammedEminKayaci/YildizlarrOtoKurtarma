@@ -1,21 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumb from '@/components/Breadcrumb.astro';
 import DistrictHero from '@/components/DistrictHero.astro';
 import DistrictScenarioGrid from '@/components/DistrictScenarioGrid.astro';
 import DistrictServiceHighlights from '@/components/DistrictServiceHighlights.astro';
 import DistrictLocalInfo from '@/components/DistrictLocalInfo.astro';
 import DistrictNearbyLinks from '@/components/DistrictNearbyLinks.astro';
+import DistrictNeighborhoodLinks from '@/components/DistrictNeighborhoodLinks.astro';
 import SectionTitle from '@/components/SectionTitle.astro';
 import FAQ from '@/components/FAQ.astro';
 import ConversionCTA from '@/components/ConversionCTA.astro';
 import { site } from '@/data/site';
 import { districtPages, type DistrictPage } from '@/data/districtPages';
 import { districtSeoEnhancementBySlug } from '@/data/districtSeoEnhancements';
+import { getNeighborhoodsForDistrict } from '@/data/neighborhoodPages';
+import { resolveDistrictHeroImage } from '@/data/media';
 import { processSteps } from '@/data/processSteps';
 import {
   createBreadcrumbSchema,
   createFAQSchema,
+  createItemListSchema,
   createLocalBusinessSchema,
   createWebPageSchema
 } from '@/lib/schema';
@@ -35,10 +38,33 @@ const { district } = Astro.props;
 const canonical = `/ankara-cekici/${district.slug}/`;
 const seoEnhancement = districtSeoEnhancementBySlug.get(district.slug);
 const districtFaqs = [...district.faqs, ...(seoEnhancement?.faqs ?? [])];
+const neighborhoodPages = getNeighborhoodsForDistrict(district.slug);
 const breadcrumbs = [
   { label: 'Ana Sayfa', href: '/' },
   { label: 'Ankara Çekici', href: '/ankara-cekici/' },
   { label: `${district.name} Çekici`, href: canonical }
+];
+const jsonLd = [
+  createLocalBusinessSchema(district.name),
+  createFAQSchema(districtFaqs),
+  createBreadcrumbSchema(breadcrumbs),
+  createWebPageSchema({
+    title: district.title,
+    description: district.description,
+    url: canonical,
+    name: district.h1,
+    breadcrumbName: `${district.name} Çekici`
+  }),
+  ...(neighborhoodPages.length > 0
+    ? [
+        createItemListSchema({
+          items: neighborhoodPages.map((item) => ({
+            title: `${item.name} Oto Çekici`,
+            url: `/ankara-cekici/${district.slug}/${item.slug}/`
+          }))
+        })
+      ]
+    : [])
 ];
 ---
 
@@ -46,21 +72,15 @@ const breadcrumbs = [
   title={district.title}
   description={district.description}
   canonical={canonical}
-  jsonLd={[
-    createLocalBusinessSchema(district.name),
-    createFAQSchema(districtFaqs),
-    createBreadcrumbSchema(breadcrumbs),
-    createWebPageSchema({
-      title: district.title,
-      description: district.description,
-      url: canonical,
-      name: district.h1,
-      breadcrumbName: `${district.name} Çekici`
-    })
-  ]}
+  jsonLd={jsonLd}
 >
-  <Breadcrumb items={breadcrumbs} />
-  <DistrictHero name={district.name} h1={district.h1} shortIntro={district.shortIntro} />
+  <DistrictHero
+    name={district.name}
+    h1={district.h1}
+    shortIntro={district.shortIntro}
+    image={resolveDistrictHeroImage(district.heroImageKey, district.name)}
+    breadcrumbs={breadcrumbs}
+  />
 
   <section class="bg-white section-pad">
     <div class="site-container grid gap-10 md:grid-cols-[1fr_0.8fr] md:items-start">
@@ -114,6 +134,8 @@ const breadcrumbs = [
       </div>
     </div>
   </section>
+
+  <DistrictNeighborhoodLinks districtSlug={district.slug} districtName={district.name} />
 
   {seoEnhancement && (
     <section class="light-section section-pad">

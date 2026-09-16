@@ -1,11 +1,13 @@
 ---
 import { site } from '@/data/site';
 import { navigation } from '@/data/navigation';
+import { districtGroups } from '@/data/districtGroups';
 import BrandLogo from '@/components/BrandLogo.astro';
 import Icon from '@/components/Icon.astro';
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+const DISTRICTS_HREF = '/ankara-cekici/';
 ---
 
 <header class="hdr" data-header>
@@ -15,7 +17,41 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
     </a>
 
     <nav class="hdr-nav" aria-label="Ana navigasyon">
-      {navigation.map(item => (
+      {navigation.map(item => item.href === DISTRICTS_HREF ? (
+        <div class="hdr-nav-item hdr-nav-item--has-menu" data-hdr-mega-wrap>
+          <a href={item.href}
+            class:list={['hdr-nav-link', 'hdr-nav-link--trigger', isActive(item.href) && 'hdr-nav-link--active']}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-hdr-mega-trigger>
+            {item.label}
+            <Icon name="chevron-down" size={14} strokeWidth={2.25} class="hdr-nav-chevron" />
+          </a>
+          <div class="hdr-mega-panel" role="menu" aria-label="Ankara ilçeleri" data-hdr-mega-panel>
+            <div class="hdr-mega-grid">
+              {districtGroups.map(group => (
+                <div class="hdr-mega-col">
+                  <p class="hdr-mega-col-title">{group.title}</p>
+                  <ul class="hdr-mega-links">
+                    {group.items.map(district => district && (
+                      <li>
+                        <a href={district.href} class="hdr-mega-link" role="menuitem">{district.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div class="hdr-mega-footer">
+              <a href={DISTRICTS_HREF} class="hdr-mega-all">
+                Tüm ilçeleri gör
+                <Icon name="arrow-right" size={14} strokeWidth={2.25} />
+              </a>
+            </div>
+          </div>
+        </div>
+      ) : (
         <a href={item.href}
           class:list={['hdr-nav-link', isActive(item.href) && 'hdr-nav-link--active']}
           aria-current={isActive(item.href) ? 'page' : undefined}>
@@ -26,8 +62,8 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
     <div class="hdr-actions">
       <a href={site.phoneHref} class="hdr-btn-call" aria-label="Hemen ara">
-        <Icon name="phone-call" size={15} />
-        Hemen Ara
+        <Icon name="phone" size={16} strokeWidth={2.2} />
+        <span><span class="hdr-call-wide">Hemen </span>Ara</span>
       </a>
       <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="hdr-btn-wa" aria-label="WhatsApp">
         <Icon name="whatsapp" size={15} />
@@ -58,7 +94,33 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
   </div>
 
   <div class="mob-links">
-    {navigation.map(item => (
+    {navigation.map(item => item.href === DISTRICTS_HREF ? (
+      <details class="mob-district-details">
+        <summary class="mob-district-summary" aria-current={isActive(item.href) ? 'page' : undefined}>
+          <span>{item.label}</span>
+          <Icon name="chevron-down" size={16} class="mob-district-chevron" />
+        </summary>
+        <div class="mob-district-body">
+          {districtGroups.map(group => (
+            <div class="mob-district-group">
+              <div class="mob-district-group-head">
+                <p class="mob-district-group-title">{group.title}</p>
+                <span>{group.items.length} ilçe</span>
+              </div>
+              <div class="mob-district-group-links">
+                {group.items.map(district => district && (
+                  <a href={district.href} class="mob-district-link" data-mob-link>{district.name}</a>
+                ))}
+              </div>
+            </div>
+          ))}
+          <a href={DISTRICTS_HREF} class="mob-district-all" data-mob-link>
+            Tüm ilçeleri gör
+            <Icon name="arrow-right" size={14} strokeWidth={2.25} />
+          </a>
+        </div>
+      </details>
+    ) : (
       <a href={item.href}
         class:list={['mob-link', isActive(item.href) && 'mob-link--active']}
         data-mob-link aria-current={isActive(item.href) ? 'page' : undefined}>
@@ -90,6 +152,20 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 @media(min-width:1024px){.hdr-nav{display:flex;}}
 .hdr-nav-link{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;color:#374151;text-decoration:none;transition:background 160ms,color 160ms;white-space:nowrap;}
 .hdr-nav-link:hover,.hdr-nav-link--active{background:#080c14;color:#fff;}
+.hdr-nav-item{position:relative;}
+.hdr-nav-link--trigger{display:inline-flex;align-items:center;gap:5px;}
+.hdr-nav-chevron{transition:transform 220ms ease;flex-shrink:0;}
+.hdr-nav-item--has-menu:hover .hdr-nav-chevron,.hdr-nav-item--has-menu.hdr-mega-open .hdr-nav-chevron{transform:rotate(180deg);}
+.hdr-mega-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);z-index:60;width:min(880px,86vw);padding:28px 28px 20px;background:#fff;border:1px solid rgba(15,23,42,0.08);border-radius:var(--radius-lg,20px);box-shadow:0 24px 64px rgba(8,12,20,0.18);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms ease,transform 200ms ease,visibility 200ms;}
+.hdr-nav-item--has-menu:hover .hdr-mega-panel,.hdr-nav-item--has-menu:focus-within .hdr-mega-panel,.hdr-nav-item--has-menu.hdr-mega-open .hdr-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.hdr-mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.hdr-mega-col-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin:0 0 12px;}
+.hdr-mega-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+.hdr-mega-link{display:block;padding:7px 8px;margin:0 -8px;border-radius:9px;font-size:13.5px;font-weight:600;color:#1f2937;text-decoration:none;transition:background 140ms,color 140ms;}
+.hdr-mega-link:hover{background:#fef9ec;color:#b45309;}
+.hdr-mega-footer{margin-top:18px;padding-top:16px;border-top:1px solid rgba(15,23,42,0.08);}
+.hdr-mega-all{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#080c14;text-decoration:none;transition:gap 200ms,color 200ms;}
+.hdr-mega-all:hover{gap:10px;color:#b45309;}
 .hdr-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
 @media(min-width:1024px){.hdr-actions{margin-left:0;}}
 .hdr-btn-call{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:#080c14;color:#fff;font-size:13.5px;font-weight:700;text-decoration:none;box-shadow:0 8px 28px rgba(8,12,20,0.22);transition:background 160ms,transform 160ms;white-space:nowrap;}
@@ -100,6 +176,16 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 .hdr-burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;border-radius:50%;background:#fff;border:1.5px solid rgba(15,23,42,0.10);cursor:pointer;flex-shrink:0;box-shadow:0 2px 10px rgba(8,12,20,0.08);transition:background 160ms;}
 .hdr-burger:hover{background:#f5f7fb;}
 @media(min-width:1024px){.hdr-burger{display:none;}}
+@media(max-width:767px){
+  .hdr-inner{position:relative;justify-content:center;}
+  .hdr-logo{position:absolute;left:50%;z-index:2;transform:translateX(-50%);}
+  .hdr-actions{width:100%;justify-content:space-between;margin-left:0;}
+  .hdr-btn-call{order:1;width:40px;height:40px;padding:0;gap:0;justify-content:center;border-radius:50%;border:1px solid rgba(8,12,20,.12);background:#ffc94a;color:#080c14;box-shadow:0 5px 18px rgba(255,201,74,.3);}
+  .hdr-btn-call:hover{background:#ffd46a;color:#080c14;}
+  .hdr-btn-call span{display:none;}
+  .hdr-btn-call svg{display:block;width:18px;height:18px;stroke-width:2.2;transform:translate(.5px,-.5px);}
+  .hdr-burger{position:relative;z-index:3;order:2;width:40px;height:40px;}
+}
 .hdr-burger-line{display:block;width:20px;height:2px;border-radius:2px;background:#080c14;transition:transform 280ms cubic-bezier(0.22,1,0.36,1),opacity 200ms;transform-origin:center;}
 .hdr-burger.open [data-line="1"]{transform:translateY(7px) rotate(45deg);}
 .hdr-burger.open [data-line="2"]{opacity:0;transform:scaleX(0);}
@@ -119,6 +205,23 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 .mob-link:hover{background:#f5f7fb;}
 .mob-link:hover svg,.mob-link--active svg{color:#ffc94a;}
 .mob-link--active{background:#f5f7fb;}
+.mob-district-details{border-radius:12px;overflow:hidden;}
+.mob-district-summary{display:flex;align-items:center;justify-content:space-between;padding:14px 12px;border-radius:12px;font-size:15px;font-weight:600;color:#080c14;cursor:pointer;list-style:none;transition:background 140ms;}
+.mob-district-summary::-webkit-details-marker{display:none;}
+.mob-district-summary:hover{background:#f5f7fb;}
+.mob-district-chevron{color:#94a3b8;flex-shrink:0;transition:transform 220ms ease;}
+.mob-district-details[open] .mob-district-chevron{transform:rotate(180deg);}
+.mob-district-body{padding:6px 6px 14px;display:flex;flex-direction:column;gap:10px;}
+.mob-district-group{padding:12px;border:1px solid rgba(15,23,42,.08);border-radius:14px;background:#fff;box-shadow:0 3px 12px rgba(8,12,20,.04);}
+.mob-district-group-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;}
+.mob-district-group-title{font-size:10px;font-weight:700;letter-spacing:0.075em;text-transform:uppercase;color:#64748b;margin:0;}
+.mob-district-group-head>span{flex-shrink:0;padding:3px 7px;border-radius:999px;background:#080c14;color:#ffc94a;font-size:9px;font-weight:700;}
+.mob-district-group-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+.mob-district-link{display:flex;align-items:center;justify-content:center;min-width:0;min-height:38px;padding:8px 7px;border:1px solid rgba(15,23,42,.06);border-radius:10px;background:#f5f7fb;font-size:11.5px;font-weight:650;color:#1f2937;text-align:center;text-decoration:none;transition:background 140ms,color 140ms,border-color 140ms;}
+.mob-district-link:last-child:nth-child(odd){grid-column:1/-1;}
+.mob-district-link:hover{background:#fef9ec;color:#b45309;border-color:rgba(255,201,74,.38);}
+.mob-district-all{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;padding:12px;border-radius:12px;background:#080c14;color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;}
+.mob-district-all:hover{color:#ffc94a;}
 .mob-ctas{display:flex;flex-direction:column;gap:10px;padding:16px 20px 32px;border-top:1px solid rgba(15,23,42,0.07);flex-shrink:0;}
 .mob-cta-call{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 20px;border-radius:14px;background:#080c14;color:#fff;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(8,12,20,0.20);transition:background 160ms;}
 .mob-cta-call:hover{background:#1a2540;}
@@ -142,4 +245,37 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
   overlay?.addEventListener('click',close);
   links.forEach(l=>l.addEventListener('click',close));
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+
+  // Desktop mega-menu: aria-expanded sync + Escape to close
+  const megaWraps=document.querySelectorAll('[data-hdr-mega-wrap]');
+  megaWraps.forEach(wrap=>{
+    const trigger=wrap.querySelector('[data-hdr-mega-trigger]') as HTMLAnchorElement|null;
+    const setOpen=(open:boolean)=>{
+      wrap.classList.toggle('hdr-mega-open',open);
+      trigger?.setAttribute('aria-expanded',String(open));
+    };
+    wrap.addEventListener('mouseenter',()=>setOpen(true));
+    wrap.addEventListener('mouseleave',()=>setOpen(false));
+    wrap.addEventListener('focusin',()=>setOpen(true));
+    wrap.addEventListener('focusout',(e)=>{
+      const next=(e as FocusEvent).relatedTarget as Node|null;
+      if(!next||!wrap.contains(next))setOpen(false);
+    });
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      megaWraps.forEach(wrap=>{
+        wrap.classList.remove('hdr-mega-open');
+        wrap.querySelector('[data-hdr-mega-trigger]')?.setAttribute('aria-expanded','false');
+      });
+    }
+  });
+  document.addEventListener('click',e=>{
+    megaWraps.forEach(wrap=>{
+      if(!wrap.contains(e.target as Node)){
+        wrap.classList.remove('hdr-mega-open');
+        wrap.querySelector('[data-hdr-mega-trigger]')?.setAttribute('aria-expanded','false');
+      }
+    });
+  });
 </script>

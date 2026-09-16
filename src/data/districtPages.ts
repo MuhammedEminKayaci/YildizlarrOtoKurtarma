@@ -23,11 +23,22 @@ export type DistrictPage = {
     question: string;
     answer: string;
   }[];
+  heroImageKey?:
+    | 'stockAnkaraRoad'
+    | 'stockTowTruckNight'
+    | 'stockCarTransport'
+    | 'stockRoadsideAssistance'
+    | 'stockSupportOperator'
+    | 'districtGallery5'
+    | 'districtGallery6'
+    | 'districtGallery7'
+    | 'districtGallery8';
 };
 
 const coreDistrictPages: DistrictPage[] = [
   {
     slug: 'cankaya',
+    heroImageKey: 'stockSupportOperator',
     name: 'Çankaya',
     title: 'Çankaya Oto Çekici | 7/24 Yol Yardım ve Araç Taşıma',
     description:
@@ -93,6 +104,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'kecioren',
+    heroImageKey: 'stockRoadsideAssistance',
     name: 'Keçiören',
     title: 'Keçiören Çekici Hizmeti | Ankara Oto Kurtarma',
     description:
@@ -158,6 +170,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'yenimahalle',
+    heroImageKey: 'stockSupportOperator',
     name: 'Yenimahalle',
     title: 'Yenimahalle Oto Çekici | Acil Yol Yardım Ankara',
     description:
@@ -223,6 +236,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'mamak',
+    heroImageKey: 'stockRoadsideAssistance',
     name: 'Mamak',
     title: 'Mamak Oto Çekici | Kaza Sonrası Araç Çekimi ve Yol Yardım',
     description:
@@ -288,6 +302,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'etimesgut',
+    heroImageKey: 'stockSupportOperator',
     name: 'Etimesgut',
     title: 'Etimesgut Oto Çekici | 7/24 Araç Taşıma ve Yol Yardım',
     description:
@@ -353,6 +368,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'sincan',
+    heroImageKey: 'stockRoadsideAssistance',
     name: 'Sincan',
     title: 'Sincan Oto Çekici | OSB ve Şehir Dışı Bağlantı Araç Taşıma',
     description:
@@ -418,6 +434,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'altindag',
+    heroImageKey: 'stockSupportOperator',
     name: 'Altındağ',
     title: 'Altındağ Oto Çekici | Merkezi Bölgelerde Yol Yardım',
     description:
@@ -483,6 +500,7 @@ const coreDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'golbasi',
+    heroImageKey: 'stockRoadsideAssistance',
     name: 'Gölbaşı',
     title: 'Gölbaşı Oto Çekici | Konya Yolu ve Uzun Mesafe Araç Taşıma',
     description:
@@ -551,6 +569,7 @@ const coreDistrictPages: DistrictPage[] = [
 const outerDistrictPages: DistrictPage[] = [
   {
     slug: 'akyurt',
+    heroImageKey: 'stockTowTruckNight',
     name: 'Akyurt',
     title: 'Akyurt Oto Çekici | Esenboğa Yolu ve Yol Yardım',
     description:
@@ -616,6 +635,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'ayas',
+    heroImageKey: 'stockAnkaraRoad',
     name: 'Ayaş',
     title: 'Ayaş Çekici Hizmeti | Ankara Batı Aksı Araç Taşıma',
     description:
@@ -681,6 +701,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'bala',
+    heroImageKey: 'stockCarTransport',
     name: 'Bala',
     title: 'Bala Oto Çekici | Konya Yolu Bağlantılı Yol Yardım',
     description:
@@ -746,6 +767,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'beypazari',
+    heroImageKey: 'stockAnkaraRoad',
     name: 'Beypazarı',
     title: 'Beypazarı Oto Çekici | Uzun Mesafe Araç Taşıma',
     description:
@@ -811,6 +833,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'camlidere',
+    heroImageKey: 'districtGallery5',
     name: 'Çamlıdere',
     title: 'Çamlıdere Çekici Hizmeti | Dağ Yolu ve Uzun Mesafe Destek',
     description:
@@ -876,6 +899,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'cubuk',
+    heroImageKey: 'stockTowTruckNight',
     name: 'Çubuk',
     title: 'Çubuk Oto Çekici | Esenboğa ve Kuzey Ankara Yol Yardım',
     description:
@@ -941,6 +965,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'elmadag',
+    heroImageKey: 'districtGallery7',
     name: 'Elmadağ',
     title: 'Elmadağ Oto Çekici | Samsun Yolu Araç Taşıma',
     description:
@@ -1006,6 +1031,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'evren',
+    heroImageKey: 'stockCarTransport',
     name: 'Evren',
     title: 'Evren Çekici Hizmeti | Uzun Mesafe Oto Kurtarma',
     description:
@@ -1071,6 +1097,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'gudul',
+    heroImageKey: 'stockAnkaraRoad',
     name: 'Güdül',
     title: 'Güdül Oto Çekici | Kırsal Yol ve Araç Taşıma',
     description:
@@ -1136,6 +1163,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'haymana',
+    heroImageKey: 'districtGallery8',
     name: 'Haymana',
     title: 'Haymana Oto Çekici | Uzun Yol ve Kırsal Yol Yardım',
     description:
@@ -1201,6 +1229,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'kahramankazan',
+    heroImageKey: 'districtGallery6',
     name: 'Kahramankazan',
     title: 'Kahramankazan Oto Çekici | İstanbul Yolu Araç Taşıma',
     description:
@@ -1266,6 +1295,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'kalecik',
+    heroImageKey: 'stockTowTruckNight',
     name: 'Kalecik',
     title: 'Kalecik Oto Çekici | Çankırı Yolu Yol Yardım',
     description:
@@ -1331,6 +1361,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'kizilcahamam',
+    heroImageKey: 'districtGallery5',
     name: 'Kızılcahamam',
     title: 'Kızılcahamam Çekici | İstanbul Yolu ve Dağ Yolu Destek',
     description:
@@ -1396,6 +1427,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'nallihan',
+    heroImageKey: 'stockAnkaraRoad',
     name: 'Nallıhan',
     title: 'Nallıhan Oto Çekici | Batı Ankara Uzun Mesafe Taşıma',
     description:
@@ -1461,6 +1493,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'polatli',
+    heroImageKey: 'stockAnkaraRoad',
     name: 'Polatlı',
     title: 'Polatlı Oto Çekici | Eskişehir Yolu Yol Yardım',
     description:
@@ -1526,6 +1559,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'pursaklar',
+    heroImageKey: 'stockTowTruckNight',
     name: 'Pursaklar',
     title: 'Pursaklar Oto Çekici | Esenboğa Yolu ve Havalimanı Bağlantısı',
     description:
@@ -1591,6 +1625,7 @@ const outerDistrictPages: DistrictPage[] = [
   },
   {
     slug: 'sereflikochisar',
+    heroImageKey: 'stockCarTransport',
     name: 'Şereflikoçhisar',
     title: 'Şereflikoçhisar Çekici | Aksaray Yolu Araç Taşıma',
     description:

@@ -1,8 +1,11 @@
 ---
 import { site } from '@/data/site';
 import { navigation } from '@/data/navigation';
+import { districtGroups } from '@/data/districtGroups';
 import BrandLogo from '@/components/BrandLogo.astro';
 import Icon from '@/components/Icon.astro';
+
+const featuredDistricts = districtGroups.flatMap((group) => group.items.slice(0, 2));
 ---
 
 <footer class="ft">
@@ -33,7 +36,7 @@ import Icon from '@/components/Icon.astro';
         <!-- Brand -->
         <div class="ft-brand">
           <a href="/" class="ft-logo" aria-label={`${site.name} ana sayfa`}>
-            <BrandLogo variant="light" />
+            <BrandLogo variant="light" size="footer" />
           </a>
           <p class="ft-tagline">
             Ankara genelinde 7/24 oto çekici, oto kurtarma ve yol yardım ihtiyaçları için hızlı ve profesyonel destek.
@@ -64,16 +67,10 @@ import Icon from '@/components/Icon.astro';
         <div class="ft-col">
           <h3 class="ft-col-title">Öne Çıkan İlçeler</h3>
           <ul class="ft-list">
-            {[
-              ['Çankaya',     '/ankara-cekici/cankaya/'],
-              ['Keçiören',    '/ankara-cekici/kecioren/'],
-              ['Yenimahalle', '/ankara-cekici/yenimahalle/'],
-              ['Mamak',       '/ankara-cekici/mamak/'],
-              ['Etimesgut',   '/ankara-cekici/etimesgut/'],
-              ['Polatlı',     '/ankara-cekici/polatli/'],
-            ].map(([label, href]) => (
-              <li><a href={href} class="ft-link">{label}</a></li>
+            {featuredDistricts.map((district) => district && (
+              <li><a href={district.href} class="ft-link">{district.name}</a></li>
             ))}
+            <li><a href="/ankara-cekici/" class="ft-link ft-link--all">Tüm 25 ilçeyi gör →</a></li>
           </ul>
         </div>
 
@@ -166,7 +163,9 @@ import Icon from '@/components/Icon.astro';
 
 /* Brand col */
 .ft-logo {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
   margin-bottom: 16px;
   text-decoration: none;
 }
@@ -218,6 +217,8 @@ import Icon from '@/components/Icon.astro';
   transition: color 160ms;
 }
 .ft-link:hover { color: #ffffff; }
+.ft-link--all { color: #ffc94a; font-weight: 700; }
+.ft-link--all:hover { color: #ffd46a; }
 
 /* Contact list */
 .ft-contact-list {

@@ -60,7 +60,7 @@ export const createOrganizationSchema = () => ({
   telephone: site.phone,
   logo: {
     '@type': 'ImageObject',
-    url: absoluteUrl('/images/brand/logo-dark.png'),
+    url: absoluteUrl('/images/brand/y-oto-kurtarma-logo.png'),
     width: 300,
     height: 100
   },
@@ -101,7 +101,7 @@ export const createLocalBusinessSchema = (areaName?: string) => ({
   email: site.email,
   priceRange: site.priceRange,
   image: absoluteUrl('/images/optimized/hero/hero-bg.jpg'),
-  logo: absoluteUrl('/images/brand/logo-dark.png'),
+  logo: absoluteUrl('/images/brand/y-oto-kurtarma-logo.png'),
   parentOrganization: {
     '@type': 'Organization',
     '@id': organizationId,
@@ -240,7 +240,7 @@ export const createArticleSchema = ({
     url: site.url,
     logo: {
       '@type': 'ImageObject',
-      url: absoluteUrl('/images/brand/logo-dark.png'),
+      url: absoluteUrl('/images/brand/y-oto-kurtarma-logo.png'),
       width: 300,
       height: 100
     }

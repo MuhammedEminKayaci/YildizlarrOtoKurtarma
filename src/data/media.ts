@@ -12,16 +12,16 @@ export type SiteImage = {
 export const media = {
   brand: {
     logoDark: {
-      src: '/images/brand/logo-dark.png',
+      src: '/images/brand/y-oto-kurtarma-logo.png',
       alt: 'Yıldızlar Oto Kurtarma logosu',
-      width: 300,
-      height: 100
+      width: 600,
+      height: 200
     },
     logoWhite: {
-      src: '/images/brand/logo-white.png',
+      src: '/images/brand/yildizlar-footer-logo.png',
       alt: 'Yıldızlar Oto Kurtarma logosu',
-      width: 300,
-      height: 100
+      width: 600,
+      height: 200
     }
   },
   hero: {
@@ -120,6 +120,55 @@ export const media = {
       alt: 'Klasik gümüş Mercedes-Benz SLC servis taşıması için çekicide — Ankara servis ve otopark araç taşıma',
       width: 1280,
       height: 720
+    },
+    largeVehicleTransport: {
+      src: '/images/services/heavy-transport/kayar-kasa-buyuk-arac-tasima.jpg',
+      alt: 'Kayar kasa oto kurtarıcı üzerinde taşınan büyük kapalı kasa ticari araç — Ankara büyük araç taşıma',
+      width: 2048,
+      height: 1536,
+      caption: 'Kayar kasa ile büyük ticari araç taşıma'
+    },
+    truckTransport: {
+      src: '/images/services/heavy-transport/kamyon-tasima.jpg',
+      alt: 'Kayar kasa platform üzerinde taşınan kamyon — Ankara büyük araç taşıma hizmeti',
+      width: 1536,
+      height: 2048,
+      caption: 'Kamyon ve büyük araç taşıma'
+    },
+    tractorTransport: {
+      src: '/images/services/heavy-transport/traktor-tasima.jpg',
+      alt: 'Kayar kasa oto kurtarıcı ile taşınan traktör — Ankara traktör taşıma',
+      width: 2048,
+      height: 1536,
+      caption: 'Traktör taşıma'
+    },
+    forkliftTransport: {
+      src: '/images/services/heavy-transport/forklift-tasima.jpg',
+      alt: 'Kayar kasa platform üzerinde güvenle taşınan forklift — Ankara forklift taşıma',
+      width: 2048,
+      height: 1536,
+      caption: 'Forklift taşıma'
+    },
+    compactMachineTransport: {
+      src: '/images/services/heavy-transport/is-makinesi-tasima.jpg',
+      alt: 'Kayar kasa üzerinde taşınan kompakt iş makinesi — Ankara iş makinesi taşıma',
+      width: 1536,
+      height: 2048,
+      caption: 'Kompakt iş makinesi taşıma'
+    },
+    manliftTransport: {
+      src: '/images/services/heavy-transport/manlift-tasima.jpg',
+      alt: 'Kayar kasa platformda taşınan makaslı manlift — Ankara manlift taşıma',
+      width: 2048,
+      height: 1536,
+      caption: 'Makaslı manlift taşıma'
+    },
+    manliftTransportVertical: {
+      src: '/images/services/heavy-transport/manlift-kayar-kasa.jpg',
+      alt: 'Oto kurtarıcı üzerinde güvenle taşınan personel yükseltici manlift',
+      width: 1536,
+      height: 2048,
+      caption: 'Kayar kasa ile manlift nakli'
     }
   },
   blogCovers: {
@@ -174,17 +223,43 @@ export const media = {
       height: 933
     }
   },
+  districtGallery: {
+    districtGallery5: {
+      src: '/images/gallery/tow-truck-ankara-5.jpg',
+      alt: 'Ankara kuzey aksı ilçelerinde oto çekici hizmet görseli',
+      width: 480,
+      height: 400
+    },
+    districtGallery6: {
+      src: '/images/gallery/tow-truck-ankara-6.jpg',
+      alt: 'Ankara kuzey aksı ilçelerinde yol yardım ve çekici desteği',
+      width: 480,
+      height: 400
+    },
+    districtGallery7: {
+      src: '/images/gallery/tow-truck-ankara-7.jpg',
+      alt: 'Ankara güney ve uzak ilçelerinde araç taşıma görseli',
+      width: 480,
+      height: 400
+    },
+    districtGallery8: {
+      src: '/images/gallery/tow-truck-ankara-8.jpg',
+      alt: 'Ankara güney ve uzak ilçelerinde oto kurtarma hizmeti',
+      width: 480,
+      height: 400
+    }
+  },
   brandLogoDark: {
-    src: '/images/brand/logo-dark.png',
+    src: '/images/brand/y-oto-kurtarma-logo.png',
     alt: 'Yıldızlar Oto Kurtarma logosu',
-    width: 300,
-    height: 100
+    width: 600,
+    height: 200
   },
   brandLogoWhite: {
-    src: '/images/brand/logo-white.png',
+    src: '/images/brand/yildizlar-footer-logo.png',
     alt: 'Yıldızlar Oto Kurtarma logosu',
-    width: 300,
-    height: 100
+    width: 600,
+    height: 200
   },
   heroPrimary: {
     src: '/images/hero/hero-tow-truck.png',
@@ -311,6 +386,29 @@ export const media = {
   ] satisfies SiteImage[]
 };
 
+const districtHeroImageMap: Record<string, SiteImage> = {
+  stockAnkaraRoad: media.stock.ankaraRoad,
+  stockTowTruckNight: media.stock.towTruckNight,
+  stockCarTransport: media.stock.carTransport,
+  stockRoadsideAssistance: media.stock.roadsideAssistance,
+  stockSupportOperator: media.stock.supportOperator,
+  districtGallery5: media.districtGallery.districtGallery5,
+  districtGallery6: media.districtGallery.districtGallery6,
+  districtGallery7: media.districtGallery.districtGallery7,
+  districtGallery8: media.districtGallery.districtGallery8
+};
+
+export const resolveDistrictHeroImage = (heroImageKey?: string, districtName?: string): SiteImage => {
+  const base = heroImageKey ? districtHeroImageMap[heroImageKey] : undefined;
+  if (!base) return media.districtAnkara;
+  if (!districtName) return base;
+
+  return {
+    ...base,
+    alt: `${districtName} bölgesinde oto çekici ve yol yardım hizmet görseli`
+  };
+};
+
 export const getBlogCoverBySlug = (slug?: string) => {
   if (!slug) return media.blogGeneric;
 
@@ -336,14 +434,31 @@ export const getServiceImageByTitle = (title: string) => {
   const serviceImageMap: Record<string, SiteImage> = {
     '7/24 Acil Oto Çekici': media.services.emergencyTowing,
     'Oto Kurtarma': media.services.towingRecovery,
+    'Oto Kurtarıcı': media.services.towingRecovery,
     'Acil Yol Yardım': media.services.roadsideAssistance,
     'Yol Yardım': media.services.roadsideAssistance,
     'Kaza Sonrası Araç Çekimi': media.services.accidentTowing,
     'Şehirlerarası Araç Taşıma': media.services.intercityTransport,
     'Motosiklet Çekici': media.services.motorcycleTowing,
     'Servis / Otopark Araç Taşıma': media.services.parkingServiceTransport,
-    'Otopark / Servis Taşıma': media.services.parkingServiceTransport
+    'Otopark / Servis Taşıma': media.services.parkingServiceTransport,
+    'Kayar Kasa Büyük Araç Taşıma': media.services.largeVehicleTransport,
+    'Forklift Taşıma': media.services.forkliftTransport,
+    'Manlift Taşıma': media.services.manliftTransport
   };
 
   return serviceImageMap[title] ?? media.serviceTowing;
+};
+
+export const getServiceGalleryBySlug = (slug: string): SiteImage[] => {
+  const serviceGalleryMap: Record<string, SiteImage[]> = {
+    'kayar-kasa-buyuk-arac-tasima': [
+      media.services.truckTransport,
+      media.services.tractorTransport,
+      media.services.compactMachineTransport
+    ],
+    'manlift-tasima': [media.services.manliftTransportVertical]
+  };
+
+  return serviceGalleryMap[slug] ?? [];
 };

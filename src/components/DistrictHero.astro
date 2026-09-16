@@ -1,18 +1,33 @@
 ---
 import CTAButtons from '@/components/CTAButtons.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import ResponsiveImage from '@/components/ResponsiveImage.astro';
-import { media } from '@/data/media';
+import { media, type SiteImage } from '@/data/media';
+
+type BreadcrumbItem = {
+  label: string;
+  href: string;
+};
 
 interface Props {
   name: string;
   h1: string;
   shortIntro: string;
+  image?: SiteImage;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { name, h1, shortIntro } = Astro.props;
+const { name, h1, shortIntro, image, breadcrumbs = [] } = Astro.props;
+const resolvedImage = image ?? media.districtAnkara;
 ---
 
 <section class="noise-bg relative overflow-hidden bg-premium-radial">
+  {breadcrumbs.length > 0 && (
+    <div class="border-b border-ink-900/[0.06]">
+      <Breadcrumb items={breadcrumbs} />
+      <div class="h-5 md:h-7"></div>
+    </div>
+  )}
   <div class="site-container relative z-10 grid gap-8 py-10 md:grid-cols-[1fr_0.8fr] md:items-center md:gap-10 md:py-20">
     <div>
       <p class="accent-pill mb-5">
@@ -26,7 +41,7 @@ const { name, h1, shortIntro } = Astro.props;
     </div>
     <div class="glass-panel p-3 md:p-5">
       <div class="visual-frame aspect-[4/3] p-0">
-        <ResponsiveImage image={media.districtAnkara} class="h-full w-full" sizes="(min-width: 768px) 38vw, 100vw" />
+        <ResponsiveImage image={resolvedImage} class="h-full w-full" sizes="(min-width: 768px) 38vw, 100vw" />
       </div>
       <div class="mt-4 rounded-[1.35rem] p-7 text-white dark-gradient-surface">
         <p class="text-sm font-semibold uppercase tracking-[0.18em] text-brand-300">İlçe Odaklı Destek</p>
