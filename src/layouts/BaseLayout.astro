@@ -35,6 +35,27 @@ const seoProps = Astro.props;
     <meta name="format-detection" content="telephone=yes" />
     <meta name="google-site-verification" content="yO4uhL_A4888uQQ6qA5zJEh7-CUiiEIFGYKo6N_BVRQ" />
 
+    <!-- Google tag (gtag.js) - Google Ads -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18457068527"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18457068527');
+
+      // Google Ads dönüşümleri: telefon ve WhatsApp tıklamaları (tüm sayfalarda, tüm butonlarda)
+      document.addEventListener('click', function (e) {
+        var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!link) return;
+        var href = (link.getAttribute('href') || '').toLowerCase();
+        if (href.indexOf('tel:') === 0) {
+          gtag('event', 'conversion', { send_to: 'AW-18457068527/A78aCK61-qQdEO-HguFE' });
+        } else if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp.com') !== -1 || href.indexOf('whatsapp:') === 0) {
+          gtag('event', 'conversion', { send_to: 'AW-18457068527/zLerCLG1-qQdEO-HguFE' });
+        }
+      }, true);
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
