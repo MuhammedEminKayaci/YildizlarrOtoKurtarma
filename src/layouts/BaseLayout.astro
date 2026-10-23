@@ -76,7 +76,8 @@ const seoProps = Astro.props;
         function fire(key, sendTo) {
           if (already(key)) return;
           mark(key);
-          gtag('event', 'conversion', { send_to: sendTo });
+          // transport_type beacon: telefon/WhatsApp uygulamasi acilirken sinyal kaybolmasin
+          gtag('event', 'conversion', { send_to: sendTo, transport_type: 'beacon' });
         }
         document.addEventListener('click', function (e) {
           if (isBot || !e.isTrusted) return;
