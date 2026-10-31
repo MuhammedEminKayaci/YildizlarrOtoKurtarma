@@ -53,13 +53,12 @@ const seoProps = Astro.props;
       gtag('config', 'AW-18457068527');
 
       // Google Ads dönüşümleri: telefon ve WhatsApp tıklamaları (tüm sayfalarda, tüm butonlarda)
-      // Bot/sahte dönüşüm koruması:
+      // Bunlar iletişim bağlantısı tıklamalarıdır; tamamlanan görüşme veya iş değildir.
+      // Tekrar ve otomasyon tıklaması filtreleri:
       //  - otomasyon tarayıcıları (webdriver/headless) sayılmaz
       //  - yalnızca gerçek kullanıcı tıklamaları (isTrusted) sayılır
-      //  - sayfa açıldıktan sonraki ilk 2 saniyedeki tıklamalar sayılmaz
       //  - aynı ziyarette (sekme oturumu) her tür için yalnızca 1 dönüşüm gönderilir
       (function () {
-        var loadedAt = Date.now();
         var ua = navigator.userAgent || '';
         var isBot = navigator.webdriver === true ||
           /HeadlessChrome|PhantomJS|Puppeteer|Playwright|Selenium|bot|crawler|spider|Lighthouse/i.test(ua);
@@ -81,7 +80,6 @@ const seoProps = Astro.props;
         }
         document.addEventListener('click', function (e) {
           if (isBot || !e.isTrusted) return;
-          if (Date.now() - loadedAt < 2000) return;
           var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
           if (!link) return;
           var href = (link.getAttribute('href') || '').toLowerCase();
