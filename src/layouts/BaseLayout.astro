@@ -37,17 +37,11 @@ const seoProps = Astro.props;
 
     <!-- Microsoft Clarity -->
     <script is:inline type="text/javascript">
-      // Clarity sayfa açıldıktan sonra yüklenir: mobilde ilk açılış hızını düşürmesin
-      window.clarity = window.clarity || function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "z1l2bb1qfk");
-        }, 1500);
-      });
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "z1l2bb1qfk");
     </script>
 
     <!-- Google tag (gtag.js) - Google Ads -->
