@@ -9,3 +9,7 @@ legacy-assets/
 .vercel/
 _write_test.txt
 npm-debug.log*
+
+# build sırasında üretilen mobil görsel sürümleri
+public/images/**/*-480.webp
+public/images/**/*-800.webp
