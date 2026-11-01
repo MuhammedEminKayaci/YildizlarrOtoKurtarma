@@ -5,8 +5,11 @@ import { site } from '@/data/site';
 <div class="mobile-cta-bar" aria-label="Hızlı iletişim">
   <div class="mob-cta-grid">
     <a href={site.phoneHref} class="mob-cta-phone" aria-label={`${site.name} telefon ile ara`}>
-      <Icon name="phone-call" size={18} strokeWidth={2} />
-      <span>{site.phoneDisplay}</span>
+      <Icon name="phone-call" size={20} strokeWidth={2.2} />
+      <span class="mob-cta-phone-text">
+        <strong>Hemen Ara</strong>
+        <small>{site.phoneDisplay}</small>
+      </span>
     </a>
     <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" class="mob-cta-wa" aria-label="WhatsApp">
       <Icon name="whatsapp" size={18} />
@@ -15,12 +18,14 @@ import { site } from '@/data/site';
   </div>
 </div>
 <style>
-.mob-cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.mob-cta-phone{display:flex;min-width:0;align-items:center;justify-content:center;gap:7px;padding:12px 10px;border-radius:13px;background:#fff;color:#080c14;font-size:13.5px;font-weight:700;border:1.5px solid rgba(15,23,42,0.12);text-decoration:none;transition:background 160ms;white-space:nowrap;}
-.mob-cta-phone span{min-width:0;overflow:hidden;text-overflow:ellipsis;}
-.mob-cta-phone:hover{background:#f5f7fb;}
-.mob-cta-wa{display:flex;min-width:0;align-items:center;justify-content:center;gap:7px;padding:14px 10px;border-radius:14px;background:#ffc94a;color:#080c14;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,0.12);transition:background 160ms;white-space:nowrap;}
+/* Ana aksiyon: arama. Sarı ve geniş; WhatsApp ikincil. */
+.mob-cta-grid{display:grid;grid-template-columns:1.75fr 1fr;gap:10px;}
+.mob-cta-phone{display:flex;min-width:0;align-items:center;justify-content:center;gap:9px;padding:10px 12px;border-radius:14px;background:#ffc94a;color:#080c14;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,0.18);white-space:nowrap;}
+.mob-cta-phone:hover{background:#ffd46a;}
+.mob-cta-phone-text{display:flex;flex-direction:column;line-height:1.15;min-width:0;}
+.mob-cta-phone-text strong{font-size:15px;font-weight:800;}
+.mob-cta-phone-text small{font-size:12px;font-weight:600;opacity:.8;}
+.mob-cta-wa{display:flex;min-width:0;align-items:center;justify-content:center;gap:6px;padding:10px 8px;border-radius:14px;background:#fff;color:#080c14;font-size:13px;font-weight:700;text-decoration:none;border:1.5px solid rgba(15,23,42,0.12);white-space:nowrap;}
 .mob-cta-wa span{min-width:0;overflow:hidden;text-overflow:ellipsis;}
-.mob-cta-wa:hover{background:#ffd46a;}
-.mob-cta-phone,.mob-cta-wa{width:100%;padding:12px 10px;}
+.mob-cta-wa:hover{background:#f5f7fb;}
 </style>

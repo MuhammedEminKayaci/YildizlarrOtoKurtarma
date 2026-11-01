@@ -1,5 +1,6 @@
 ---
 import CTAButtons from '@/components/CTAButtons.astro';
+import QuickTrust from '@/components/QuickTrust.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 import ResponsiveImage from '@/components/ResponsiveImage.astro';
 import { media, type SiteImage } from '@/data/media';
@@ -34,10 +35,11 @@ const resolvedImage = image ?? media.districtAnkara;
         Ankara / {name}
       </p>
       <h1 class="max-w-4xl text-[clamp(2.25rem,9vw,4.25rem)] font-semibold leading-[1.02] tracking-normal text-ink-950">{h1}</h1>
-      <p class="mt-6 max-w-2xl text-base leading-8 text-ink-500 md:text-lg">{shortIntro}</p>
-      <div class="mt-8">
+      <QuickTrust />
+      <div class="mt-6">
         <CTAButtons whatsappLabel="WhatsApp’tan Konum Gönder" />
       </div>
+      <p class="mt-6 max-w-2xl text-base leading-8 text-ink-500 md:text-lg">{shortIntro}</p>
     </div>
     <div class="glass-panel p-3 md:p-5">
       <div class="visual-frame aspect-[4/3] p-0">

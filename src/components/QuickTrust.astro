@@ -1,0 +1,23 @@
+---
+import Icon from '@/components/Icon.astro';
+
+// Reklamdan gelen ziyaretçinin ilk ekranda görmesi gereken üç bilgi
+const items = [
+  { icon: 'clock', label: "Ortalama 30 dk'da ilk temas" },
+  { icon: 'shield-check', label: '7/24 açık' },
+  { icon: 'map-pin', label: 'Tüm Ankara ilçeleri' }
+];
+---
+<ul class="quick-trust" aria-label="Hizmet özeti">
+  {items.map((item) => (
+    <li>
+      <Icon name={item.icon} size={15} strokeWidth={2} />
+      <span>{item.label}</span>
+    </li>
+  ))}
+</ul>
+<style>
+.quick-trust{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:16px;padding:0;list-style:none;}
+.quick-trust li{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:#1f2937;}
+.quick-trust li :global(svg){color:#d99a0b;flex-shrink:0;}
+</style>
