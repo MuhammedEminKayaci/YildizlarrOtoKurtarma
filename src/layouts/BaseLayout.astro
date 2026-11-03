@@ -78,6 +78,50 @@ const seoProps = Astro.props;
           // transport_type beacon: telefon/WhatsApp uygulamasi acilirken sinyal kaybolmasin
           gtag('event', 'conversion', { send_to: sendTo, transport_type: 'beacon' });
         }
+        // Nitelikli Arama (birincil dönüşüm):
+        // Ara'ya dokunduktan sonra kişi en az QC_MIN_AWAY ms telefon uygulamasında kalırsa sayılır.
+        // iPhone'da "Vazgeç" diyen, tuş takımını açıp hemen dönen ve botlar sayılmaz.
+        var QC_KEY = 'yok_qc_pending';
+        var QC_MIN_AWAY = 15000;
+        var QC_TAP_WINDOW = 8000;
+        var qcPending = null;
+        function qcSave() {
+          try { if (qcPending) sessionStorage.setItem(QC_KEY, JSON.stringify(qcPending)); else sessionStorage.removeItem(QC_KEY); } catch (err) {}
+        }
+        function qcLoad() {
+          try { var raw = sessionStorage.getItem(QC_KEY); return raw ? JSON.parse(raw) : null; } catch (err) { return null; }
+        }
+        function armQualifiedCall() {
+          if (already('qcall')) return;
+          qcPending = { tapAt: Date.now(), hiddenAt: 0 };
+          qcSave();
+        }
+        function qcCheckReturn(now) {
+          if (!qcPending || !qcPending.hiddenAt) return;
+          var away = now - qcPending.hiddenAt;
+          if (away >= QC_MIN_AWAY && away < 3 * 60 * 60 * 1000) {
+            fire('qcall', 'AW-18457068527/Jbb4CI_mmrEdEO-HguFE');
+          }
+          qcPending = null;
+          qcSave();
+        }
+        document.addEventListener('visibilitychange', function () {
+          var now = Date.now();
+          if (document.visibilityState === 'hidden') {
+            if (qcPending && !qcPending.hiddenAt && now - qcPending.tapAt <= QC_TAP_WINDOW) {
+              qcPending.hiddenAt = now;
+              qcSave();
+            }
+          } else {
+            qcCheckReturn(now);
+          }
+        });
+        // Tarayıcı geri dönünce sayfayı yeniden yüklediyse bekleyen aramayı burada tamamla
+        if (!isBot) {
+          qcPending = qcLoad();
+          if (qcPending) qcCheckReturn(Date.now());
+        }
+
         document.addEventListener('click', function (e) {
           if (isBot || !e.isTrusted) return;
           var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
@@ -85,6 +129,7 @@ const seoProps = Astro.props;
           var href = (link.getAttribute('href') || '').toLowerCase();
           if (href.indexOf('tel:') === 0) {
             fire('tel', 'AW-18457068527/Yqw3CI3p4aYdEO-HguFE');
+            armQualifiedCall();
           } else if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp.com') !== -1 || href.indexOf('whatsapp:') === 0) {
             fire('wa', 'AW-18457068527/K_VOCJDp4aYdEO-HguFE');
           }
